@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.domain;
+package br.com.fiap.techchallenge.domain.enums;
 
 public enum TipoDeItem {
     LANCHE,

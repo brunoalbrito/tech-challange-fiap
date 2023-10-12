@@ -1,6 +1,8 @@
 package br.com.fiap.techchallenge.domain;
 
+import br.com.fiap.techchallenge.domain.enums.StatusPedido;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.UUID;
 public class Pedido {
 
     private UUID id;
+
+    @Getter
     private List<ItemPedido> itensPedido;
 
     private StatusPedido statusPedido;
@@ -41,7 +45,7 @@ public class Pedido {
     }
 
     public void entregaPedido() {
-        this.statusPedido = StatusPedido.ENTREGE;
+        this.statusPedido = StatusPedido.ENTREGUE;
     }
 
     public BigDecimal valorTotalPedido() {
