@@ -27,6 +27,7 @@ public class Item {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+        this.ingredientes = ingredientes;
         this.valor = valor;
         this.tipoDeItem = tipoDeItem;
     }
