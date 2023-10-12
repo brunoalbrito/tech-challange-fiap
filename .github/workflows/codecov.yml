@@ -1,0 +1,29 @@
+name: Codecov
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - main
+      - homolog
+
+jobs:
+  codecov:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'  # Adjust this to the JDK version you are using
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      - name: Run tests
+        run: ./gradlew test
