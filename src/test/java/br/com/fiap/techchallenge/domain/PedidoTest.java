@@ -1,26 +1,30 @@
 package br.com.fiap.techchallenge.domain;
 
-
+import br.com.fiap.techchallenge.domain.enums.StatusPedido;
+import mocks.PedidoMock;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PedidoTest {
+
     @Test
-    public void deveCriarUmPedidoComApenasUmItem() throws Exception {
-        Ingrediente ingrediente = Ingrediente.criaIngrediente("Hamburguer");
-        Item item = Lanche.criaLanche(1L, "BigMac", "O melhor do mundo", List.of(ingrediente), BigDecimal.TEN);
-        ItemPedido itemPedido = ItemPedido.criaItemPedido(item, 2);
+    public void deveCriarPedido() {
+        Pedido pedido = PedidoMock.criaPedido();
 
-        Pedido pedido = Pedido.criaPedido(List.of(itemPedido));
-
-        assertNotNull(pedido);
-        assertEquals(1, pedido.getItensPedido().size());
-        assertEquals(BigDecimal.valueOf(20), pedido.valorTotalPedido());
+        assertNotNull(pedido.getId());
+        assertNotNull(pedido.getItensPedido());
+        assertThat(pedido.getStatusPedido()).isEqualTo(StatusPedido.CRIADO);
+        assertNotNull(pedido.valorTotalPedido());
     }
 
+    @Test
+    public void deveCalcularValorTotal(){
+        Pedido pedido = PedidoMock.criaPedido();
+
+        assertThat(pedido.valorTotalPedido()).isEqualTo(BigDecimal.valueOf(40L));
+    }
 }

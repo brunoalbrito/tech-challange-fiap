@@ -1,23 +1,19 @@
 package br.com.fiap.techchallenge.domain;
 
-import br.com.fiap.techchallenge.domain.enums.TipoDeItem;
+import mocks.ItemMock;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
-
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ItemPedidoTest {
 
     @Test
-    public void testItemPedidoCreation() {
+    public void deveCriarUmItemPedido() {
 
-        List<Ingrediente> ingredientes = Collections.singletonList(Ingrediente.criaIngrediente("Sobremesa"));
-        Item item = new Item(1L, "ItemName", "ItemDescription", ingredientes, new BigDecimal("10.00"), TipoDeItem.ACOMPANHAMENTO);
-        Integer quantidade = 3;
+        Item item = ItemMock.createLanche();
+        Integer quantidade = 1;
 
         ItemPedido itemPedido = ItemPedido.criaItemPedido(item, quantidade);
 
@@ -27,10 +23,10 @@ public class ItemPedidoTest {
     }
 
     @Test
-    public void testGetValorTotal() {
-        List<Ingrediente> ingredientes = Collections.singletonList(Ingrediente.criaIngrediente("Sobremesa"));
-        Item item = new Item(1L, "ItemName", "ItemDescription", ingredientes, new BigDecimal("10.00"), TipoDeItem.ACOMPANHAMENTO);
+    public void deveCalcularValorTotalDoItemPedido() {
+        Item item = ItemMock.createLanche();
         Integer quantidade = 3;
+
         ItemPedido itemPedido = ItemPedido.criaItemPedido(item, quantidade);
 
         BigDecimal valorTotal = item.getValor().multiply(BigDecimal.valueOf(quantidade));

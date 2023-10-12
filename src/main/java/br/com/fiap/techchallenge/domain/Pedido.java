@@ -8,26 +8,25 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+@Getter
 @AllArgsConstructor
 public class Pedido {
 
     private UUID id;
-
-    @Getter
     private List<ItemPedido> itensPedido;
 
     private StatusPedido statusPedido;
 
-    public static Pedido criaPedido(List<ItemPedido> itensPedido) throws Exception {
+    public static Pedido criaPedido(List<ItemPedido> itensPedido) {
         if (itensPedido.isEmpty()) {
-            throw new Exception("O pedido precisa conter pelo menos um item");
+            throw new IllegalArgumentException("O pedido precisa conter pelo menos um item");
         }
         UUID id = UUID.randomUUID();
         return new Pedido(id, itensPedido, StatusPedido.CRIADO);
     }
 
     public void adicionaItem(ItemPedido itemPedido) {
-        itensPedido.add(itemPedido);
+        this.itensPedido.add(itemPedido);
     }
 
     public void removeItem(UUID id) {

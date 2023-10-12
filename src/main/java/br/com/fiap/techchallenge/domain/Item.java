@@ -9,22 +9,21 @@ import java.util.List;
 @Getter
 public class Item {
 
-    private Long id;
+
     private String nome;
     private String descricao;
     private List<Ingrediente> ingredientes;
     private BigDecimal valor;
     private TipoDeItem tipoDeItem;
 
-    public Item(Long id, String nome, String descricao, List<Ingrediente> ingredientes,
-                BigDecimal valor, TipoDeItem tipoDeItem) {
-        validateId(id);
+    private Item(String nome, String descricao, List<Ingrediente> ingredientes,
+                 BigDecimal valor, TipoDeItem tipoDeItem) {
+
         validateNome(nome);
         validateDescricao(descricao);
         validateIngredientes(ingredientes);
         validateValor(valor);
         validateTipoDeItem(tipoDeItem);
-        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.ingredientes = ingredientes;
@@ -32,11 +31,6 @@ public class Item {
         this.tipoDeItem = tipoDeItem;
     }
 
-    private static void validateId(Long id) {
-        if (id == null || id <= 0) {
-            throw new IllegalArgumentException("ID must be a positive value.");
-        }
-    }
 
     private static void validateNome(String nome) {
         if (nome == null || nome.isEmpty()) {
@@ -66,5 +60,9 @@ public class Item {
         if (tipoDeItem == null) {
             throw new IllegalArgumentException("TipoDeItem cannot be null.");
         }
+    }
+
+    public static Item criaLanche(String nome, String descricao, List<Ingrediente> ingredientes, BigDecimal valor) {
+        return new Item(nome, descricao, ingredientes, valor, TipoDeItem.LANCHE);
     }
 }
