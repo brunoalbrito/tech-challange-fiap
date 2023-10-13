@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.controllers.response;
+package br.com.fiap.techchallenge.application.controllers.response;
 
 
 import lombok.AccessLevel;
