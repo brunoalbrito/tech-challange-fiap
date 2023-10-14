@@ -1,10 +1,10 @@
-package br.com.fiap.techchallenge.controllers;
+package br.com.fiap.techchallenge.application.controllers;
 
 
-import br.com.fiap.techchallenge.controllers.request.UserRequest;
-import br.com.fiap.techchallenge.controllers.response.UserResponse;
-import br.com.fiap.techchallenge.data.entity.User;
-import br.com.fiap.techchallenge.data.repository.UserRepository;
+import br.com.fiap.techchallenge.application.controllers.request.UserRequest;
+import br.com.fiap.techchallenge.application.controllers.response.UserResponse;
+import br.com.fiap.techchallenge.infrastructure.entity.User;
+import br.com.fiap.techchallenge.infrastructure.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/users")
-@AllArgsConstructor
 public class UserController {
 
     private UserRepository userRepository;
