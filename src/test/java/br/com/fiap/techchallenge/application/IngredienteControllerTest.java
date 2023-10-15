@@ -14,9 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -75,4 +78,20 @@ public class IngredienteControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Descricao deve estar preenchida"));
     }
+
+
+    @Test
+    public void deveRetornarListaDeIngredientes() throws Exception {
+
+        when(ingredienteService.listaTodosIngredientes())
+                .thenReturn(List.of(Ingrediente.criaIngrediente("Tomate")));
+
+
+        mockMvc.perform(get("/api/ingredientes")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").exists())
+                .andExpect(jsonPath("$[0].descricao").value("Tomate"));
+    }
+
 }
