@@ -10,10 +10,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -55,5 +59,20 @@ public class IngredientesServiceTest {
         assertThrows(IllegalArgumentException.class, () ->
                 ingredienteService.criaIngrediente(ingredienteRequest)
         );
+    }
+
+    @Test
+    public void deveListarTodosIngredientes() {
+        List<IngredienteEntity> ingredienteEntities = List.of(IngredienteEntity.criaEntity(Ingrediente.criaIngrediente("Tomate")));
+
+        when(ingredienteRepository.findAll())
+                .thenReturn(ingredienteEntities);
+
+        ingredienteService.listaTodosIngredientes();
+
+        verify(ingredienteRepository, atLeast(1)).findAll();
+        assertEquals(ingredienteEntities.size(), 1);
+        assertEquals(ingredienteEntities.get(0).getId(), ingredienteEntities.get(0).getId());
+        assertEquals(ingredienteEntities.get(0).getDescricao(), "Tomate");
     }
 }

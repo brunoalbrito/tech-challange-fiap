@@ -1,9 +1,11 @@
 package br.com.fiap.techchallenge.domain;
 
+import br.com.fiap.techchallenge.infrastructure.entity.IngredienteEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -22,5 +24,11 @@ public class Ingrediente {
         if (descricao == null || descricao.isEmpty()) {
             throw new IllegalArgumentException("Descricao deve estar preenchida");
         }
+    }
+
+    public static List<Ingrediente> criaListaIngredientes(List<IngredienteEntity> ingredientesEntity) {
+        return ingredientesEntity.stream()
+                .map(ingredienteEntity -> new Ingrediente(ingredienteEntity.getId(), ingredienteEntity.getDescricao()))
+                .toList();
     }
 }

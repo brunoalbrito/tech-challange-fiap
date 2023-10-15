@@ -7,6 +7,8 @@ import br.com.fiap.techchallenge.infrastructure.repository.IngredienteRepository
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class IngredienteService {
@@ -19,5 +21,12 @@ public class IngredienteService {
         ingredienteRepository.save(IngredienteEntity.criaEntity(ingrediente));
 
         return ingrediente;
+    }
+
+    public List<Ingrediente> listaTodosIngredientes() {
+        List<IngredienteEntity> ingredientesEntity = ingredienteRepository.findAll();
+
+        return Ingrediente.criaListaIngredientes(ingredientesEntity);
+
     }
 }
