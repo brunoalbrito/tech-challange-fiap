@@ -16,7 +16,7 @@ public class PedidoTest {
         Pedido pedido = PedidoMock.criaPedido();
 
         assertNotNull(pedido.getId());
-        assertNotNull(pedido.getItensPedido());
+        assertNotNull(pedido.getItemsPedido());
         assertThat(pedido.getStatusPedido()).isEqualTo(StatusPedido.CRIADO);
         assertNotNull(pedido.valorTotalPedido());
     }
@@ -25,6 +25,6 @@ public class PedidoTest {
     public void deveCalcularValorTotal(){
         Pedido pedido = PedidoMock.criaPedido();
 
-        assertThat(pedido.valorTotalPedido()).isEqualTo(BigDecimal.valueOf(40L));
+        assertThat(pedido.valorTotalPedido()).isEqualTo(BigDecimal.valueOf(30L));
     }
 }

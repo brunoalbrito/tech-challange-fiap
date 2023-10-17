@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,25 +14,24 @@ import java.util.UUID;
 public class Pedido {
 
     private UUID id;
-    private List<ItemPedido> itensPedido;
 
+    private List<Combo> itemsPedido;
     private StatusPedido statusPedido;
 
-    public static Pedido criaPedido(List<ItemPedido> itensPedido) {
-        if (itensPedido.isEmpty()) {
-            throw new IllegalArgumentException("O pedido precisa conter pelo menos um item");
-        }
+    public static Pedido criaPedido(Combo combo) {
         UUID id = UUID.randomUUID();
+        ArrayList<Combo> itensPedido = new ArrayList<>();
+        itensPedido.add(combo);
         return new Pedido(id, itensPedido, StatusPedido.CRIADO);
     }
 
-    public void adicionaItem(ItemPedido itemPedido) {
-        this.itensPedido.add(itemPedido);
+    public void adicionaItem(Combo combo) {
+        this.itemsPedido.add(combo);
     }
 
     public void removeItem(UUID id) {
-        this.itensPedido = itensPedido.stream()
-                .filter(itemPedido -> !itemPedido.getId().equals(id))
+        this.itemsPedido = itemsPedido.stream()
+                .filter(combo -> !combo.getId().equals(id))
                 .toList();
     }
 
@@ -48,8 +48,8 @@ public class Pedido {
     }
 
     public BigDecimal valorTotalPedido() {
-        return this.itensPedido.stream()
-                .map(ItemPedido::getValorTotal)
+        return this.itemsPedido.stream()
+                .map(Combo::valorTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
