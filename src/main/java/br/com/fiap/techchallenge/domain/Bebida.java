@@ -10,7 +10,7 @@ public class Bebida extends Item {
         super(nome, descricao, ingredientes, valor);
     }
 
-    public Bebida criaBebida(String nome, String descricao, List<Ingrediente> ingredientes, BigDecimal valor) {
+    public static Bebida criaBebida(String nome, String descricao, List<Ingrediente> ingredientes, BigDecimal valor) {
         return new Bebida(nome, descricao, ingredientes, valor);
     }
 }

@@ -1,5 +1,7 @@
 package br.com.fiap.techchallenge.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -7,6 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Combo {
     private UUID id;
     private Optional<Lanche> lanche;
@@ -27,5 +30,10 @@ public class Combo {
             valorTotal = valorTotal.add(sobremesa.get().getValor());
         }
         return valorTotal;
+    }
+
+public static Combo criaCombo(Optional<Lanche> lanche, Optional<Bebida> bebida, Optional<Sobremesa> sobremesa){
+        UUID id = UUID.randomUUID();
+        return new Combo(id, lanche, bebida, sobremesa);
     }
 }
