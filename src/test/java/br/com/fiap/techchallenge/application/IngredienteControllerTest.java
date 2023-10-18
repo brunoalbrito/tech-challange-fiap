@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.application;
 
 import br.com.fiap.techchallenge.application.controllers.IngredienteController;
 import br.com.fiap.techchallenge.application.controllers.request.IngredienteRequest;
+import br.com.fiap.techchallenge.application.request.IngredienteRequestTest;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.services.IngredienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,7 +39,7 @@ public class IngredienteControllerTest {
     @Test
     public void deveCriarIngredienteValido() throws Exception {
         String descricao = "Tomate";
-        IngredienteRequest ingredienteRequest = IngredienteRequest.criaIngredienteRequest(descricao);
+        IngredienteRequestTest ingredienteRequest = IngredienteRequestTest.criaIngredienteRequest(descricao);
 
         Ingrediente ingrediente = Ingrediente.criaIngrediente(descricao);
         when(ingredienteService.criaIngrediente(any(IngredienteRequest.class)))
@@ -53,7 +54,7 @@ public class IngredienteControllerTest {
 
     @Test
     public void deveRetornarBadRequestQuandoDescricaoForNula() throws Exception {
-        IngredienteRequest ingredienteRequest = IngredienteRequest.criaIngredienteRequest(null);
+        IngredienteRequestTest ingredienteRequest = IngredienteRequestTest.criaIngredienteRequest(null);
 
         when(ingredienteService.criaIngrediente(any(IngredienteRequest.class)))
                 .thenThrow(new IllegalArgumentException("Descricao deve estar preenchida"));
@@ -67,7 +68,7 @@ public class IngredienteControllerTest {
 
     @Test
     public void deveRetornarBadRequestQuandoDescricaoForVazia() throws Exception {
-        IngredienteRequest ingredienteRequest = IngredienteRequest.criaIngredienteRequest("");
+        IngredienteRequestTest ingredienteRequest = IngredienteRequestTest.criaIngredienteRequest("");
 
         when(ingredienteService.criaIngrediente(any(IngredienteRequest.class)))
                 .thenThrow(new IllegalArgumentException("Descricao deve estar preenchida"));

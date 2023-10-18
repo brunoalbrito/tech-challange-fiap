@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.domain.enums;
 
-public enum TipoDeItem {
+public enum TipoItem {
     LANCHE,
-    ACOMPANHAMENTO,
     BEBIDA,
+    SOBREMESA
 }

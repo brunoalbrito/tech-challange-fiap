@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -28,5 +29,11 @@ public class IngredienteService {
 
         return Ingrediente.criaListaIngredientes(ingredientesEntity);
 
+    }
+
+    public Ingrediente buscaPorId(UUID id) {
+        return ingredienteRepository.findById(id)
+                .map(ingredienteEntity -> Ingrediente.criaIngrediente(ingredienteEntity.getId(), ingredienteEntity.getDescricao()))
+                .orElseThrow();
     }
 }

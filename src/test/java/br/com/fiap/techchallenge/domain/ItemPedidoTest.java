@@ -12,7 +12,7 @@ public class ItemPedidoTest {
     @Test
     public void deveCriarUmItemPedido() {
 
-        Item item = ItemMock.createLanche();
+        Item item = ItemMock.criaLanche();
         Integer quantidade = 1;
 
         ItemPedido itemPedido = ItemPedido.criaItemPedido(item, quantidade);
@@ -24,7 +24,7 @@ public class ItemPedidoTest {
 
     @Test
     public void deveCalcularValorTotalDoItemPedido() {
-        Item item = ItemMock.createLanche();
+        Item item = ItemMock.criaLanche();
         Integer quantidade = 3;
 
         ItemPedido itemPedido = ItemPedido.criaItemPedido(item, quantidade);

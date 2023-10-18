@@ -18,22 +18,22 @@ public class Combo {
 
     private Optional<Sobremesa> sobremesa;
 
-    public BigDecimal valorTotal(){
+    public static Combo criaCombo(Lanche lanche, Bebida bebida, Sobremesa sobremesa) {
+        UUID id = UUID.randomUUID();
+        return new Combo(id, Optional.ofNullable(lanche), Optional.ofNullable(bebida), Optional.ofNullable(sobremesa));
+    }
+
+    public BigDecimal valorTotal() {
         BigDecimal valorTotal = BigDecimal.ZERO;
-        if (lanche.isPresent()){
+        if (lanche.isPresent()) {
             valorTotal = valorTotal.add(lanche.get().getValor());
         }
-        if (bebida.isPresent()){
+        if (bebida.isPresent()) {
             valorTotal = valorTotal.add(bebida.get().getValor());
         }
-        if (sobremesa.isPresent()){
+        if (sobremesa.isPresent()) {
             valorTotal = valorTotal.add(sobremesa.get().getValor());
         }
         return valorTotal;
-    }
-
-public static Combo criaCombo(Optional<Lanche> lanche, Optional<Bebida> bebida, Optional<Sobremesa> sobremesa){
-        UUID id = UUID.randomUUID();
-        return new Combo(id, lanche, bebida, sobremesa);
     }
 }
