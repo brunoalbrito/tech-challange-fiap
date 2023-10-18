@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClienteRequest {
     private String cpf;
-
     public static ClienteRequest criaClienteRequest(String cpf) {
         return new ClienteRequest(cpf);
     }

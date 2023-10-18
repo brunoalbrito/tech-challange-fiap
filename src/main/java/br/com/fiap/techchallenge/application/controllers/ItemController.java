@@ -3,6 +3,7 @@ package br.com.fiap.techchallenge.application.controllers;
 import br.com.fiap.techchallenge.application.controllers.request.ItemRequest;
 import br.com.fiap.techchallenge.application.controllers.response.IngredienteResponse;
 import br.com.fiap.techchallenge.application.controllers.response.ItemResponse;
+import br.com.fiap.techchallenge.application.controllers.response.enums.TipoItemResponse;
 import br.com.fiap.techchallenge.domain.Item;
 import br.com.fiap.techchallenge.domain.services.ItemService;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,7 @@ public class ItemController {
                 .descricao(item.getDescricao())
                 .valor(item.getValor())
                 .ingredientesResponse(ingredientesResponse)
+                .tipo(TipoItemResponse.valueOf(item.getTipo().toString()))
                 .build();
 
         return new ResponseEntity<>(itemResponse, HttpStatus.CREATED);

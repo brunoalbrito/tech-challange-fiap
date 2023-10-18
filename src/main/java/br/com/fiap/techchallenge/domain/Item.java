@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.domain;
 
+import br.com.fiap.techchallenge.domain.enums.TipoItem;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -7,13 +8,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class Item {
+public abstract class Item {
     private UUID id;
     private String nome;
     private String descricao;
     private List<Ingrediente> ingredientes;
     private BigDecimal valor;
-
 
     protected Item(UUID id, String nome, String descricao, List<Ingrediente> ingredientes,
                    BigDecimal valor) {
@@ -52,4 +52,6 @@ public class Item {
             throw new IllegalArgumentException("Valor must be a positive value.");
         }
     }
+
+    public abstract TipoItem getTipo();
 }
