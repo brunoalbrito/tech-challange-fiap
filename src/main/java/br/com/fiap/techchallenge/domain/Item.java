@@ -1,14 +1,14 @@
 package br.com.fiap.techchallenge.domain;
 
-import br.com.fiap.techchallenge.domain.enums.TipoDeItem;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class Item {
-
+    private UUID id;
     private String nome;
     private String descricao;
     private List<Ingrediente> ingredientes;

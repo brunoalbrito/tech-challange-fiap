@@ -1,11 +1,9 @@
 package br.com.fiap.techchallenge.infrastructure.repository;
 
 import br.com.fiap.techchallenge.infrastructure.entity.IngredienteEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.UUID;
 
-public interface IngredienteRepository {
-    IngredienteEntity save(IngredienteEntity ingredienteEntity);
-
-    List<IngredienteEntity> findAll();
+public interface IngredienteRepository extends JpaRepository<IngredienteEntity, UUID> {
 }
