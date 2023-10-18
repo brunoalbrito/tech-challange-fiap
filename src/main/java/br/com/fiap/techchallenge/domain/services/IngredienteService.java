@@ -33,7 +33,7 @@ public class IngredienteService {
 
     public Ingrediente buscaPorId(UUID id) {
         return ingredienteRepository.findById(id)
-                .map(IngredienteEntity::criaIngrediente)
+                .map(ingredienteEntity -> Ingrediente.criaIngrediente(ingredienteEntity.getId(), ingredienteEntity.getDescricao()))
                 .orElseThrow();
     }
 }

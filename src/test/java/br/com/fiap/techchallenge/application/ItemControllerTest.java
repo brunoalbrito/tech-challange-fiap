@@ -46,7 +46,7 @@ public class ItemControllerTest {
         ItemRequestTest itemRequestTest = ItemRequestTest
                 .criaItemRequest("X-Bacon", "Hamburguer de bacon com queijo", BigDecimal.TEN, TipoItem.BEBIDA, List.of());
 
-        Item itemMock = ItemMock.createLanche();
+        Item itemMock = ItemMock.criaLanche();
 
         when(itemService.criaItem(any(ItemRequest.class)))
                 .thenReturn(itemMock);

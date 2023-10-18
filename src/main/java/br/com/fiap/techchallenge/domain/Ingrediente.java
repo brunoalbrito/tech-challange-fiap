@@ -20,7 +20,8 @@ public class Ingrediente {
         return new Ingrediente(UUID.randomUUID(), descricao);
     }
 
-    public static Ingrediente criaIngrediente(UUID id, String descricao) {
+    public static Ingrediente criaIngrediente(UUID id, String descricao) throws IllegalArgumentException {
+        validaDescricao(descricao);
         return new Ingrediente(id, descricao);
     }
 

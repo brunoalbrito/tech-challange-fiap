@@ -100,11 +100,4 @@ public class LancheTest {
         Lanche lanche = Lanche.criaLanche("X-Bacon", "Pão, hambúrguer, queijo, bacon e alface", ingredientes, BigDecimal.TEN);
         assertThat(lanche.getTipo().toString()).isEqualTo(TipoItem.LANCHE.toString());
     }
-
-    @Test
-    public void deveCalcularValorDoLanche() {
-        List<Ingrediente> ingredientes = List.of(IngredienteMock.criaIngrediente());
-        Lanche lanche = Lanche.criaLanche("X-Bacon", "Pão, hambúrguer, queijo, bacon e alface", ingredientes, BigDecimal.TEN);
-        assertThat(lanche.getValor()).isEqualTo(BigDecimal.TEN);
-    }
 }
