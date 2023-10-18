@@ -15,13 +15,14 @@ public class Item {
     private BigDecimal valor;
 
 
-    protected Item(String nome, String descricao, List<Ingrediente> ingredientes,
+    protected Item(UUID id, String nome, String descricao, List<Ingrediente> ingredientes,
                    BigDecimal valor) {
 
         validateNome(nome);
         validateDescricao(descricao);
         validateIngredientes(ingredientes);
         validateValor(valor);
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.ingredientes = ingredientes;

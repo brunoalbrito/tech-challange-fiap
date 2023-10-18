@@ -2,15 +2,17 @@ package br.com.fiap.techchallenge.domain;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 public class Sobremesa extends Item {
 
-    private Sobremesa(String nome, String descricao, List<Ingrediente> ingredientes,
+    private Sobremesa(UUID id, String nome, String descricao, List<Ingrediente> ingredientes,
                       BigDecimal valor) {
-        super(nome, descricao, ingredientes, valor);
+        super(id, nome, descricao, ingredientes, valor);
     }
 
     public static Sobremesa criaSobremesa(String nome, String descricao, List<Ingrediente> ingredientes, BigDecimal valor) {
-        return new Sobremesa(nome, descricao, ingredientes, valor);
+        UUID id = UUID.randomUUID();
+        return new Sobremesa(id, nome, descricao, ingredientes, valor);
     }
 }

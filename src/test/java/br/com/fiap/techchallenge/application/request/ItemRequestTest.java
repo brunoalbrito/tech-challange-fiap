@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ItemRequest {
+public class ItemRequestTest {
     private String nome;
 
     private String descricao;
@@ -23,7 +23,7 @@ public class ItemRequest {
 
     private List<IngredienteRequest> ingredientes;
 
-    public static ItemRequest criaItemRequest(String nome, String descricao, BigDecimal valor, TipoItem tipo, List<IngredienteRequest> ingredientes) {
-        return new ItemRequest(nome, descricao, valor, tipo, ingredientes);
+    public static ItemRequestTest criaItemRequest(String nome, String descricao, BigDecimal valor, TipoItem tipo, List<IngredienteRequest> ingredientes) {
+        return new ItemRequestTest(nome, descricao, valor, tipo, ingredientes);
     }
 }
