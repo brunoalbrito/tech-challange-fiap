@@ -14,11 +14,12 @@ public class Cliente {
 
     private UUID id;
     private String cpf;
-    public static Cliente criaCliente(String cpf) {
+
+    public static Cliente criaCliente(UUID id, String cpf) {
         if (!ValidadorCPF.isValido(cpf)) {
             throw new IllegalArgumentException("CPF inválido");
         }
 
-        return new Cliente(UUID.randomUUID(), cpf);
+        return new Cliente(id, cpf);
     }
 }

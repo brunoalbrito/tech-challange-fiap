@@ -15,6 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,7 +40,7 @@ public class ClienteControllerTest {
         String cpf = "64884281799";
         ClienteRequest clienteRequest = ClienteRequest.criaClienteRequest(cpf);
 
-        Cliente cliente = Cliente.criaCliente(cpf);
+        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), cpf);
         when(clientService.criaCliente(any(ClienteRequest.class)))
                 .thenReturn(cliente);
 
