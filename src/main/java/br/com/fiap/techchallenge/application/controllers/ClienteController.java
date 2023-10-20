@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.application.controllers;
 import br.com.fiap.techchallenge.application.controllers.request.ClienteRequest;
 import br.com.fiap.techchallenge.application.controllers.response.ClienteResponse;
 import br.com.fiap.techchallenge.domain.Cliente;
-import br.com.fiap.techchallenge.domain.services.ClientService;
+import br.com.fiap.techchallenge.domain.services.ClienteService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ import java.util.UUID;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private ClientService clienteService;
+    private ClienteService clienteService;
 
     @PostMapping
     public ResponseEntity<ClienteResponse> criaCliente(@RequestBody final ClienteRequest clienteRequest) {
