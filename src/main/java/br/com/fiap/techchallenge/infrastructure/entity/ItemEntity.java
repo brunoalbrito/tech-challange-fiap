@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.infrastructure.entity;
 
+import br.com.fiap.techchallenge.domain.Item;
 import br.com.fiap.techchallenge.domain.Lanche;
 import br.com.fiap.techchallenge.infrastructure.entity.enums.TipoItem;
 import jakarta.persistence.Entity;
@@ -39,6 +40,5 @@ public class ItemEntity {
                 .toList();
         return new ItemEntity(lanche.getId(), lanche.getNome(), lanche.getDescricao(), ingredienteEntities, lanche.getValor(), TipoItem.LANCHE);
     }
-
 
 }
