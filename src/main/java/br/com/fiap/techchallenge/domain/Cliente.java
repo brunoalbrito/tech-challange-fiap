@@ -13,6 +13,7 @@ import java.util.UUID;
 public class Cliente {
 
     private UUID id;
+
     private String cpf;
 
     public static Cliente criaCliente(UUID id, String cpf) {

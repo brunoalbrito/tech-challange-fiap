@@ -15,24 +15,20 @@ public class Pedido {
 
     private UUID id;
 
-    private List<Combo> itemsPedido;
+    private Cliente cliente;
+
+    private List<Produto> produtos;
     private StatusPedido statusPedido;
 
-    public static Pedido criaPedido(Combo combo) {
-        UUID id = UUID.randomUUID();
-        ArrayList<Combo> itensPedido = new ArrayList<>();
-        itensPedido.add(combo);
-        return new Pedido(id, itensPedido, StatusPedido.CRIADO);
+    public static Pedido criaPedido(UUID id, Cliente cliente, List<Produto> produtos) {
+        validateProdutos(produtos);
+        return new Pedido(id, cliente, produtos, StatusPedido.CRIADO);
     }
 
-    public void adicionaItem(Combo combo) {
-        this.itemsPedido.add(combo);
-    }
-
-    public void removeItem(UUID id) {
-        this.itemsPedido = itemsPedido.stream()
-                .filter(combo -> !combo.getId().equals(id))
-                .toList();
+    private static void validateProdutos(List<Produto> produtos) {
+        if (produtos == null || produtos.isEmpty()) {
+            throw new IllegalArgumentException("Produtos não pode ser nulo ou vazio.");
+        }
     }
 
     public void preparaPedido() {
@@ -48,8 +44,8 @@ public class Pedido {
     }
 
     public BigDecimal valorTotalPedido() {
-        return this.itemsPedido.stream()
-                .map(Combo::valorTotal)
+        return this.produtos.stream()
+                .map(Produto::getPreco)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

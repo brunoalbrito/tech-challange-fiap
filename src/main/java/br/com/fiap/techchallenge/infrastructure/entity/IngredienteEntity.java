@@ -27,8 +27,4 @@ public class IngredienteEntity {
     public static IngredienteEntity criaEntity(Ingrediente ingrediente) {
         return new IngredienteEntity(ingrediente.getId(), ingrediente.getDescricao());
     }
-
-    public Ingrediente criaIngrediente() {
-        return Ingrediente.criaIngrediente(id, descricao);
-    }
 }

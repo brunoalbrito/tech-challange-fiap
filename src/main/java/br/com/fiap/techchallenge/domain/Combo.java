@@ -1,39 +1,59 @@
 package br.com.fiap.techchallenge.domain;
 
+import br.com.fiap.techchallenge.domain.enums.Tipo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Combo {
     private UUID id;
-    private Optional<Lanche> lanche;
 
-    private Optional<Bebida> bebida;
+    private final List<Produto> produtos;
 
-    private Optional<Sobremesa> sobremesa;
+    public Combo(UUID id, List<Produto> produtos) {
 
-    public static Combo criaCombo(Lanche lanche, Bebida bebida, Sobremesa sobremesa) {
-        UUID id = UUID.randomUUID();
-        return new Combo(id, Optional.ofNullable(lanche), Optional.ofNullable(bebida), Optional.ofNullable(sobremesa));
+        validaId(id);
+        validaProdutos(produtos);
+
+        this.id = id;
+        this.produtos = produtos;
+    }
+
+    private void validaId(UUID id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id não pode ser nulo");
+        }
+    }
+
+    private static void validaProdutos(List<Produto> produtos) {
+        if (produtos == null || produtos.isEmpty()) {
+            throw new IllegalArgumentException("Combo deve conter um lanche, uma bebida e uma sobremesa");
+        }
+
+        boolean temTodosOsProdutos = produtos.stream().map(Produto::getTipo)
+                .collect(Collectors.toSet())
+                .equals(Set.of(Tipo.LANCHE, Tipo.BEBIDA, Tipo.SOBREMESA));
+
+        if (!temTodosOsProdutos) {
+            throw new IllegalArgumentException("Combo deve conter um lanche, uma bebida e uma sobremesa");
+        }
+    }
+
+    public static Combo criaCombo(UUID id, List<Produto> produtos) {
+        return new Combo(id, produtos);
     }
 
     public BigDecimal valorTotal() {
-        BigDecimal valorTotal = BigDecimal.ZERO;
-        if (lanche.isPresent()) {
-            valorTotal = valorTotal.add(lanche.get().getValor());
-        }
-        if (bebida.isPresent()) {
-            valorTotal = valorTotal.add(bebida.get().getValor());
-        }
-        if (sobremesa.isPresent()) {
-            valorTotal = valorTotal.add(sobremesa.get().getValor());
-        }
-        return valorTotal;
+        return this.produtos.stream()
+                .map(Produto::getPreco)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
