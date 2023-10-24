@@ -20,14 +20,23 @@ public class Pedido {
     private List<Produto> produtos;
     private StatusPedido statusPedido;
 
-    public static Pedido criaPedido(UUID id, Cliente cliente, List<Produto> produtos) {
+    private Pagamento pagamento;
+
+    public static Pedido criaPedido(UUID id, Cliente cliente, List<Produto> produtos, Pagamento pagamento) {
         validateProdutos(produtos);
-        return new Pedido(id, cliente, produtos, StatusPedido.CRIADO);
+        validatePagamento(pagamento);
+        return new Pedido(id, cliente, produtos, StatusPedido.CRIADO, pagamento);
     }
 
     private static void validateProdutos(List<Produto> produtos) {
         if (produtos == null || produtos.isEmpty()) {
             throw new IllegalArgumentException("Produtos não pode ser nulo ou vazio.");
+        }
+    }
+
+    private static void validatePagamento(Pagamento pagamento) {
+        if (pagamento == null) {
+            throw new IllegalArgumentException("Pagamento não pode ser nulo.");
         }
     }
 
