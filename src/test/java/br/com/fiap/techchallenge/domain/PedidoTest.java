@@ -27,6 +27,7 @@ public class PedidoTest {
         assertNotNull(pedido.getCliente());
         assertNotNull(pedido.getProdutos());
         assertEquals(pedido.getStatusPedido(), StatusPedido.CRIADO);
+        assertEquals(pedido.getPagamento(), pagamento);
     }
 
     @Test
