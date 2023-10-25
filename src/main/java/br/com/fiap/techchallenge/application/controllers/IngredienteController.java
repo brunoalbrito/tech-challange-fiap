@@ -33,18 +33,4 @@ public class IngredienteController {
 
         return new ResponseEntity<>(ingredienteResponse, HttpStatus.CREATED);
     }
-
-    @GetMapping
-    public ResponseEntity<List<IngredienteResponse>> listaTodosIngredientes() {
-        List<Ingrediente> ingredientes = ingredienteService.listaTodosIngredientes();
-
-        List<IngredienteResponse> ingredientesResponse = ingredientes.stream()
-                .map(ingrediente -> IngredienteResponse.builder()
-                        .id(ingrediente.getId().toString())
-                        .descricao(ingrediente.getDescricao())
-                        .build())
-                .toList();
-
-        return new ResponseEntity<>(ingredientesResponse, HttpStatus.OK);
-    }
 }

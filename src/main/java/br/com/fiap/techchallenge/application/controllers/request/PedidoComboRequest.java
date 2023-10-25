@@ -1,20 +1,17 @@
-package br.com.fiap.techchallenge.application.controllers.response;
-
+package br.com.fiap.techchallenge.application.controllers.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
-import java.util.UUID;
 
 @Getter
-@Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ClienteResponse {
-    private String cpf;
+public class PedidoComboRequest {
+    private String lancheId;
 
+    private String bebidaId;
+
+    private String sobremesaId;
 }

@@ -15,12 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.UUID;
-
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,7 +38,7 @@ public class ClienteControllerTest {
         String cpf = "64884281799";
         ClienteRequest clienteRequest = ClienteRequest.criaClienteRequest(cpf);
 
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), cpf);
+        Cliente cliente = Cliente.criaCliente(cpf);
         when(clienteService.criaCliente(any(ClienteRequest.class)))
                 .thenReturn(cliente);
 
@@ -50,21 +46,6 @@ public class ClienteControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clienteRequest)))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
-    }
-
-    @Test
-    public void deveBuscarClientePorId() throws Exception {
-
-        String id = UUID.randomUUID().toString();
-
-        when(clienteService.buscaCliente(any(UUID.class)))
-                .thenReturn(Cliente.criaCliente(UUID.fromString(id), "64884281799"));
-
-        mockMvc.perform(get("/api/clientes")
-                        .param("id", id))
-                .andExpect(status().isOk());
-
-        verify(clienteService).buscaCliente(UUID.fromString(id));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.cpf").exists());
     }
 }

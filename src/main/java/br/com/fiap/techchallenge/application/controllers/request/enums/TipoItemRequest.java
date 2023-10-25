@@ -18,7 +18,7 @@ public enum TipoItemRequest {
     @JsonProperty("sobremesa")
     SOBREMESA("sobremesa");
 
-    public String tipo;
+    public final String tipo;
 
     @JsonValue
     public String getValue() {
