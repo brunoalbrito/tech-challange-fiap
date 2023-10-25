@@ -11,15 +11,13 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Cliente {
-
-    private UUID id;
     private String cpf;
 
-    public static Cliente criaCliente(UUID id, String cpf) {
+    public static Cliente criaCliente(String cpf) {
         if (!ValidadorCPF.isValido(cpf)) {
             throw new IllegalArgumentException("CPF inválido");
         }
 
-        return new Cliente(id, cpf);
+        return new Cliente(cpf);
     }
 }

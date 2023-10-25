@@ -15,11 +15,6 @@ public class Ingrediente {
     private UUID id;
     private String descricao;
 
-    public static Ingrediente criaIngrediente(String descricao) throws IllegalArgumentException {
-        validaDescricao(descricao);
-        return new Ingrediente(UUID.randomUUID(), descricao);
-    }
-
     public static Ingrediente criaIngrediente(UUID id, String descricao) throws IllegalArgumentException {
         validaDescricao(descricao);
         return new Ingrediente(id, descricao);
@@ -31,9 +26,7 @@ public class Ingrediente {
         }
     }
 
-    public static List<Ingrediente> criaListaIngredientes(List<IngredienteEntity> ingredientesEntity) {
-        return ingredientesEntity.stream()
-                .map(ingredienteEntity -> new Ingrediente(ingredienteEntity.getId(), ingredienteEntity.getDescricao()))
-                .toList();
+    public static Ingrediente toDomain(IngredienteEntity ingredienteEntity) {
+        return Ingrediente.criaIngrediente(ingredienteEntity.getId(), ingredienteEntity.getDescricao());
     }
 }

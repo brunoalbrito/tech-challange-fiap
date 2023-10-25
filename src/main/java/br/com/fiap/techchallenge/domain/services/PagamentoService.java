@@ -1,14 +1,17 @@
 package br.com.fiap.techchallenge.domain.services;
 
+<<<<<<< HEAD
 import br.com.fiap.techchallenge.application.controllers.request.PagamentoRequest;
 import br.com.fiap.techchallenge.application.controllers.request.QrCodeRequest;
 import br.com.fiap.techchallenge.application.controllers.response.PagamentoResponse;
 import br.com.fiap.techchallenge.application.controllers.response.QrCodeResponse;
+import br.com.fiap.techchallenge.domain.Pagamento;
 import br.com.fiap.techchallenge.domain.enums.TipoPagamento;
 import br.com.fiap.techchallenge.infrastructure.repository.PagamentoRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Service
 public class PagamentoService {
@@ -29,5 +32,9 @@ public class PagamentoService {
                         "ABEL AAAA DE MELO6007BARUERI62070503***63040B6D")
                 .InStoreOrderId("d4e8ca59-3e1d-4c03-b1f6-580e87c654ae")
                 .build();
+    }
+
+    public Pagamento cria() {
+        return Pagamento.criaPagamento(UUID.randomUUID(), UUID.randomUUID().toString());
     }
 }

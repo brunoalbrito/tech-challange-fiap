@@ -1,6 +1,8 @@
 package br.com.fiap.techchallenge.domain;
 
 import br.com.fiap.techchallenge.domain.enums.StatusPedido;
+import br.com.fiap.techchallenge.infrastructure.entity.PedidoEntity;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,29 +12,34 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Pedido {
 
     private UUID id;
 
-    private List<Combo> itemsPedido;
+    private Cliente cliente;
+
+    private List<Produto> produtos;
     private StatusPedido statusPedido;
 
-    public static Pedido criaPedido(Combo combo) {
-        UUID id = UUID.randomUUID();
-        ArrayList<Combo> itensPedido = new ArrayList<>();
-        itensPedido.add(combo);
-        return new Pedido(id, itensPedido, StatusPedido.CRIADO);
+    private Pagamento pagamento;
+
+    public static Pedido criaPedido(UUID id, Cliente cliente, List<Produto> produtos, Pagamento pagamento) {
+        validateProdutos(produtos);
+        validatePagamento(pagamento);
+        return new Pedido(id, cliente, produtos, StatusPedido.CRIADO, pagamento);
     }
 
-    public void adicionaItem(Combo combo) {
-        this.itemsPedido.add(combo);
+    private static void validateProdutos(List<Produto> produtos) {
+        if (produtos == null || produtos.isEmpty()) {
+            throw new IllegalArgumentException("Produtos não pode ser nulo ou vazio.");
+        }
     }
 
-    public void removeItem(UUID id) {
-        this.itemsPedido = itemsPedido.stream()
-                .filter(combo -> !combo.getId().equals(id))
-                .toList();
+    private static void validatePagamento(Pagamento pagamento) {
+        if (pagamento == null) {
+            throw new IllegalArgumentException("Pagamento não pode ser nulo.");
+        }
     }
 
     public void preparaPedido() {
@@ -48,8 +55,12 @@ public class Pedido {
     }
 
     public BigDecimal valorTotalPedido() {
-        return this.itemsPedido.stream()
-                .map(Combo::valorTotal)
+        return this.produtos.stream()
+                .map(Produto::getPreco)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public PedidoEntity toEntity() {
+        return PedidoEntity.criaPedidoEntity(this);
     }
 }

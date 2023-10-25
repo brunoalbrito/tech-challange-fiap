@@ -19,13 +19,14 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "Clientes")
 public class ClienteEntity {
-
     @Id
-    private UUID id;
-
     private String cpf;
 
     public static ClienteEntity criaEntity(Cliente cliente) {
-        return new ClienteEntity(cliente.getId(), cliente.getCpf());
+        return new ClienteEntity(cliente.getCpf());
+    }
+
+    public Cliente toDomain() {
+        return Cliente.criaCliente(this.cpf);
     }
 }

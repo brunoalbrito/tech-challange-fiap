@@ -1,83 +1,74 @@
 package br.com.fiap.techchallenge.domain;
 
-import mocks.ItemMock;
+import br.com.fiap.techchallenge.domain.enums.Tipo;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ComboTest {
 
     @Test
-    public void deveCriarUmCombo() {
-        Combo combo = Combo.criaCombo(ItemMock.criaLanche(), ItemMock.criaBebida(), ItemMock.criaSobremesa());
+    public void deveCriarUmComboCompleto() {
+        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE);
+        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA);
+        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.SOBREMESA);
+
+        Combo combo = Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida, sobremesa));
 
         assertThat(combo.getId()).isNotNull();
-        assertThat(combo.getLanche()).isNotNull();
-        assertThat(combo.getBebida()).isNotNull();
-        assertThat(combo.getSobremesa()).isNotNull();
+        assertThat(combo.getProdutos().size()).isEqualTo(3);
 
     }
 
     @Test
-    public void deveCriarComboApenasComLanche() {
-        Combo combo = Combo.criaCombo(ItemMock.criaLanche(), null, null);
+    public void naoDeveCriarComboComIdNulo() {
+        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE);
+        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA);
+        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.SOBREMESA);
 
-        assertThat(combo.getId()).isNotNull();
-        assertThat(combo.getLanche()).isNotNull();
-        assertThat(combo.getBebida()).isEqualTo(Optional.empty());
-        assertThat(combo.getSobremesa()).isEqualTo(Optional.empty());
+        assertThrows(IllegalArgumentException.class, () ->
+                Combo.criaCombo(null, List.of(lanche, bebida, sobremesa))
+        );
     }
 
 
     @Test
-    public void deveCriarComboApenasComBebida() {
-        Combo combo = Combo.criaCombo(null, ItemMock.criaBebida(), null);
-
-        assertThat(combo.getId()).isNotNull();
-        assertThat(combo.getLanche()).isEqualTo(Optional.empty());
-        assertThat(combo.getBebida()).isNotNull();
-        assertThat(combo.getSobremesa()).isEqualTo(Optional.empty());
+    public void naoDeveCriarComboComProdutosNulos() {
+        assertThrows(IllegalArgumentException.class, () ->
+                Combo.criaCombo(UUID.randomUUID(), null)
+        );
     }
 
     @Test
-    public void deveCriaComboApenasComSobremesa() {
-        Combo combo = Combo.criaCombo(null, null, ItemMock.criaSobremesa());
+    public void naoDeveCriarComboComProdutosVazios() {
+        assertThrows(IllegalArgumentException.class, () ->
+                Combo.criaCombo(UUID.randomUUID(), List.of())
+        );
+    }
 
-        assertThat(combo.getId()).isNotNull();
-        assertThat(combo.getLanche()).isEqualTo(Optional.empty());
-        assertThat(combo.getBebida()).isEqualTo(Optional.empty());
-        assertThat(combo.getSobremesa()).isNotNull();
+    @Test
+    public void naoDeveCriarComboComProdutosIncompletos() {
+        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE);
+        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida))
+        );
     }
 
     @Test
     public void deveCalcularValorTotalDoCombo() {
-        Combo combo = Combo.criaCombo(ItemMock.criaLanche(), ItemMock.criaBebida(), ItemMock.criaSobremesa());
+        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE);
+        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA);
+        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.SOBREMESA);
 
-        assertThat(combo.valorTotal()).isEqualTo(ItemMock.criaLanche().getValor()
-                .add(ItemMock.criaBebida().getValor())
-                .add(ItemMock.criaSobremesa().getValor()));
-    }
+        Combo combo = Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida, sobremesa));
 
-    @Test
-    public void deveCalcularValorTotalDoComboApenasComLanche() {
-        Combo combo = Combo.criaCombo(ItemMock.criaLanche(), null, null);
-
-        assertThat(combo.valorTotal()).isEqualTo(ItemMock.criaLanche().getValor());
-    }
-
-    @Test
-    public void deveCalcularValorTotalDoComboApenasComBebida() {
-        Combo combo = Combo.criaCombo(null, ItemMock.criaBebida(), null);
-
-        assertThat(combo.valorTotal()).isEqualTo(ItemMock.criaBebida().getValor());
-    }
-
-    @Test
-    public void deveCalcularValorTotalDoComboApenasComSobremesa() {
-        Combo combo = Combo.criaCombo(null, null, ItemMock.criaSobremesa());
-
-        assertThat(combo.valorTotal()).isEqualTo(ItemMock.criaSobremesa().getValor());
+        assertThat(combo.valorTotal()).isEqualTo(BigDecimal.valueOf(30));
     }
 }
