@@ -22,11 +22,11 @@ public class PagamentoController {
 
     @PostMapping
     public ResponseEntity<PagamentoResponse> criaQrCode(QrCodeRequest request) {
-        return new ResponseEntity(service.geraQrCode(request), HttpStatus.CREATED);
+        return new ResponseEntity(service.recuperaQrCode(request), HttpStatus.CREATED);
     }
 
     @PostMapping
     public ResponseEntity<PagamentoResponse> notificaPagamento(PagamentoRequest request) {
-        return new ResponseEntity(service.confirmaPagamento(request), HttpStatus.OK);
+        return new ResponseEntity(service.confirma(request), HttpStatus.OK);
     }
 }
