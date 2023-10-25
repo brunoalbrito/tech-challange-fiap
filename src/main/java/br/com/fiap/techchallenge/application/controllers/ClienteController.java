@@ -8,14 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -32,23 +28,12 @@ public class ClienteController {
 
         Cliente cliente = clienteService.criaCliente(clienteRequest);
         ClienteResponse clienteResponse = ClienteResponse.builder()
-                .id(cliente.getId())
+                .cpf(cliente.getCpf())
                 .build();
 
 
-        log.trace(String.format("Cliente criado com sucesso: { Id: %s } ", cliente.getId().toString()));
+        log.trace(String.format("Cliente criado com sucesso: { Id: %s } ", cliente.getCpf()));
 
         return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
-    }
-
-    @GetMapping
-    public ResponseEntity<ClienteResponse> buscaClientePorId(@RequestParam final String id) {
-        Cliente cliente = clienteService.buscaCliente(UUID.fromString(id));
-
-        var clienteResponse = ClienteResponse.builder();
-        clienteResponse.id(cliente.getId());
-        clienteResponse.cpf(cliente.getCpf());
-
-        return new ResponseEntity<>(clienteResponse.build(), HttpStatus.OK);
     }
 }

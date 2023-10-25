@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.domain;
 
 import br.com.fiap.techchallenge.domain.enums.Tipo;
+import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -61,5 +62,9 @@ public class Produto {
         if (tipo == null) {
             throw new IllegalArgumentException("Tipo não pode ser nulo.");
         }
+    }
+
+    public static Produto toDomain(ProdutoEntity produtoEntity) {
+        return Produto.criaProduto(produtoEntity.getId(), produtoEntity.getNome(), produtoEntity.getPreco(), produtoEntity.getDescricao(), produtoEntity.getIngredientes().stream().map(Ingrediente::toDomain).toList(), Tipo.valueOf(produtoEntity.getTipo().name()));
     }
 }

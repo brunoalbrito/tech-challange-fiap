@@ -1,6 +1,8 @@
 package br.com.fiap.techchallenge.domain;
 
 import br.com.fiap.techchallenge.domain.enums.StatusPedido;
+import br.com.fiap.techchallenge.infrastructure.entity.PedidoEntity;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Pedido {
 
     private UUID id;
@@ -56,5 +58,9 @@ public class Pedido {
         return this.produtos.stream()
                 .map(Produto::getPreco)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public PedidoEntity toEntity() {
+        return PedidoEntity.criaPedidoEntity(this);
     }
 }

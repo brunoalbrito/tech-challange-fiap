@@ -16,7 +16,7 @@ public class PedidoTest {
 
     @Test
     public void deveCriarPedidoValido() {
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), "26311855879");
+        Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
@@ -32,7 +32,7 @@ public class PedidoTest {
 
     @Test
     public void deveCalcularValorTotalPedido() {
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), "26311855879");
+        Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
@@ -48,7 +48,7 @@ public class PedidoTest {
     @Test
     public void naoDeveCriarPedidoQuandoProdutosVazio() {
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), "26311855879");
+        Cliente cliente = Cliente.criaCliente("26311855879");
         assertThrows(IllegalArgumentException.class, () ->
                 Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(), pagamento)
         );
@@ -57,7 +57,7 @@ public class PedidoTest {
     @Test
     public void naoDeveCriarPedidoQuandoProdutosNulo() {
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), "26311855879");
+        Cliente cliente = Cliente.criaCliente("26311855879");
         assertThrows(IllegalArgumentException.class, () ->
                 Pedido.criaPedido(UUID.randomUUID(), cliente, null, pagamento)
         );
@@ -65,7 +65,7 @@ public class PedidoTest {
 
     @Test
     public void naoDeveCriarPedidoQuandoPagamentoNulo() {
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), "26311855879");
+        Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         assertThrows(IllegalArgumentException.class, () ->
@@ -75,7 +75,7 @@ public class PedidoTest {
 
     @Test
     public void deveAlterarStatusPedidoParaEmPreparacao() {
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), "26311855879");
+        Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
@@ -86,7 +86,7 @@ public class PedidoTest {
 
     @Test
     public void deveAlterarStatusPedidoParaConcluido() {
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), "26311855879");
+        Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
@@ -97,7 +97,7 @@ public class PedidoTest {
 
     @Test
     public void deveAlterarStatusPedidoParaEntregue() {
-        Cliente cliente = Cliente.criaCliente(UUID.randomUUID(), "26311855879");
+        Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");

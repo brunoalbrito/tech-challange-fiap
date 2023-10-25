@@ -15,10 +15,6 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClienteResponse {
-
-    @NonNull
-    private UUID id;
-
     private String cpf;
 
 }

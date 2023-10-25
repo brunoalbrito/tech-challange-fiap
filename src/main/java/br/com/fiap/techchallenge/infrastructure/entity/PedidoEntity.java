@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.infrastructure.entity;
 
-import br.com.fiap.techchallenge.domain.Cliente;
+import br.com.fiap.techchallenge.domain.Pedido;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,16 +17,12 @@ import java.util.UUID;
 @Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "Clientes")
-public class ClienteEntity {
+@Table(name = "Pedidos")
+public class PedidoEntity {
     @Id
-    private String cpf;
+    private UUID id;
 
-    public static ClienteEntity criaEntity(Cliente cliente) {
-        return new ClienteEntity(cliente.getCpf());
-    }
-
-    public Cliente toDomain() {
-        return Cliente.criaCliente(this.cpf);
+    public static PedidoEntity criaPedidoEntity(Pedido pedido) {
+        return new PedidoEntity(pedido.getId());
     }
 }
