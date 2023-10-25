@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.application.controllers.response;
 
+import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.domain.enums.TipoPagamento;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,5 +18,5 @@ public class PagamentoResponse {
 
     private TipoPagamento tipo;
     private BigDecimal valorTotal;
-    // Objeto transacional
+    private Combo combo;
 }
