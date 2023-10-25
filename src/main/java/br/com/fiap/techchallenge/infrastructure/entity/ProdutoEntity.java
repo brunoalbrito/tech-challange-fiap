@@ -1,7 +1,10 @@
 package br.com.fiap.techchallenge.infrastructure.entity;
 
-import br.com.fiap.techchallenge.infrastructure.entity.enums.TipoProduto;
+import br.com.fiap.techchallenge.domain.Produto;
+import br.com.fiap.techchallenge.infrastructure.entity.enums.Tipo;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -34,5 +37,10 @@ public class ProdutoEntity {
     @OneToMany
     private List<IngredienteEntity> ingredientes;
 
-    private TipoProduto tipo;
+    @Enumerated(EnumType.STRING)
+    private Tipo tipo;
+
+    public static ProdutoEntity criaEntity(Produto produto, List<IngredienteEntity> ingredientesEntity) {
+        return new ProdutoEntity(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco(), ingredientesEntity, Tipo.valueOf(produto.getTipo().name()));
+    }
 }

@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.infrastructure.entity.enums;
 
-public enum TipoProduto {
+public enum Tipo {
     LANCHE,
     BEBIDA,
     ACOMPANHAMENTO,
