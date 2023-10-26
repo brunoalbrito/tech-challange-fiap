@@ -7,6 +7,6 @@ import java.util.List;
 @Getter
 public class ComboRequest {
 
-    private List<ProdutoCompoRequest> produtos;
+    private List<String> produtos;
 
 }

@@ -25,13 +25,13 @@ public class Produto {
 
     private Tipo tipo;
 
-    public static Produto criaProduto(UUID id, String nome, BigDecimal preco, String descricao, List<Ingrediente> ingredientes, Tipo tipo) {
+    public static Produto criaProduto(UUID id, String nome, BigDecimal preco, String descricao, List<Ingrediente> ingredientes, String tipo) {
         validateNome(nome);
         validatePreco(preco);
         validateDescricao(descricao);
         validateIngredientes(ingredientes);
-        validateTipo(tipo);
-        return new Produto(id, nome, preco, descricao, ingredientes, tipo);
+        validateTipo(Tipo.fromValue(tipo));
+        return new Produto(id, nome, preco, descricao, ingredientes, Tipo.fromValue(tipo));
     }
 
     private static void validateNome(String nome) {
@@ -65,6 +65,6 @@ public class Produto {
     }
 
     public static Produto toDomain(ProdutoEntity produtoEntity) {
-        return Produto.criaProduto(produtoEntity.getId(), produtoEntity.getNome(), produtoEntity.getPreco(), produtoEntity.getDescricao(), produtoEntity.getIngredientes().stream().map(Ingrediente::toDomain).toList(), Tipo.valueOf(produtoEntity.getTipo().name()));
+        return Produto.criaProduto(produtoEntity.getId(), produtoEntity.getNome(), produtoEntity.getPreco(), produtoEntity.getDescricao(), produtoEntity.getIngredientes().stream().map(Ingrediente::toDomain).toList(), produtoEntity.getTipo().name());
     }
 }

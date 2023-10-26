@@ -32,7 +32,7 @@ public class ProdutoController {
                 .descricao(produto.getDescricao())
                 .preco(produto.getPreco())
                 .tipo(produto.getTipo().getValue())
-                .ingredientes(produto.getIngredientes().stream().map(Ingrediente::getId).map(UUID::toString).toList())
+//                .ingredientes(produto.getIngredientes().stream().map(Ingrediente::getId).toList())
                 .build();
         return new ResponseEntity<>(produtoResponse, HttpStatus.CREATED);
     }

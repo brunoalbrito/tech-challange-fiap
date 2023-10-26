@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.UUID;
 @Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "Ingredientes")
+@Table(name = "Produtos")
 public class ProdutoEntity {
     @Id
     private UUID id;
@@ -34,7 +34,7 @@ public class ProdutoEntity {
 
     private BigDecimal preco;
 
-    @OneToMany
+    @ManyToMany
     private List<IngredienteEntity> ingredientes;
 
     @Enumerated(EnumType.STRING)
@@ -42,5 +42,9 @@ public class ProdutoEntity {
 
     public static ProdutoEntity criaEntity(Produto produto, List<IngredienteEntity> ingredientesEntity) {
         return new ProdutoEntity(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco(), ingredientesEntity, Tipo.valueOf(produto.getTipo().name()));
+    }
+
+    public Produto toDomain() {
+        return Produto.criaProduto(id, nome, preco, descricao, ingredientes.stream().map(IngredienteEntity::toDomain).toList(), this.tipo.getValue());
     }
 }
