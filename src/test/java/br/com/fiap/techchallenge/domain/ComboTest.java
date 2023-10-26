@@ -14,9 +14,9 @@ public class ComboTest {
 
     @Test
     public void deveCriarUmComboCompleto() {
-        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE);
-        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA);
-        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.SOBREMESA);
+        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE.getValue());
+        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA.getValue());
+        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.ACOMPANHAMENTO.getValue());
 
         Combo combo = Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida, sobremesa));
 
@@ -27,9 +27,9 @@ public class ComboTest {
 
     @Test
     public void naoDeveCriarComboComIdNulo() {
-        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE);
-        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA);
-        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.SOBREMESA);
+        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE.getValue());
+        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA.getValue());
+        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.ACOMPANHAMENTO.getValue());
 
         assertThrows(IllegalArgumentException.class, () ->
                 Combo.criaCombo(null, List.of(lanche, bebida, sobremesa))
@@ -53,8 +53,8 @@ public class ComboTest {
 
     @Test
     public void naoDeveCriarComboComProdutosIncompletos() {
-        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE);
-        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA);
+        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE.getValue());
+        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA.getValue());
 
         assertThrows(IllegalArgumentException.class, () ->
                 Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida))
@@ -63,9 +63,9 @@ public class ComboTest {
 
     @Test
     public void deveCalcularValorTotalDoCombo() {
-        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE);
-        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA);
-        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.SOBREMESA);
+        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Hamburguer")), Tipo.LANCHE.getValue());
+        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Cola")), Tipo.BEBIDA.getValue());
+        Produto sobremesa = Produto.criaProduto(UUID.randomUUID(), "Sorvete", BigDecimal.TEN, "Sobremesa", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Creme de sorvete")), Tipo.ACOMPANHAMENTO.getValue());
 
         Combo combo = Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida, sobremesa));
 

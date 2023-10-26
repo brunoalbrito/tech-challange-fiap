@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class Combo {
-    private UUID id;
+    private final UUID id;
 
     private final List<Produto> produtos;
 
@@ -40,7 +40,7 @@ public class Combo {
 
         boolean temTodosOsProdutos = produtos.stream().map(Produto::getTipo)
                 .collect(Collectors.toSet())
-                .equals(Set.of(Tipo.LANCHE, Tipo.BEBIDA, Tipo.SOBREMESA));
+                .equals(Set.of(Tipo.LANCHE, Tipo.BEBIDA, Tipo.ACOMPANHAMENTO));
 
         if (!temTodosOsProdutos) {
             throw new IllegalArgumentException("Combo deve conter um lanche, uma bebida e uma sobremesa");

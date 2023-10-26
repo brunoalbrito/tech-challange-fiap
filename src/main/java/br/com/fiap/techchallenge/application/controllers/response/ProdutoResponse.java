@@ -24,5 +24,5 @@ public class ProdutoResponse {
 
     private String tipo;
 
-    private List<String> ingredientes;
+    private List<IngredienteResponse> ingredientes;
 }

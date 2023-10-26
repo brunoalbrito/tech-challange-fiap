@@ -15,8 +15,8 @@ public enum TipoItemRequest {
     @JsonProperty("bebida")
     BEBIDA("bebida"),
 
-    @JsonProperty("sobremesa")
-    SOBREMESA("sobremesa");
+    @JsonProperty("acompanhamento")
+    ACOMPANHAMENTO("acompanhamento");
 
     public final String tipo;
 

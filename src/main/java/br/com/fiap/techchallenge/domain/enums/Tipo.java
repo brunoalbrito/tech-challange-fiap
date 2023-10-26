@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.domain.enums;
 public enum Tipo {
     LANCHE("lanche"),
     BEBIDA("bebida"),
-    SOBREMESA("sobremesa");
+    ACOMPANHAMENTO("acompanhamento");
 
     public final String tipo;
 
