@@ -49,6 +49,8 @@ public class PagamentoTest {
                 .build();
 
         QrCodeResponse qrCode = Pagamento.criaQrCode(request);
-        assertNotNull(qrCode);
+
+        assertNotNull(qrCode.getQrData());
+        assertNotNull(qrCode.getInStoreOrderId());
     }
 }
