@@ -49,9 +49,9 @@ public class ComboServiceTest {
         Produto lanche = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.LANCHE);
         Produto bebida = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.BEBIDA);
         Produto acompanhamento = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.ACOMPANHAMENTO);
-        ProdutoEntity lancheEntity = ProdutoEntity.criaEntity(lanche);
-        ProdutoEntity bebidaEntity = ProdutoEntity.criaEntity(bebida);
-        ProdutoEntity acompanhamentoEntity = ProdutoEntity.criaEntity(acompanhamento);
+        ProdutoEntity lancheEntity = ProdutoEntity.toEntity(lanche);
+        ProdutoEntity bebidaEntity = ProdutoEntity.toEntity(bebida);
+        ProdutoEntity acompanhamentoEntity = ProdutoEntity.toEntity(acompanhamento);
 
         when(produtoRepository.findById(any()))
                 .thenReturn(Optional.of(lancheEntity))

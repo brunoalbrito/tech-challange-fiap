@@ -1,12 +1,9 @@
 package br.com.fiap.techchallenge.infrastructure.entity;
 
 import br.com.fiap.techchallenge.domain.Combo;
-import br.com.fiap.techchallenge.domain.Ingrediente;
-import br.com.fiap.techchallenge.domain.Produto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,7 +31,7 @@ public class ComboEntity {
     public static ComboEntity criaComboEntity(Combo combo) {
 
         List<ProdutoEntity> produtos = combo.getProdutos().stream()
-                .map(ProdutoEntity::criaEntity)
+                .map(ProdutoEntity::toEntity)
                 .toList();
 
         return new ComboEntity(combo.getId(), produtos);

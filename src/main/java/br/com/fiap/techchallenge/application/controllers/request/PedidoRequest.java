@@ -1,17 +1,17 @@
 package br.com.fiap.techchallenge.application.controllers.request;
 
+import java.util.List;
+import java.util.UUID;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PedidoRequest {
-
     private String clienteId;
-    private List<ProdutoCompoRequest> produtos;
+    private List<UUID> produtosId;
 }

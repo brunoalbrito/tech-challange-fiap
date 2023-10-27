@@ -26,7 +26,7 @@ public class PedidoTest {
         assertNotNull(pedido.getId());
         assertNotNull(pedido.getCliente());
         assertNotNull(pedido.getProdutos());
-        assertEquals(pedido.getStatusPedido(), StatusPedido.CRIADO);
+        assertEquals(pedido.getStatusPedido(), StatusPedido.AGUARDANDO_PAGAMENTO);
         assertEquals(pedido.getPagamento(), pagamento);
     }
 
@@ -80,7 +80,7 @@ public class PedidoTest {
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
-        pedido.preparaPedido();
+        pedido.pagamentoRecebido();
         assertEquals(pedido.getStatusPedido(), StatusPedido.EM_PREPARACAO);
     }
 
@@ -91,8 +91,8 @@ public class PedidoTest {
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
-        pedido.concluiPedido();
-        assertEquals(pedido.getStatusPedido(), StatusPedido.CONCLUIDO);
+        pedido.preparoFinalizado();
+        assertEquals(pedido.getStatusPedido(), StatusPedido.PREPARO_FINALIZADO);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class PedidoTest {
         Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
-        pedido.entregaPedido();
+        pedido.entregue();
         assertEquals(pedido.getStatusPedido(), StatusPedido.ENTREGUE);
     }
 }
