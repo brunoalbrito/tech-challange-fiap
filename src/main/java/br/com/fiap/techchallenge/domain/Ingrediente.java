@@ -25,8 +25,4 @@ public class Ingrediente {
             throw new IllegalArgumentException("Descricao deve estar preenchida");
         }
     }
-
-    public static Ingrediente toDomain(IngredienteEntity ingredienteEntity) {
-        return Ingrediente.criaIngrediente(ingredienteEntity.getId(), ingredienteEntity.getDescricao());
-    }
 }

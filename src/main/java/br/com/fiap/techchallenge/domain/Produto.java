@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.domain;
 
 import br.com.fiap.techchallenge.domain.enums.Tipo;
+import br.com.fiap.techchallenge.infrastructure.entity.IngredienteEntity;
 import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -65,6 +66,7 @@ public class Produto {
     }
 
     public static Produto toDomain(ProdutoEntity produtoEntity) {
-        return Produto.criaProduto(produtoEntity.getId(), produtoEntity.getNome(), produtoEntity.getPreco(), produtoEntity.getDescricao(), produtoEntity.getIngredientes().stream().map(Ingrediente::toDomain).toList(), Tipo.fromValue(produtoEntity.getTipo().getValue()));
+        var ingredientesEntity = produtoEntity.getIngredientes().stream().map(IngredienteEntity::toDomain).toList();
+        return Produto.criaProduto(produtoEntity.getId(), produtoEntity.getNome(), produtoEntity.getPreco(), produtoEntity.getDescricao(), ingredientesEntity, Tipo.fromValue(produtoEntity.getTipo().getValue()));
     }
 }
