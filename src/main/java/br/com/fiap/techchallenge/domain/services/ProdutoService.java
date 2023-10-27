@@ -21,18 +21,15 @@ public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
 
-    private final IngredienteRepository ingredienteRepository;
+    private final IngredienteService ingredienteService;
 
     public Produto criaProduto(ProdutoRequest produtoRequest) {
-        List<IngredienteEntity> ingredientesEntity = produtoRequest.getIngredientes().stream().
-                map(ingredienteId -> ingredienteRepository.findById(UUID.fromString(ingredienteId))
-                        .orElseThrow(() -> new IllegalArgumentException("Ingrediente não encontrado."))).
-                collect(Collectors.toList());
 
-        List<Ingrediente> ingredientes = ingredientesEntity.stream().map(IngredienteEntity::toDomain).collect(Collectors.toList());
 
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), produtoRequest.getNome(), produtoRequest.getPreco(), produtoRequest.getDescricao(), ingredientes, Tipo.fromValue(produtoRequest.getTipo().getValue()).getValue());
-        produtoRepository.save(ProdutoEntity.criaEntity(produto, ingredientesEntity));
+        List<Ingrediente> ingredientes = ingredienteService.buscaIngredientesPorId(produtoRequest.getIngredientes());
+
+        Produto produto = Produto.criaProduto(UUID.randomUUID(), produtoRequest.getNome(), produtoRequest.getPreco(), produtoRequest.getDescricao(), ingredientes, Tipo.fromValue(produtoRequest.getTipo().getValue()));
+        produtoRepository.save(ProdutoEntity.criaEntity(produto));
         return produto;
     }
 }

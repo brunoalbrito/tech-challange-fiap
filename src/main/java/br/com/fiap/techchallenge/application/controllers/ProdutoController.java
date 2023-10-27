@@ -23,7 +23,7 @@ public class ProdutoController {
     private final ProdutoService produtoService;
 
     @PostMapping
-    public ResponseEntity<ProdutoResponse> criaPedido(@RequestBody final ProdutoRequest produtoRequest) {
+    public ResponseEntity<ProdutoResponse> cria(@RequestBody final ProdutoRequest produtoRequest) {
         Produto produto = produtoService.criaProduto(produtoRequest);
 
         ProdutoResponse produtoResponse = ProdutoResponse.builder()

@@ -3,15 +3,14 @@ package br.com.fiap.techchallenge.infrastructure.entity.enums;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum Tipo {
+public enum TipoEntity {
     LANCHE("lanche"),
     BEBIDA("bebida"),
     ACOMPANHAMENTO("acompanhamento");
-    private final String nome;
-
-    public static Tipo fromValue(String value) {
-        for (Tipo tipo : Tipo.values()) {
-            if (tipo.nome.equals(value)) {
+    private final String valor;
+    public static TipoEntity fromValue(String value) {
+        for (TipoEntity tipo : TipoEntity.values()) {
+            if (tipo.valor.equals(value)) {
                 return tipo;
             }
         }
@@ -19,6 +18,6 @@ public enum Tipo {
     }
 
     public String getValue() {
-        return nome;
+        return valor;
     }
 }

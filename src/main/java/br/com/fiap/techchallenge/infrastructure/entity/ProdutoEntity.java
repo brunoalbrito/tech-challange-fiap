@@ -1,7 +1,8 @@
 package br.com.fiap.techchallenge.infrastructure.entity;
 
 import br.com.fiap.techchallenge.domain.Produto;
-import br.com.fiap.techchallenge.infrastructure.entity.enums.Tipo;
+import br.com.fiap.techchallenge.domain.enums.Tipo;
+import br.com.fiap.techchallenge.infrastructure.entity.enums.TipoEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -38,13 +39,14 @@ public class ProdutoEntity {
     private List<IngredienteEntity> ingredientes;
 
     @Enumerated(EnumType.STRING)
-    private Tipo tipo;
+    private TipoEntity tipo;
 
-    public static ProdutoEntity criaEntity(Produto produto, List<IngredienteEntity> ingredientesEntity) {
-        return new ProdutoEntity(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco(), ingredientesEntity, Tipo.valueOf(produto.getTipo().name()));
+    public static ProdutoEntity criaEntity(Produto produto) {
+        List<IngredienteEntity> ingredientesEntity = produto.getIngredientes().stream().map(IngredienteEntity::criaEntity).toList();
+        return new ProdutoEntity(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco(), ingredientesEntity, TipoEntity.valueOf(produto.getTipo().name()));
     }
 
     public Produto toDomain() {
-        return Produto.criaProduto(id, nome, preco, descricao, ingredientes.stream().map(IngredienteEntity::toDomain).toList(), this.tipo.getValue());
+        return Produto.criaProduto(id, nome, preco, descricao, ingredientes.stream().map(IngredienteEntity::toDomain).toList(), Tipo.fromValue(this.tipo.getValue()));
     }
 }
