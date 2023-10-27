@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.domain.services;
 
+import br.com.fiap.techchallenge.application.controllers.request.ComboRequest;
 import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.infrastructure.entity.ComboEntity;
@@ -20,8 +21,8 @@ public class ComboService {
 
     private ComboRepository comboRepository;
 
-    public Combo criaCombo(List<String> produtosIds) {
-        List<Produto> produtos = produtosIds.stream()
+    public Combo criaCombo(ComboRequest comboRequest) {
+        List<Produto> produtos = comboRequest.getProdutos().stream()
                 .map(UUID::fromString)
                 .map(produtoId -> produtoRepository.findById(produtoId)
                         .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado.")))
