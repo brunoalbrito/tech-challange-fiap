@@ -24,7 +24,8 @@ public class ComboService {
     public Combo criaCombo(ComboRequest comboRequest) {
         List<Produto> produtos = comboRequest.getProdutos().stream()
                 .map(UUID::fromString)
-                .map(produtoId -> produtoRepository.findById(produtoId)
+                .map(produtoId ->
+                        produtoRepository.findById(produtoId)
                         .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado.")))
                 .map(ProdutoEntity::toDomain)
                 .toList();

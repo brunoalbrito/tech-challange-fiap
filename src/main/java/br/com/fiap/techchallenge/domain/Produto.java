@@ -5,6 +5,7 @@ import br.com.fiap.techchallenge.infrastructure.entity.IngredienteEntity;
 import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
+@EqualsAndHashCode(of = "id")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Produto {
     private UUID id;
