@@ -7,7 +7,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum TipoItemRequest {
+public enum TipoRequest {
 
     @JsonProperty("lanche")
     LANCHE("lanche"),
@@ -26,8 +26,8 @@ public enum TipoItemRequest {
     }
 
     @JsonCreator
-    public static TipoItemRequest fromValue(String value) {
-        for (TipoItemRequest enumValue : values()) {
+    public static TipoRequest fromValue(String value) {
+        for (TipoRequest enumValue : values()) {
             if (enumValue.tipo.equals(value)) {
                 return enumValue;
             }

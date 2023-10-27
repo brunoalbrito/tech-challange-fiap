@@ -18,7 +18,7 @@ public class PedidoTest {
     public void deveCriarPedidoValido() {
         Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE.getValue());
+        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
 
@@ -34,7 +34,7 @@ public class PedidoTest {
     public void deveCalcularValorTotalPedido() {
         Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE.getValue());
+        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto, produto, produto), pagamento);
 
@@ -67,7 +67,7 @@ public class PedidoTest {
     public void naoDeveCriarPedidoQuandoPagamentoNulo() {
         Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE.getValue());
+        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         assertThrows(IllegalArgumentException.class, () ->
                 Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), null)
         );
@@ -77,7 +77,7 @@ public class PedidoTest {
     public void deveAlterarStatusPedidoParaEmPreparacao() {
         Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE.getValue());
+        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
         pedido.preparaPedido();
@@ -88,7 +88,7 @@ public class PedidoTest {
     public void deveAlterarStatusPedidoParaConcluido() {
         Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE.getValue());
+        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
         pedido.concluiPedido();
@@ -99,7 +99,7 @@ public class PedidoTest {
     public void deveAlterarStatusPedidoParaEntregue() {
         Cliente cliente = Cliente.criaCliente("26311855879");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE.getValue());
+        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "123456789");
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
         pedido.entregaPedido();

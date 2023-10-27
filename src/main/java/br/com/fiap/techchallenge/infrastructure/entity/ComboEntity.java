@@ -34,7 +34,7 @@ public class ComboEntity {
     public static ComboEntity criaComboEntity(Combo combo) {
 
         List<ProdutoEntity> produtos = combo.getProdutos().stream()
-                .map(produto -> ProdutoEntity.criaEntity(produto, produto.getIngredientes().stream().map(IngredienteEntity::criaEntity).toList()))
+                .map(ProdutoEntity::criaEntity)
                 .toList();
 
         return new ComboEntity(combo.getId(), produtos);

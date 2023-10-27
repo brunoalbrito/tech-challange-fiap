@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.application.controllers.request;
 
-import br.com.fiap.techchallenge.application.controllers.request.enums.TipoItemRequest;
+import br.com.fiap.techchallenge.application.controllers.request.enums.TipoRequest;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -12,5 +12,5 @@ public class ItemRequest {
     private String descricao;
     private List<IngredienteRequest> ingredientes;
     private BigDecimal valor;
-    private TipoItemRequest tipo;
+    private TipoRequest tipo;
 }
