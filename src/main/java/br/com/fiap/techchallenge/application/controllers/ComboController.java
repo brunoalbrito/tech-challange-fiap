@@ -27,7 +27,7 @@ public class ComboController {
 
     @PostMapping
     public ResponseEntity<ComboResponse> criaCombo(@RequestBody final ComboRequest comboRequest) {
-        Combo combo = comboService.criaCombo(comboRequest.getProdutos());
+        Combo combo = comboService.criaCombo(comboRequest);
         var comboResponse = ComboResponse.builder();
         comboResponse.id(combo.getId().toString());
         comboResponse.precoTotal(combo.valorTotal());
@@ -72,7 +72,7 @@ public class ComboController {
                                 .build()).collect(Collectors.toList())).build()).collect(Collectors.toList());
 
 
-        return new ResponseEntity<>(comboResponses, HttpStatus.CREATED);
+        return new ResponseEntity<>(comboResponses, HttpStatus.OK);
     }
 }
 
