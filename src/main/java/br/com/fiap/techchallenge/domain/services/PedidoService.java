@@ -32,12 +32,12 @@ public class PedidoService {
         List<Produto> produtos = ProdutoEntity.toDomain(produtoRepository.findAllById(pedidoRequest.getProdutosId()));
 
         List<UUID> invalidProducts = pedidoRequest.getProdutosId().stream()
-            .filter(
-                uuid -> !produtos.stream().map(Produto::getId).toList().contains(uuid)
-            ).toList();
+                .filter(
+                        uuid -> !produtos.stream().map(Produto::getId).toList().contains(uuid)
+                ).toList();
 
         if (!invalidProducts.isEmpty()) {
-            throw new RuntimeException("Produtos não encontrado.");
+            throw new IllegalArgumentException("Produtos não encontrado.");
         }
         Cliente cliente = clienteRepository.findById(pedidoRequest.getClienteId()).orElseThrow().toDomain();
 
@@ -58,7 +58,9 @@ public class PedidoService {
     }
 
     public Pedido buscar(UUID pedidoId) {
-        return pedidoRepository.findById(pedidoId).orElseThrow().toDomain();
+        return pedidoRepository.findById(pedidoId)
+                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado."))
+                .toDomain();
     }
 
     public Pedido entregue(UUID pedidoId) {
