@@ -1,0 +1,439 @@
+postech-g64: 1.0
+info:
+  title: PósTech FIAP - Tech Challenge G64-SOAT4
+  description: |-
+    Api para realização de pedido de lanche em uma restaurante de fastfood com auto atendimento
+  version: 1.0.0
+externalDocs:
+  description: Sobre o projeto
+  url: https://www.notion.so/Tech-Challenge-FIAP-2a8d164901e54f4e87d6763425323376
+servers:
+  - url: http://localhost:8080/api
+tags:
+  - name: Auto atendimento
+    description: Tudo sobre o auto atendimento
+  
+paths:
+  /api/clientes:
+    post:
+      tags:
+        - Cliente
+      description: |
+        Atualiza os dados de uma pessoa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              maxProperties: 1
+              properties:
+                name:
+                  type: string
+                  example: '00000000191'
+                  description: Cpf do cliente
+                  
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:{"cpf:" "00000000191"}
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  {
+                    "timestamp" : "2023-10-28T13:12:36.9863097",
+                    "message" : "CPF inválido"
+                  }
+            
+  /api/ingredientes:
+     post:
+      tags:
+        - Ingrediente
+      description: |
+        Criar o ingrediente que será composto o produto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              maxProperties: 1
+              properties:
+                name:
+                  type: string
+                  example: 'Batata'
+                  description: Descrição do ingrediente
+        
+        responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:{
+                      "id": uuid,
+                      "descricao": "Batata" 
+              }
+
+  /api/produto:
+     post:
+      tags:
+        - Produto
+      description: |
+        Criar o produto que faz parte do combo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              maxProperties: 1
+              properties:
+                nome:
+                  type: string
+                  example: 'x-Salada'
+                  description: Nome do lanche
+                preco:
+                  type: decimal
+                  example: 30.0
+                  description: 'Preço do lanche'
+                descricao: 
+                  type: string
+                  example: 'Lanche com salada de alface'
+                  description: 'Descrição do lanche'
+                tipo:
+                  type: string
+                  example: 'lanche'
+                  description: 'Tipo do produto (Ex. lanche, acompanhamento, bebida)'
+                ingredientes: 
+                  type: object
+                  example: ['7ad00a46-3e0b-483d-a05e-037d37c3db67']
+                  description: "uuid do ingrediente cadastrado"
+        
+        responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:{
+                      "id": uuid,
+                      "nome" : "X-salada"
+                      "descricao" : "Lanche com salada de alface"
+                      "preco": 30.0,
+                      "tipo" : 'lanche'
+                      "ingredientes": []
+              }
+
+  /api/combos:
+    get:
+      tags:
+        - buscaCombos
+      summary: Busca os combos cadastrados
+      description: |
+        Retorna os combos cadastrados
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+              {
+                "id": '22291f45-021e-4344-864d-f48855925add',
+                "precoTotal": 55.00,
+                "produtos": [
+                  {
+                    "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
+                    "nome" : "X-Salada",
+                    "descricao" : "Lanche com hamburguer e salada",
+                    "preco" : 30.00,
+                    "tipo" : "LANCHE",
+                    "ingredientes" : [
+                      {
+                        "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
+                        "descricao" : "tomate"
+                      },
+                      {
+                        "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
+                        "descricao" : "alface"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
+                    "nome" : "Bata frita",
+                    "descricao" : "Batata tipo palito frita",
+                    "preco" : 15.00,
+                    "tipo" : "ACOMPANHAMENTO",
+                    "ingredientes" : [
+                      {
+                        "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
+                        "descricao" : "Batata"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866"",
+                    "nome" : "Coca Cola",
+                    "descricao" : "Bebida gaseificada",
+                    "preco" : 10.00,
+                    "tipo" : "BEBIDA",
+                    "ingredientes" : [
+                      {
+                        "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
+                        "descricao" : "Açucar"
+                      }
+                    ]
+                  }
+                ] 
+              }
+
+    post:
+      tags:
+        - criaCombo
+      summary: Cria um combo com os produtos
+      description: |
+        Cria um combo com os produtos cadastrados
+        
+      requestBody:
+        content:
+          requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'ac45080a-ba2c-4380-be2c-e25c702cc9ef'
+                  description: uuid do produto
+              
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+              {
+                "id": uuid,
+                "precoTotal": 55.00,
+                "produtos": [
+                  {
+                    "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
+                    "nome" : "X-Salada",
+                    "descricao" : "Lanche com hamburguer e salada",
+                    "preco" : 30.00,
+                    "tipo" : "LANCHE",
+                    "ingredientes" : [
+                      {
+                        "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
+                        "descricao" : "tomate"
+                      },
+                      {
+                        "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
+                        "descricao" : "alface"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
+                    "nome" : "Bata frita",
+                    "descricao" : "Batata tipo palito frita",
+                    "preco" : 15.00,
+                    "tipo" : "ACOMPANHAMENTO",
+                    "ingredientes" : [
+                      {
+                        "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
+                        "descricao" : "Batata"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866"",
+                    "nome" : "Coca Cola",
+                    "descricao" : "Bebida gaseificada",
+                    "preco" : 10.00,
+                    "tipo" : "BEBIDA",
+                    "ingredientes" : [
+                      {
+                        "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
+                        "descricao" : "Açucar"
+                      }
+                    ]
+                  }
+                ] 
+              }
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+            schema:
+              {
+                "timestamp" : "2023-10-28T13:12:36.9863097",
+                "message" : "Combo deve conter um lanche, uma bebida e um acompanhamento"
+              }
+
+/api/pedidos:
+    post:
+      tags:
+        - criaPedido
+      description: |
+        Criar o pedido do cliente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              maxProperties: 1
+              properties:
+                clientId:
+                  type: string
+                  example: '00000000191'
+                  description: CPF do cliente
+                produtosId:
+                  type: object
+                  example: ["67ea9b61-18af-41e1-b782-540634ea450f", "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3", "221b9655-c759-41fd-a958-8dc1d2118c54"]
+                  description: Produtos que vai conter o pedido
+        
+        responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:{
+                      "id": uuid,
+                      "cpf": "00000000191" ,
+                      "produtosId": [
+                         "221b9655-c759-41fd-a958-8dc1d2118c54",
+                          "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
+                          "67ea9b61-18af-41e1-b782-540634ea450f"
+                      ],
+                      "status" : "AGUARDANDO_PAGAMENTO",
+                      "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
+              }
+
+/api/pedidos/{uuid}:
+    get:
+      tags:
+        - buscaPedido
+      summary: Busca o pedido pelo uuid
+      description: |
+        Retorna o pedido correspondente
+      parameters:
+        - name: id
+          in: path
+          description: uuid do pedido
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 'e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc'
+
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                    {
+                      "id": "e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc",
+                      "cpf": "00000000191",
+                      "produtosId": [
+                          "221b9655-c759-41fd-a958-8dc1d2118c54",
+                          "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
+                          "67ea9b61-18af-41e1-b782-540634ea450f"
+                        ],
+                      "status": "AGUARDANDO_PAGAMENTO",
+                      "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
+                    }
+
+/api/pedidos/{uuid}/callback:
+    patch:
+      tags:
+        - pagarPedido
+      summary: Atualiza pagamento do pedido
+      description: |
+        Recebe confirmação do pagamento do pedido
+      parameters:
+        - name: uuid
+          in: path
+          description: Uuid da pedido
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 'e168e493-59fe-4610-a0c1-561112e79c15'        
+  
+      responses:
+        '204':
+          description: Successfull operation (No Content)
+
+/api/pedidos/{uuid}/preparo-finalizado:
+    patch:
+      tags:
+        - pagarPedido
+      summary: Atualiza o status do pedido para preparo finalizado
+      description: |
+        Conclui a preparação do pedido e atualiza o status
+      parameters:
+        - name: uuid
+          in: path
+          description: Uuid da pedido
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 'e168e493-59fe-4610-a0c1-561112e79c15'        
+  
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                    {
+                      "id": "e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc",
+                      "cpf": "00000000191",
+                      "produtosId": [
+                          "221b9655-c759-41fd-a958-8dc1d2118c54",
+                          "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
+                          "67ea9b61-18af-41e1-b782-540634ea450f"
+                        ],
+                      "status": "PREPARO_FINALIZADO",
+                      "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
+                    }          
+
+/api/pedidos/{uuid}/entregue:
+    patch:
+      tags:
+        - pagarPedido
+      summary: Atualiza pagamento do pedido
+      description: |
+        Recebe confirmação do pagamento do pedido
+      parameters:
+        - name: uuid
+          in: path
+          description: Uuid da pedido
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 'e168e493-59fe-4610-a0c1-561112e79c15'        
+  
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                    {
+                      "id": "e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc",
+                      "cpf": "00000000191",
+                      "produtosId": [
+                          "221b9655-c759-41fd-a958-8dc1d2118c54",
+                          "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
+                          "67ea9b61-18af-41e1-b782-540634ea450f"
+                        ],
+                      "status": "ENTREGUE",
+                      "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
+                    }
