@@ -1,4 +1,4 @@
-postech-g64: 1.0
+openapi: 3.0.3
 info:
   title: PósTech FIAP - Tech Challenge G64-SOAT4
   description: |-
