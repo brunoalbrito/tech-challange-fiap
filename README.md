@@ -8,3 +8,15 @@
 ```bash
 docker compose -f compose-prod.yaml up
 ```
+
+## Documentação API - Postman
+
+https://documenter.getpostman.com/view/30346053/2s9YXb95pc
+
+## Documentação API - Swagger
+
+https://brunoalbrito.github.io/tech-challange-fiap/
+
+## Notion com as informações do projeto
+
+https://tropical-angelfish-eaf.notion.site/Tech-Challenge-FIAP-2a8d164901e54f4e87d6763425323376
