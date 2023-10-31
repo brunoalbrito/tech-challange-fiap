@@ -41,14 +41,12 @@ paths:
         "201":
           description: Created
           schema:
-                $ref: "#/definitions/ApiResponse"
+                $ref: "#/definitions/CPF"
 
         "400":
           description: Bad Request
-          content:
-            application/json:
-              schema:
-                  $ref: "#/definitions/ApiResponse"
+          schema:
+                $ref: "#/definitions/ApiResponse"
             
   /api/ingredientes:
      post:
@@ -68,14 +66,9 @@ paths:
       responses:
         "201":
           description: Created
-          content:
-            application/json:
-              schema:
-                  {
-                    "id" : "uuid",
-                    "descricao" : "Batata"
-                  }
-  
+          schema:
+                $ref: "#/definitions/Ingrediente"
+
   /api/produto:
       post:
         tags:
@@ -110,17 +103,8 @@ paths:
         responses:
           "201":
             description: Created
-            content:
-              application/json:
-                schema:
-                    {
-                      "id": uuid,
-                      "nome" : "X-salada",
-                      "descricao" : "Lanche com salada de alface",
-                      "preco": 30.0,
-                      "tipo" : "lanche",
-                      "ingredientes": []
-                    }
+            schema:
+                  $ref: "#/definitions/Produto"
 
   /api/combos:
         get:
@@ -444,3 +428,46 @@ definitions:
         type: "string"
       message:
         type: "string"
+  CPF:
+    type: "object"
+    properties:
+      cpf:
+        type: "string"
+        description: "CPF do Cliente"
+  
+  Ingrediente:
+    type: "object"
+    properties:
+      id:
+        type: string
+        description: "id do ingrediente"
+      descricao:
+        type: string
+        description: "Descrição do ingrediente"
+
+  Produto:
+    type: "object"
+    properties:
+      id: 
+        type: string
+        description: "id do produto"
+      nome: 
+        type: string
+        description: "nome do produto"
+      preco:
+        type: decimal
+        description: "valor do produto"
+      tipo:
+        type: string
+        description: "Tipo do produto"
+      ingredientes: 
+        type: "object"
+        properties:
+          id:
+            type: string
+            description: "id do ingrediente"
+          descricao:
+            type: string
+            description: "descricao do ingrediente"
+
+      
