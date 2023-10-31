@@ -42,7 +42,6 @@ public class PedidoController {
 
     @PatchMapping("{id}/entregue")
     public ResponseEntity<PedidoResponse> entregue(@PathVariable("id") final UUID pedidoId) {
-        service.pedidoPago(pedidoId);
         return ResponseEntity.ok(PedidoResponse.ofDomain(service.entregue(pedidoId)));
     }
 
