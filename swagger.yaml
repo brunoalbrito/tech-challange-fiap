@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: PósTech FIAP - Tech Challenge G64-SOAT4
+  title: Pós tech FIAP - Tech Challenge G64-SOAT4
   description: |-
     Api para realização de pedido de lanche em uma restaurante de fastfood com auto atendimento
   version: 1.0.0
