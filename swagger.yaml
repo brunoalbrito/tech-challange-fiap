@@ -32,12 +32,11 @@ paths:
           application/json:
             schema:
               type: object
-              maxProperties: 1
               properties:
                 cpf:
-                type: string
-                example: "00000000191"
-                description: Cpf do cliente
+                  type: string
+                  example: "00000000191"
+                  description: Cpf do cliente
       responses:
         "201":
           description: Created
@@ -65,7 +64,6 @@ paths:
           application/json:
             schema:
               type: object
-              maxProperties: 1
               properties:
                 descricao:
                   type: string
@@ -92,7 +90,6 @@ paths:
             application/json:
               schema:
                 type: object
-                maxProperties: 1
                 properties:
                   nome:
                     type: string
@@ -138,61 +135,61 @@ paths:
             "200":
               description: Successful operation
               content:
-              application/json:
-                schema:
-                    {
-                      "id": "22291f45-021e-4344-864d-f48855925add",
-                      "precoTotal": 55.00,
-                      "produtos": 
-                            [
-                              {
-                                "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
-                                "nome" : "X-Salada",
-                                "descricao" : "Lanche com hamburguer e salada",
-                                "preco" : 30.00,
-                                "tipo" : "LANCHE",
-                                "ingredientes" : 
-                                [
-                                            {
-                                              "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
-                                              "descricao" : "tomate"
-                                            },
-                                            {
-                                              "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
-                                              "descricao" : "alface"
-                                            }
-                                ]
-                              },
-                              {
-                                "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
-                                "nome" : "Bata frita",
-                                "descricao" : "Batata tipo palito frita",
-                                "preco" : 15.00,
-                                "tipo" : "ACOMPANHAMENTO",
-                                "ingredientes" : 
-                                [
-                                            {
-                                              "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
-                                              "descricao" : "Batata"
-                                            }
-                                ]
-                              },
-                              {
-                                "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866",
-                                "nome" : "Coca Cola",
-                                "descricao" : "Bebida gaseificada",
-                                "preco" : 10.00,
-                                "tipo" : "BEBIDA",
-                                "ingredientes" : 
-                                [
-                                            {
-                                              "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
-                                              "descricao" : "Açucar"
-                                            }
-                                ]
-                              }
-                            ] 
-                    }
+                application/json:
+                  schema:
+                      {
+                        "id": "22291f45-021e-4344-864d-f48855925add",
+                        "precoTotal": 55.00,
+                        "produtos": 
+                              [
+                                {
+                                  "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
+                                  "nome" : "X-Salada",
+                                  "descricao" : "Lanche com hamburguer e salada",
+                                  "preco" : 30.00,
+                                  "tipo" : "LANCHE",
+                                  "ingredientes" : 
+                                  [
+                                              {
+                                                "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
+                                                "descricao" : "tomate"
+                                              },
+                                              {
+                                                "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
+                                                "descricao" : "alface"
+                                              }
+                                  ]
+                                },
+                                {
+                                  "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
+                                  "nome" : "Bata frita",
+                                  "descricao" : "Batata tipo palito frita",
+                                  "preco" : 15.00,
+                                  "tipo" : "ACOMPANHAMENTO",
+                                  "ingredientes" : 
+                                  [
+                                              {
+                                                "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
+                                                "descricao" : "Batata"
+                                              }
+                                  ]
+                                },
+                                {
+                                  "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866",
+                                  "nome" : "Coca Cola",
+                                  "descricao" : "Bebida gaseificada",
+                                  "preco" : 10.00,
+                                  "tipo" : "BEBIDA",
+                                  "ingredientes" : 
+                                  [
+                                              {
+                                                "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
+                                                "descricao" : "Açucar"
+                                              }
+                                  ]
+                                }
+                              ] 
+                      }
         post:
           tags:
             - Combos
@@ -202,12 +199,12 @@ paths:
             content:
               application/json:
             schema:
-            type: object
-            properties:
-              produtos:
-                type: string
-                example: "ac45080a-ba2c-4380-be2c-e25c702cc9ef"
-                description: uuid do produto
+              type: object
+              properties:
+                produtos:
+                  type: string
+                  example: "ac45080a-ba2c-4380-be2c-e25c702cc9ef"
+                  description: uuid do produto
           responses:
             "201":
               description: Created
@@ -288,7 +285,6 @@ paths:
           application/json:
             schema:
               type: object
-              maxProperties: 1
               properties:
                 clientId:
                   type: string
