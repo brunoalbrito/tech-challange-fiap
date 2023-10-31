@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.application.controllers;
 
 import br.com.fiap.techchallenge.application.controllers.request.ProdutoRequest;
+import br.com.fiap.techchallenge.application.controllers.response.IngredienteResponse;
 import br.com.fiap.techchallenge.application.controllers.response.ProdutoResponse;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -32,7 +34,12 @@ public class ProdutoController {
                 .descricao(produto.getDescricao())
                 .preco(produto.getPreco())
                 .tipo(produto.getTipo().getValue())
-//                .ingredientes(produto.getIngredientes().stream().map(Ingrediente::getId).toList())
+                .ingredientes(produto.getIngredientes().stream().map(
+                        ingrediente -> IngredienteResponse.builder()
+                                .id(ingrediente.getId().toString())
+                                .descricao(ingrediente.getDescricao())
+                                .build()
+                ).collect(Collectors.toList()))
                 .build();
         return new ResponseEntity<>(produtoResponse, HttpStatus.CREATED);
     }
