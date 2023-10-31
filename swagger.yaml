@@ -1,8 +1,8 @@
-postech-g64: 1.0
+openapi: 3.0.3
 info:
-  title: PósTech FIAP - Tech Challenge G64-SOAT4
+  title: Pós tech FIAP - Tech Challenge G64-SOAT4
   description: |-
-    Api para realização de pedido de lanche em uma restaurante de fastfood com auto atendimento
+    Api para realização de pedidos em um restaurante de fastfood com auto atendimento
   version: 1.0.0
 externalDocs:
   description: Sobre o projeto
@@ -72,143 +72,144 @@ paths:
           description: Created
           content:
             application/json:
-              schema:{
-                      "id": uuid,
-                      "descricao": "Batata" 
-              }
-
+              schema:
+                  {
+                    "id" : "uuid",
+                    "descricao" : "Batata"
+                  }
   /api/produto:
-     post:
-      tags:
-        - Produto
-      description: |
-        Criar o produto que faz parte do combo
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              maxProperties: 1
-              properties:
-                nome:
-                  type: string
-                  example: 'x-Salada'
-                  description: Nome do lanche
-                preco:
-                  type: decimal
-                  example: 30.0
-                  description: 'Preço do lanche'
-                descricao: 
-                  type: string
-                  example: 'Lanche com salada de alface'
-                  description: 'Descrição do lanche'
-                tipo:
-                  type: string
-                  example: 'lanche'
-                  description: 'Tipo do produto (Ex. lanche, acompanhamento, bebida)'
-                ingredientes: 
-                  type: object
-                  example: ['7ad00a46-3e0b-483d-a05e-037d37c3db67']
-                  description: "uuid do ingrediente cadastrado"
-        
-        responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:{
-                      "id": uuid,
-                      "nome" : "X-salada"
-                      "descricao" : "Lanche com salada de alface"
-                      "preco": 30.0,
-                      "tipo" : 'lanche'
-                      "ingredientes": []
-              }
-
-  /api/combos:
-    get:
-      tags:
-        - buscaCombos
-      summary: Busca os combos cadastrados
-      description: |
-        Retorna os combos cadastrados
-      responses:
-        '200':
-          description: Successful operation
+      post:
+        tags:
+          - Produto
+        description: |
+          Criar o produto que faz parte do combo
+        requestBody:
           content:
             application/json:
               schema:
-              {
-                "id": '22291f45-021e-4344-864d-f48855925add',
-                "precoTotal": 55.00,
-                "produtos": [
-                  {
-                    "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
-                    "nome" : "X-Salada",
-                    "descricao" : "Lanche com hamburguer e salada",
-                    "preco" : 30.00,
-                    "tipo" : "LANCHE",
-                    "ingredientes" : [
-                      {
-                        "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
-                        "descricao" : "tomate"
-                      },
-                      {
-                        "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
-                        "descricao" : "alface"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
-                    "nome" : "Bata frita",
-                    "descricao" : "Batata tipo palito frita",
-                    "preco" : 15.00,
-                    "tipo" : "ACOMPANHAMENTO",
-                    "ingredientes" : [
-                      {
-                        "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
-                        "descricao" : "Batata"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866"",
-                    "nome" : "Coca Cola",
-                    "descricao" : "Bebida gaseificada",
-                    "preco" : 10.00,
-                    "tipo" : "BEBIDA",
-                    "ingredientes" : [
-                      {
-                        "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
-                        "descricao" : "Açucar"
-                      }
-                    ]
-                  }
-                ] 
-              }
-
-    post:
-      tags:
-        - criaCombo
-      summary: Cria um combo com os produtos
-      description: |
-        Cria um combo com os produtos cadastrados
+                type: object
+                maxProperties: 1
+                properties:
+                  name:
+                    type: string
+                    example: 'x-Salada'
+                    description: Nome do lanche
+                  preco:
+                    type: decimal
+                    example: 30.0
+                    description: 'Preço do lanche'
+                  descricao: 
+                    type: string
+                    example: 'Lanche com salada de alface'
+                    description: 'Descrição do lanche'
+                  tipo:
+                    type: string
+                    example: 'lanche'
+                    description: 'Tipo do produto (Ex. lanche, acompanhamento, bebida)'
+                  ingredientes: 
+                    type: object
+                    example: ['7ad00a46-3e0b-483d-a05e-037d37c3db67']
+                    description: "uuid do ingrediente cadastrado"
         
-      requestBody:
-        content:
-          requestBody:
-        content:
-          application/json:
-            schema:
+          responses:
+            '201':
+              description: Created
+              content:
+                application/json:
+                  schema:
+                      {
+                        "id": uuid,
+                        "nome" : "X-salada",
+                        "descricao" : "Lanche com salada de alface",
+                        "preco": 30.0,
+                        "tipo" : 'lanche',
+                        "ingredientes": []
+                      }
+
+  /api/combos:
+        get:
+          tags:
+          - buscaCombos
+          summary: Busca os combos cadastrados
+          description: |
+            Retorna os combos cadastrados
+          responses:
+            '200':
+              description: Successful operation
+              content:
+              application/json:
+                schema:
+                    {
+                      "id": '22291f45-021e-4344-864d-f48855925add',
+                      "precoTotal": 55.00,
+                      "produtos": 
+                            [
+                              {
+                                "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
+                                "nome" : "X-Salada",
+                                "descricao" : "Lanche com hamburguer e salada",
+                                "preco" : 30.00,
+                                "tipo" : "LANCHE",
+                                "ingredientes" : 
+                                [
+                                            {
+                                              "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
+                                              "descricao" : "tomate"
+                                            },
+                                            {
+                                              "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
+                                              "descricao" : "alface"
+                                            }
+                                ]
+                              },
+                              {
+                                "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
+                                "nome" : "Bata frita",
+                                "descricao" : "Batata tipo palito frita",
+                                "preco" : 15.00,
+                                "tipo" : "ACOMPANHAMENTO",
+                                "ingredientes" : 
+                                [
+                                            {
+                                              "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
+                                              "descricao" : "Batata"
+                                            }
+                                ]
+                              },
+                              {
+                                "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866",
+                                "nome" : "Coca Cola",
+                                "descricao" : "Bebida gaseificada",
+                                "preco" : 10.00,
+                                "tipo" : "BEBIDA",
+                                "ingredientes" : 
+                                [
+                                            {
+                                              "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
+                                              "descricao" : "Açucar"
+                                            }
+                                ]
+                              }
+                            ] 
+                    }
+          post:
+            tags:
+              - criaCombo
+            summary: Cria um combo com os produtos
+            description: |
+              Cria um combo com os produtos cadastrados
+            requestBody:
+              content:
+                application/json:
+              schema:
               type: object
               properties:
                 name:
                   type: string
                   example: 'ac45080a-ba2c-4380-be2c-e25c702cc9ef'
                   description: uuid do produto
-              
-      responses:
+                  
+        responses:
         '201':
           description: Created
           content:
@@ -249,7 +250,7 @@ paths:
                     ]
                   },
                   {
-                    "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866"",
+                    "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866",
                     "nome" : "Coca Cola",
                     "descricao" : "Bebida gaseificada",
                     "preco" : 10.00,
@@ -267,13 +268,13 @@ paths:
           description: 'Bad request'
           content:
             application/json:
-            schema:
+              schema:
               {
                 "timestamp" : "2023-10-28T13:12:36.9863097",
                 "message" : "Combo deve conter um lanche, uma bebida e um acompanhamento"
               }
 
-/api/pedidos:
+  /api/pedidos:
     post:
       tags:
         - criaPedido
@@ -300,7 +301,8 @@ paths:
           description: Created
           content:
             application/json:
-              schema:{
+              schema:
+              {
                       "id": uuid,
                       "cpf": "00000000191" ,
                       "produtosId": [
@@ -312,7 +314,7 @@ paths:
                       "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
               }
 
-/api/pedidos/{uuid}:
+  /api/pedidos/{uuid}:
     get:
       tags:
         - buscaPedido
@@ -347,7 +349,7 @@ paths:
                       "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
                     }
 
-/api/pedidos/{uuid}/callback:
+  /api/pedidos/{uuid}/callback:
     patch:
       tags:
         - pagarPedido
@@ -368,7 +370,7 @@ paths:
         '204':
           description: Successfull operation (No Content)
 
-/api/pedidos/{uuid}/preparo-finalizado:
+  /api/pedidos/{uuid}/preparo-finalizado:
     patch:
       tags:
         - pagarPedido
@@ -403,7 +405,7 @@ paths:
                       "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
                     }          
 
-/api/pedidos/{uuid}/entregue:
+  /api/pedidos/{uuid}/entregue:
     patch:
       tags:
         - pagarPedido
