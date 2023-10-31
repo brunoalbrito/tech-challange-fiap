@@ -8,7 +8,7 @@ externalDocs:
   description: Sobre o projeto
   url: https://www.notion.so/Tech-Challenge-FIAP-2a8d164901e54f4e87d6763425323376
 servers:
-  - url: http://localhost:8080/api
+  - url: http://localhost:8080
 tags:
   - name: Auto atendimento
     description: Tudo sobre o auto atendimento
