@@ -268,7 +268,7 @@ paths:
           description: 'Bad request'
           content:
             application/json:
-            schema:
+              schema:
               {
                 "timestamp" : "2023-10-28T13:12:36.9863097",
                 "message" : "Combo deve conter um lanche, uma bebida e um acompanhamento"
