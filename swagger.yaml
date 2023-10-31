@@ -9,10 +9,6 @@ externalDocs:
   url: https://www.notion.so/Tech-Challenge-FIAP-2a8d164901e54f4e87d6763425323376
 servers:
   - url: http://localhost:8080
-    description: HTTP
-  - url: https://localhost:8080
-    description: HTTPS
-
 tags:
 - name: "Cliente"
   description: "Tudo sobre o cliente"
@@ -128,13 +124,13 @@ paths:
           requestBody:
             content:
               application/json:
-            schema:
-              type: object
-              properties:
-                  produtos:
-                    type: "object"
-                    example: ["ac45080a-ba2c-4380-be2c-e25c702cc9ef","221b9655-c759-41fd-a958-8dc1d2118c54","67ea9b61-18af-41e1-b782-540634ea450f"]
-                    description: uuid dos produtos
+                schema:
+                  type: object
+                  properties:
+                      produtos:
+                        type: "object"
+                        example: ["ac45080a-ba2c-4380-be2c-e25c702cc9ef","221b9655-c759-41fd-a958-8dc1d2118c54","67ea9b61-18af-41e1-b782-540634ea450f"]
+                        description: uuid dos produtos
           responses:
             "201":
               description: Created
