@@ -9,6 +9,9 @@ externalDocs:
   url: https://www.notion.so/Tech-Challenge-FIAP-2a8d164901e54f4e87d6763425323376
 servers:
   - url: http://localhost:8080
+schemes:
+  - "https"
+  - "http"
 tags:
 - name: "Cliente"
   description: "Tudo sobre o cliente"
