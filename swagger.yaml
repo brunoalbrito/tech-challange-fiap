@@ -34,7 +34,7 @@ paths:
               type: object
               maxProperties: 1
               properties:
-                name: "cpf"
+                cpf:
                 type: string
                 example: "00000000191"
                 description: Cpf do cliente
@@ -67,7 +67,7 @@ paths:
               type: object
               maxProperties: 1
               properties:
-                name:
+                descricao:
                   type: string
                   example: "Batata"
                   description: Descrição do ingrediente
@@ -94,7 +94,7 @@ paths:
                 type: object
                 maxProperties: 1
                 properties:
-                  name:
+                  nome:
                     type: string
                     example: "x-Salada"
                     description: Nome do lanche
@@ -204,7 +204,7 @@ paths:
             schema:
             type: object
             properties:
-              name:
+              produtos:
                 type: string
                 example: "ac45080a-ba2c-4380-be2c-e25c702cc9ef"
                 description: uuid do produto
@@ -302,7 +302,7 @@ paths:
                             "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
                             "221b9655-c759-41fd-a958-8dc1d2118c54"
                           ]
-                  description: Produtos que vai conter o pedido
+                  description: Produtos que vão conter o pedido
       responses:
         "201":
           description: Created
