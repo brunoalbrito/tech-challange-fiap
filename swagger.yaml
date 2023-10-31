@@ -8,7 +8,7 @@ externalDocs:
   description: Sobre o projeto
   url: https://www.notion.so/Tech-Challenge-FIAP-2a8d164901e54f4e87d6763425323376
 servers:
-  - url: https://localhost:8080
+  - url: http://localhost:8080
 tags:
 - name: "Cliente"
   description: "Tudo sobre o cliente"
@@ -114,62 +114,8 @@ paths:
           responses:
             "200":
               description: Successful operation
-              content:
-                application/json:
-                  schema:
-                      {
-                        "id": "22291f45-021e-4344-864d-f48855925add",
-                        "precoTotal": 55.00,
-                        "produtos": 
-                              [
-                                {
-                                  "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
-                                  "nome" : "X-Salada",
-                                  "descricao" : "Lanche com hamburguer e salada",
-                                  "preco" : 30.00,
-                                  "tipo" : "LANCHE",
-                                  "ingredientes" : 
-                                  [
-                                              {
-                                                "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
-                                                "descricao" : "tomate"
-                                              },
-                                              {
-                                                "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
-                                                "descricao" : "alface"
-                                              }
-                                  ]
-                                },
-                                {
-                                  "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
-                                  "nome" : "Bata frita",
-                                  "descricao" : "Batata tipo palito frita",
-                                  "preco" : 15.00,
-                                  "tipo" : "ACOMPANHAMENTO",
-                                  "ingredientes" : 
-                                  [
-                                              {
-                                                "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
-                                                "descricao" : "Batata"
-                                              }
-                                  ]
-                                },
-                                {
-                                  "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866",
-                                  "nome" : "Coca Cola",
-                                  "descricao" : "Bebida gaseificada",
-                                  "preco" : 10.00,
-                                  "tipo" : "BEBIDA",
-                                  "ingredientes" : 
-                                  [
-                                              {
-                                                "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
-                                                "descricao" : "Açucar"
-                                              }
-                                  ]
-                                }
-                              ] 
-                      }
+              schema:
+                    $ref: "#/definitions/Combos"
         post:
           tags:
             - Combos
@@ -188,71 +134,12 @@ paths:
           responses:
             "201":
               description: Created
-              content:
-                application/json:
-                  schema:
-                          {
-                            "id": uuid,
-                            "precoTotal": 55.00,
-                            "produtos": 
-                                        [
-                                          {
-                                            "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
-                                            "nome" : "X-Salada",
-                                            "descricao" : "Lanche com hamburguer e salada",
-                                            "preco" : 30.00,
-                                            "tipo" : "LANCHE",
-                                            "ingredientes" : 
-                                                            [
-                                                              {
-                                                                "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
-                                                                "descricao" : "tomate"
-                                                              },
-                                                              {
-                                                                "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
-                                                                "descricao" : "alface"
-                                                              }
-                                                            ]
-                                          },
-                                          {
-                                            "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
-                                            "nome" : "Bata frita",
-                                            "descricao" : "Batata tipo palito frita",
-                                            "preco" : 15.00,
-                                            "tipo" : "ACOMPANHAMENTO",
-                                            "ingredientes" : 
-                                                            [
-                                                              {
-                                                                "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
-                                                                "descricao" : "Batata"
-                                                              }
-                                                            ]
-                                          },
-                                          {
-                                            "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866",
-                                            "nome" : "Coca Cola",
-                                            "descricao" : "Bebida gaseificada",
-                                            "preco" : 10.00,
-                                            "tipo" : "BEBIDA",
-                                            "ingredientes" : 
-                                                            [
-                                                              {
-                                                                "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
-                                                                "descricao" : "Açucar"
-                                                              }
-                                                            ]
-                                          }
-                                        ] 
-                          }
+              schema:
+                    $ref: "#/definitions/Combos"
             "400":
               description: "Bad request"
-              content:
-                application/json:
-                  schema:
-                          {
-                            "timestamp" : "2023-10-28T13:12:36.9863097",
-                            "message" : "Combo deve conter um lanche, uma bebida e um acompanhamento"
-                          }
+              schema:
+                    $ref: "#/definitions/ApiResponse"
   
   /api/pedidos:
     post:
@@ -282,21 +169,8 @@ paths:
       responses:
         "201":
           description: Created
-          content:
-            application/json:
-              schema:
-                    {
-                      "id": uuid,
-                      "cpf": "00000000191" ,
-                      "produtosId": 
-                                  [
-                                    "221b9655-c759-41fd-a958-8dc1d2118c54",
-                                    "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
-                                    "67ea9b61-18af-41e1-b782-540634ea450f"
-                                  ],
-                      "status" : "AGUARDANDO_PAGAMENTO",
-                      "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
-                    }
+          schema:
+                $ref: "#/definitions/Pedido"
   
   /api/pedidos/{uuid}:
     get:
@@ -316,20 +190,8 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                    {
-                      "id": "e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc",
-                      "cpf": "00000000191",
-                      "produtosId": [
-                          "221b9655-c759-41fd-a958-8dc1d2118c54",
-                          "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
-                          "67ea9b61-18af-41e1-b782-540634ea450f"
-                        ],
-                      "status": "AGUARDANDO_PAGAMENTO",
-                      "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
-                    }
+          schema:
+                $ref: "#/definitions/Pedido"
 
   /api/pedidos/{uuid}/callback:
     patch:
@@ -368,20 +230,8 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                    {
-                      "id": "e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc",
-                      "cpf": "00000000191",
-                      "produtosId": [
-                          "221b9655-c759-41fd-a958-8dc1d2118c54",
-                          "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
-                          "67ea9b61-18af-41e1-b782-540634ea450f"
-                        ],
-                      "status": "PREPARO_FINALIZADO",
-                      "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
-                    }          
+          schema:
+                $ref: "#/definitions/Pedido"       
 
   /api/pedidos/{uuid}/entregue:
     patch:
@@ -402,20 +252,8 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                    {
-                      "id": "e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc",
-                      "cpf": "00000000191",
-                      "produtosId": [
-                          "221b9655-c759-41fd-a958-8dc1d2118c54",
-                          "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
-                          "67ea9b61-18af-41e1-b782-540634ea450f"
-                        ],
-                      "status": "ENTREGUE",
-                      "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
-                    }
+          schema:
+                $ref: "#/definitions/Pedido"
 
 definitions:
   ApiResponse:
@@ -469,5 +307,64 @@ definitions:
           descricao:
             type: string
             description: "descricao do ingrediente"
+
+  Combos:
+    type: "object"
+    properties:
+      id:
+        type: string
+        description: "id do combo"
+      precoTotal:
+        type: decimal
+        description: "Valor do combo"
+      produtos:
+        type: "object"
+        properties:
+          id:
+            type: string
+            description: "id do produto"
+          nome:
+            type: string
+            description: "nome do produto"
+          descricao:
+            type: string
+            description: "descricao do produto"
+          preco:
+            type: string
+            description: "valor do produto"
+          tipo:
+            type: string
+            description: "tipo do produto"
+          ingredientes:
+            type: "object"
+            properties:
+              id:
+                type: string
+                description: "id do ingrediente"
+              descricao:
+                type: string
+                description: "descrição do ingrediente"
+
+  Pedido:
+    type: "object"
+    properties:
+      id:
+        type: string
+        description: "id do pedido"
+      cpf:
+        type: string
+        description: "CPF do cliente"
+      produtosId:
+        type: "object"
+        properties:
+          type: string
+          description: "id dos produtos"
+      status:
+        type: string
+        description: "Status do pedido"
+      pagamentoQrCode:
+        type: string
+        description: "QR code para pagamento do pedido"
+
 
       
