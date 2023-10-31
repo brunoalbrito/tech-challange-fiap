@@ -40,19 +40,15 @@ paths:
       responses:
         "201":
           description: Created
-          content:
-            application/json:
-              schema:{"cpf:" "00000000191"}
+          schema:
+                $ref: "#/definitions/ApiResponse"
 
         "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                  {
-                    "timestamp" : "2023-10-28T13:12:36.9863097",
-                    "message" : "CPF inválido"
-                  }
+                  $ref: "#/definitions/ApiResponse"
             
   /api/ingredientes:
      post:
@@ -436,3 +432,15 @@ paths:
                       "status": "ENTREGUE",
                       "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
                     }
+
+definitions:
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
