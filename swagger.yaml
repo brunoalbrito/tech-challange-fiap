@@ -215,64 +215,68 @@ paths:
           content:
             application/json:
               schema:
-              {
-                "id": uuid,
-                "precoTotal": 55.00,
-                "produtos": [
-                  {
-                    "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
-                    "nome" : "X-Salada",
-                    "descricao" : "Lanche com hamburguer e salada",
-                    "preco" : 30.00,
-                    "tipo" : "LANCHE",
-                    "ingredientes" : [
                       {
-                        "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
-                        "descricao" : "tomate"
-                      },
-                      {
-                        "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
-                        "descricao" : "alface"
+                        "id": uuid,
+                        "precoTotal": 55.00,
+                        "produtos": 
+                                    [
+                                      {
+                                        "id": "ac45080a-ba2c-4380-be2c-e25c702cc9ef",
+                                        "nome" : "X-Salada",
+                                        "descricao" : "Lanche com hamburguer e salada",
+                                        "preco" : 30.00,
+                                        "tipo" : "LANCHE",
+                                        "ingredientes" : 
+                                                        [
+                                                          {
+                                                            "id" : "fc60471f-e7bf-4ace-bfef-a4b4581bd38a",
+                                                            "descricao" : "tomate"
+                                                          },
+                                                          {
+                                                            "id" : "fc60471f-e7bf-4ace-bfef-a4b4581b2354",
+                                                            "descricao" : "alface"
+                                                          }
+                                                        ]
+                                      },
+                                      {
+                                        "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
+                                        "nome" : "Bata frita",
+                                        "descricao" : "Batata tipo palito frita",
+                                        "preco" : 15.00,
+                                        "tipo" : "ACOMPANHAMENTO",
+                                        "ingredientes" : 
+                                                        [
+                                                          {
+                                                            "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
+                                                            "descricao" : "Batata"
+                                                          }
+                                                        ]
+                                      },
+                                      {
+                                        "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866",
+                                        "nome" : "Coca Cola",
+                                        "descricao" : "Bebida gaseificada",
+                                        "preco" : 10.00,
+                                        "tipo" : "BEBIDA",
+                                        "ingredientes" : 
+                                                        [
+                                                          {
+                                                            "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
+                                                            "descricao" : "Açucar"
+                                                          }
+                                                        ]
+                                      }
+                                    ] 
                       }
-                    ]
-                  },
-                  {
-                    "id": "edd7cc59-80ae-4334-965d-0484f45c3887",
-                    "nome" : "Bata frita",
-                    "descricao" : "Batata tipo palito frita",
-                    "preco" : 15.00,
-                    "tipo" : "ACOMPANHAMENTO",
-                    "ingredientes" : [
-                      {
-                        "id" : "7cb02e52-e83e-4b1f-8152-f451cd0ce62c",
-                        "descricao" : "Batata"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "9e1c56e6-ad22-4a7c-89bc-40a38b1db866",
-                    "nome" : "Coca Cola",
-                    "descricao" : "Bebida gaseificada",
-                    "preco" : 10.00,
-                    "tipo" : "BEBIDA",
-                    "ingredientes" : [
-                      {
-                        "id" : "90b4681d-30f5-4677-b794-06abc736ac7e",
-                        "descricao" : "Açucar"
-                      }
-                    ]
-                  }
-                ] 
-              }
         '400':
           description: 'Bad request'
           content:
             application/json:
               schema:
-              {
-                "timestamp" : "2023-10-28T13:12:36.9863097",
-                "message" : "Combo deve conter um lanche, uma bebida e um acompanhamento"
-              }
+                      {
+                        "timestamp" : "2023-10-28T13:12:36.9863097",
+                        "message" : "Combo deve conter um lanche, uma bebida e um acompanhamento"
+                      }
 
   /api/pedidos:
     post:
@@ -302,17 +306,18 @@ paths:
           content:
             application/json:
               schema:
-              {
+                    {
                       "id": uuid,
                       "cpf": "00000000191" ,
-                      "produtosId": [
-                         "221b9655-c759-41fd-a958-8dc1d2118c54",
-                          "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
-                          "67ea9b61-18af-41e1-b782-540634ea450f"
-                      ],
+                      "produtosId": 
+                                  [
+                                    "221b9655-c759-41fd-a958-8dc1d2118c54",
+                                    "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
+                                    "67ea9b61-18af-41e1-b782-540634ea450f"
+                                  ],
                       "status" : "AGUARDANDO_PAGAMENTO",
                       "pagamentoQrCode": "208b2bca-cd35-4b5e-be20-bd7725d6d17f"
-              }
+                    }
 
   /api/pedidos/{uuid}:
     get:
