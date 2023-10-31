@@ -34,18 +34,18 @@ paths:
               type: object
               maxProperties: 1
               properties:
-                name:
-                  type: string
-                  example: '00000000191'
-                  description: Cpf do cliente
+                name: "cpf"
+                type: string
+                example: "00000000191"
+                description: Cpf do cliente
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:{"cpf:" "00000000191"}
 
-        '400':
+        "400":
           description: Bad Request
           content:
             application/json:
@@ -69,10 +69,10 @@ paths:
               properties:
                 name:
                   type: string
-                  example: 'Batata'
+                  example: "Batata"
                   description: Descrição do ingrediente
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
@@ -96,26 +96,26 @@ paths:
                 properties:
                   name:
                     type: string
-                    example: 'x-Salada'
+                    example: "x-Salada"
                     description: Nome do lanche
                   preco:
                     type: decimal
                     example: 30.0
-                    description: 'Preço do lanche'
+                    description: "Preço do lanche"
                   descricao: 
                     type: string
-                    example: 'Lanche com salada de alface'
-                    description: 'Descrição do lanche'
+                    example: "Lanche com salada de alface"
+                    description: "Descrição do lanche"
                   tipo:
                     type: string
-                    example: 'lanche'
-                    description: 'Tipo do produto (Ex. lanche, acompanhamento, bebida)'
+                    example: "lanche"
+                    description: "Tipo do produto (Ex. lanche, acompanhamento, bebida)"
                   ingredientes: 
                     type: object
-                    example: ['7ad00a46-3e0b-483d-a05e-037d37c3db67']
+                    example: ["7ad00a46-3e0b-483d-a05e-037d37c3db67"]
                     description: "uuid do ingrediente cadastrado"
         responses:
-          '201':
+          "201":
             description: Created
             content:
               application/json:
@@ -125,23 +125,23 @@ paths:
                       "nome" : "X-salada",
                       "descricao" : "Lanche com salada de alface",
                       "preco": 30.0,
-                      "tipo" : 'lanche',
+                      "tipo" : "lanche",
                       "ingredientes": []
                     }
 
   /api/combos:
         get:
           tags:
-            - Combo
+            - Combos
           description: Tudo sobre combos
           responses:
-            '200':
+            "200":
               description: Successful operation
               content:
               application/json:
                 schema:
                     {
-                      "id": '22291f45-021e-4344-864d-f48855925add',
+                      "id": "22291f45-021e-4344-864d-f48855925add",
                       "precoTotal": 55.00,
                       "produtos": 
                             [
@@ -195,7 +195,7 @@ paths:
                     }
         post:
           tags:
-            - Combo
+            - Combos
           description:
             Cria um combo com os produtos cadastrados
           requestBody:
@@ -206,10 +206,10 @@ paths:
             properties:
               name:
                 type: string
-                example: 'ac45080a-ba2c-4380-be2c-e25c702cc9ef'
+                example: "ac45080a-ba2c-4380-be2c-e25c702cc9ef"
                 description: uuid do produto
           responses:
-            '201':
+            "201":
               description: Created
               content:
                 application/json:
@@ -267,8 +267,8 @@ paths:
                                           }
                                         ] 
                           }
-            '400':
-              description: 'Bad request'
+            "400":
+              description: "Bad request"
               content:
                 application/json:
                   schema:
@@ -277,7 +277,7 @@ paths:
                             "message" : "Combo deve conter um lanche, uma bebida e um acompanhamento"
                           }
   
-  /api/peidos:
+  /api/pedidos:
     post:
       tags:
         - Pedido
@@ -292,7 +292,7 @@ paths:
               properties:
                 clientId:
                   type: string
-                  example: '00000000191'
+                  example: "00000000191"
                   description: CPF do cliente
                 produtosId:
                   type: object
@@ -304,7 +304,7 @@ paths:
                           ]
                   description: Produtos que vai conter o pedido
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
@@ -336,9 +336,9 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 'e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc'
+            example: "e6b78e28-f4d9-4d39-ac7d-5ce0d72719cc"
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
@@ -369,9 +369,9 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 'e168e493-59fe-4610-a0c1-561112e79c15'        
+            example: "e168e493-59fe-4610-a0c1-561112e79c15"        
       responses:
-        '204':
+        "204":
           description: Successfull operation (No Content)
 
   /api/pedidos/{uuid}/preparo-finalizado:
@@ -388,9 +388,9 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 'e168e493-59fe-4610-a0c1-561112e79c15'        
+            example: "e168e493-59fe-4610-a0c1-561112e79c15"        
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
@@ -421,10 +421,10 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 'e168e493-59fe-4610-a0c1-561112e79c15'        
+            example: "e168e493-59fe-4610-a0c1-561112e79c15"        
   
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
