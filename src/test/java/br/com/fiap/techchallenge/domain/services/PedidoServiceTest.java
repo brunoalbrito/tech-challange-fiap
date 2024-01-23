@@ -1,19 +1,19 @@
 package br.com.fiap.techchallenge.domain.services;
 
 
-import br.com.fiap.techchallenge.application.controllers.request.PedidoRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
 import br.com.fiap.techchallenge.domain.Cliente;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Pagamento;
 import br.com.fiap.techchallenge.domain.Pedido;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.infrastructure.entity.ClienteEntity;
-import br.com.fiap.techchallenge.infrastructure.entity.PedidoEntity;
-import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
-import br.com.fiap.techchallenge.infrastructure.repository.ClienteRepository;
-import br.com.fiap.techchallenge.infrastructure.repository.PedidoRepository;
-import br.com.fiap.techchallenge.infrastructure.repository.ProdutoRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ClienteEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.PedidoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ClienteRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.PedidoRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

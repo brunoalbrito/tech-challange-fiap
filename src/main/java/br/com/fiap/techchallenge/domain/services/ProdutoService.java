@@ -1,11 +1,11 @@
 package br.com.fiap.techchallenge.domain.services;
 
-import br.com.fiap.techchallenge.application.controllers.request.ProdutoRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.ProdutoRequest;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
-import br.com.fiap.techchallenge.infrastructure.repository.ProdutoRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,11 +1,9 @@
 package br.com.fiap.techchallenge.domain;
 
-import br.com.fiap.techchallenge.infrastructure.entity.IngredienteEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
