@@ -19,15 +19,11 @@ public class ClienteTest {
 
     @Test
     public void naoDeveClienteClienteQuandoCPFInvalido() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Cliente.criaCliente("111111111111")
-        );
+        assertThrows(IllegalArgumentException.class, () -> Cliente.criaCliente("111111111111"));
     }
 
     @Test
     public void naoDeveClienteClienteQuandoCPFMenorQueOnzeDigitos() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Cliente.criaCliente("2631185587")
-        );
+        assertThrows(IllegalArgumentException.class, () -> Cliente.criaCliente("2631185587"));
     }
 }

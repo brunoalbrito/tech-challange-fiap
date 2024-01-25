@@ -21,18 +21,11 @@ public class ClienteEntity {
     @Id
     private String cpf;
 
-    /*
-     * public ClienteEntity(String cpf) {
-     * this.cpf = cpf;
-     * }
-     */
-
     public static ClienteEntity criaEntity(Cliente cliente) {
-        return ClienteEntity.criaEntity(cliente);
+        return new ClienteEntity(cliente.getCpf());
     }
 
     public Cliente toDomain() {
         return Cliente.criaCliente(this.cpf);
     }
-
 }
