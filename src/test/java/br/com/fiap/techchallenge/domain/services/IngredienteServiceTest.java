@@ -56,7 +56,7 @@ public class IngredienteServiceTest {
         when(ingredienteRepository.findById(id))
                 .thenReturn(Optional.of(ingredienteEntity));
 
-        List<Ingrediente> ingredientes = ingredienteService.buscaIngredientesPorId(List.of(id.toString()));
+        List<Ingrediente> ingredientes = ingredienteService.buscaIngredientesPorId(List.of(id));
 
         assertNotNull(ingredientes);
         assertEquals(ingredientes.size(), 1);
@@ -73,7 +73,7 @@ public class IngredienteServiceTest {
                 .thenReturn(Optional.empty());
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            ingredienteService.buscaIngredientesPorId(List.of(id.toString()));
+            ingredienteService.buscaIngredientesPorId(List.of(id));
         });
 
         assertEquals(exception.getMessage(), "Ingrediente não encontrado.");

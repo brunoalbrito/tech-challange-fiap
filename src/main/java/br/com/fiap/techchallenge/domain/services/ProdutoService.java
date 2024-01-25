@@ -22,7 +22,6 @@ public class ProdutoService {
 
     public Produto criaProduto(ProdutoRequest produtoRequest) {
 
-
         List<Ingrediente> ingredientes = ingredienteService.buscaIngredientesPorId(produtoRequest.getIngredientes());
 
         if (ingredientes.isEmpty()) {

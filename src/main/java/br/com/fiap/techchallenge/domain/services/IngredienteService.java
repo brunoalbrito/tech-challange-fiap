@@ -25,9 +25,9 @@ public class IngredienteService {
         return ingrediente;
     }
 
-    public List<Ingrediente> buscaIngredientesPorId(List<String> ingredientesId) {
+    public List<Ingrediente> buscaIngredientesPorId(List<UUID> ingredientesId) {
         List<IngredienteEntity> ingredientesEntity = ingredientesId.stream().
-                map(ingredienteId -> ingredienteRepository.findById(UUID.fromString(ingredienteId))
+                map(ingredienteId -> ingredienteRepository.findById(ingredienteId)
                         .orElseThrow(() -> new IllegalArgumentException("Ingrediente não encontrado."))).
                 toList();
 
