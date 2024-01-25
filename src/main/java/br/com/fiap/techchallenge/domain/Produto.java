@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.domain;
 
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.infrastructure.entity.IngredienteEntity;
-import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.IngredienteEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

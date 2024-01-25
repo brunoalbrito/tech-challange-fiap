@@ -1,14 +1,14 @@
 package br.com.fiap.techchallenge.domain.services;
 
-import br.com.fiap.techchallenge.application.controllers.request.ComboRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
 import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.infrastructure.entity.ComboEntity;
-import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
-import br.com.fiap.techchallenge.infrastructure.repository.ComboRepository;
-import br.com.fiap.techchallenge.infrastructure.repository.ProdutoRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ComboEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ComboRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.domain.services;
 
-import br.com.fiap.techchallenge.application.controllers.request.IngredienteRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.IngredienteRequest;
 import br.com.fiap.techchallenge.domain.Ingrediente;
-import br.com.fiap.techchallenge.infrastructure.entity.IngredienteEntity;
-import br.com.fiap.techchallenge.infrastructure.repository.IngredienteRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.IngredienteEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.IngredienteRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
