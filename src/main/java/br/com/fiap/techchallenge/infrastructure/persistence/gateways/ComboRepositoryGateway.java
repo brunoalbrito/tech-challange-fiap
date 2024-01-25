@@ -1,29 +1,36 @@
-package br.com.fiap.techchallenge.application.gateways.impl;
+package br.com.fiap.techchallenge.infrastructure.persistence.gateways;
 
 import br.com.fiap.techchallenge.application.gateways.ComboGateway;
 import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.response.ComboResponse;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ComboEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.mappers.ComboEntityMapper;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ComboRepository;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
 
-@Component
-public class ComboGatewayImpl implements ComboGateway {
+public class ComboRepositoryGateway implements ComboGateway {
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
 
-    @Autowired
-    private ComboRepository comboRepository;
+    private final ComboRepository comboRepository;
+
+    private final ComboEntityMapper comboEntityMapper;
+
+    public ComboRepositoryGateway(ProdutoRepository produtoRepository, ComboRepository comboRepository, 
+                                  ComboEntityMapper comboEntityMapper) {
+        this.produtoRepository = produtoRepository;
+        this.comboRepository = comboRepository;
+        this.comboEntityMapper = comboEntityMapper;
+    }
+
     @Override
-    public Combo criaCombo(ComboRequest comboRequest) {
+    public ComboResponse criaCombo(ComboRequest comboRequest) {
         List<Produto> produtos = comboRequest
                 .getProdutos()
                 .stream()
@@ -36,14 +43,14 @@ public class ComboGatewayImpl implements ComboGateway {
 
         Combo combo = Combo.criaCombo(UUID.randomUUID(), produtos);
         comboRepository.save(ComboEntity.criaComboEntity(combo));
-
-        return combo;
+        return comboEntityMapper.toResponse(combo);
     }
 
     @Override
-    public List<Combo> listaCombos() {
-        return comboRepository.findAll().stream()
+    public List<ComboResponse> listaCombos() {
+        List<Combo> combos = comboRepository.findAll().stream()
                 .map(ComboEntity::toDomain)
                 .toList();
+        return comboEntityMapper.toResponse(combos);
     }
 }
