@@ -24,8 +24,6 @@ public class ComboController {
 
     private ComboInteractor comboInteractor;
 
-    private ComboEntityMapper comboEntityMapper;
-
     @PostMapping
     public ResponseEntity<ComboResponse> criaCombo(@RequestBody final ComboRequest comboRequest) {
         var response = comboInteractor.criaCombo(comboRequest);
