@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.infrastructure.controllers;
 
 import br.com.fiap.techchallenge.infrastructure.controllers.request.ClienteRequest;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.ClienteResponse;
+import br.com.fiap.techchallenge.application.usecases.CreateClienteInteractor;
 import br.com.fiap.techchallenge.domain.Cliente;
 import br.com.fiap.techchallenge.domain.services.ClienteService;
 import lombok.AllArgsConstructor;
@@ -17,22 +18,32 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/clientes")
+
 public class ClienteController {
 
-    private ClienteService clienteService;
+    // private ClienteService clienteService;
+    private final CreateClienteInteractor createClienteInteractor;
+    private final ClienteDTOMapper clienteDTOMapper;
 
     @PostMapping
     public ResponseEntity<ClienteResponse> criaCliente(@RequestBody final ClienteRequest clienteRequest) {
 
         log.trace("Criando cliente");
 
-        Cliente cliente = clienteService.criaCliente(clienteRequest);
-        ClienteResponse clienteResponse = ClienteResponse.builder()
-                .cpf(cliente.getCpf())
-                .build();
+        /*
+         * Cliente cliente = clienteService.criaCliente(clienteRequest);
+         * ClienteResponse clienteResponse = ClienteResponse.builder()
+         * .cpf(cliente.getCpf())
+         * .build();
+         */
 
+        Cliente cliente = clienteDTOMapper.toCliente(clienteRequest);
+        Cliente clienteCreated = createClienteInteractor.createCliente(cliente);
 
-        log.trace(String.format("Cliente criado com sucesso: { Id: %s } ", cliente.getCpf()));
+        ClienteResponse clienteResponse = clienteDTOMapper.toResponse(clienteCreated);
+
+        log.trace(String.format("Cliente criado com sucesso: { Id: %s } ",
+                cliente.getCpf()));
 
         return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
     }
