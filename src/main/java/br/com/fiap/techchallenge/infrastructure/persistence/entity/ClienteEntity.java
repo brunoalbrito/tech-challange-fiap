@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.infrastructure.persistence.entity;
 
 import br.com.fiap.techchallenge.domain.Cliente;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ClienteEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,11 +21,18 @@ public class ClienteEntity {
     @Id
     private String cpf;
 
+    /*
+     * public ClienteEntity(String cpf) {
+     * this.cpf = cpf;
+     * }
+     */
+
     public static ClienteEntity criaEntity(Cliente cliente) {
-        return new ClienteEntity(cliente.getCpf());
+        return ClienteEntity.criaEntity(cliente);
     }
 
     public Cliente toDomain() {
         return Cliente.criaCliente(this.cpf);
     }
+
 }
