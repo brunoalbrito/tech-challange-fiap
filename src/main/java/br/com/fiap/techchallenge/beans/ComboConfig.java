@@ -4,7 +4,6 @@ import br.com.fiap.techchallenge.application.gateways.ComboGateway;
 import br.com.fiap.techchallenge.application.usecases.ComboInteractor;
 import br.com.fiap.techchallenge.infrastructure.persistence.gateways.ComboRepositoryGateway;
 import br.com.fiap.techchallenge.infrastructure.persistence.mappers.ComboEntityMapper;
-import br.com.fiap.techchallenge.infrastructure.persistence.mappers.UserEntityMapper;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ComboRepository;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +24,7 @@ public class ComboConfig {
     }
 
     @Bean
-    UserEntityMapper userEntityMapper() {
-        return new UserEntityMapper();
+    ComboEntityMapper userEntityMapper() {
+        return new ComboEntityMapper();
     }
 }
