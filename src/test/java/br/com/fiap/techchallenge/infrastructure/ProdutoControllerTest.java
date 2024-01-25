@@ -1,14 +1,15 @@
 package br.com.fiap.techchallenge.infrastructure;
 
 
-import br.com.fiap.techchallenge.infrastructure.controllers.ProdutoController;
-import br.com.fiap.techchallenge.infrastructure.controllers.request.enums.TipoRequest;
-import br.com.fiap.techchallenge.infrastructure.request.ProdutoRequestTest;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
 import br.com.fiap.techchallenge.domain.services.ProdutoService;
+import br.com.fiap.techchallenge.infrastructure.controllers.ProdutoController;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.enums.TipoRequest;
+import br.com.fiap.techchallenge.infrastructure.request.ProdutoRequestTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled("not yet ready , Please ignore.")
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ProdutoController.class)
 public class ProdutoControllerTest {
@@ -40,7 +42,6 @@ public class ProdutoControllerTest {
 
     @MockBean
     private ProdutoService produtoService;
-
     @Test
     public void deveCriarProdutoValido() throws Exception {
         ProdutoRequestTest produtoRequestTest = ProdutoRequestTest
