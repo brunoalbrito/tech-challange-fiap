@@ -19,7 +19,7 @@ public class ComboController {
 
     @PostMapping
     public ResponseEntity<ComboResponse> criaCombo(@RequestBody final ComboRequest comboRequest) {
-        var response = comboInteractor.criaCombo(comboRequest);
+        ComboResponse response = comboInteractor.criaCombo(comboRequest);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
