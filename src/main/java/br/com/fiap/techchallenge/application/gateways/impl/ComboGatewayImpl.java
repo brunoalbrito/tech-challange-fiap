@@ -8,6 +8,7 @@ import br.com.fiap.techchallenge.infrastructure.persistence.entity.ComboEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ComboRepository;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,8 +17,10 @@ import java.util.UUID;
 @Component
 public class ComboGatewayImpl implements ComboGateway {
 
+    @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
     private ComboRepository comboRepository;
     @Override
     public Combo criaCombo(ComboRequest comboRequest) {

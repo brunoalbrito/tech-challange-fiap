@@ -4,10 +4,12 @@ import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.ComboResponse;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.IngredienteResponse;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.ProdutoResponse;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class ComboEntityMapper {
     public ComboResponse toResponse(Combo combo) {
         var comboResponse = ComboResponse.builder();
