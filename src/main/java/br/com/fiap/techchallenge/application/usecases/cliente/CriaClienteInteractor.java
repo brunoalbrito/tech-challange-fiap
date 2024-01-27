@@ -3,14 +3,14 @@ package br.com.fiap.techchallenge.application.usecases.cliente;
 import br.com.fiap.techchallenge.application.gateways.ClienteGateway;
 import br.com.fiap.techchallenge.domain.Cliente;
 
-public class CreateClienteInteractor {
-    private ClienteGateway clienteGateway;
+public class CriaClienteInteractor {
+    private final ClienteGateway clienteGateway;
 
-    public CreateClienteInteractor(ClienteGateway clienteGateway) {
+    public CriaClienteInteractor(ClienteGateway clienteGateway) {
         this.clienteGateway = clienteGateway;
     }
 
-    public Cliente createCliente(Cliente cliente) {
+    public Cliente execute(Cliente cliente) {
         return clienteGateway.criaCliente(cliente);
     }
 

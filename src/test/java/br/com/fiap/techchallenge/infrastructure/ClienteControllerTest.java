@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.infrastructure;
 
+import br.com.fiap.techchallenge.application.usecases.cliente.CriaClienteInteractor;
 import br.com.fiap.techchallenge.infrastructure.controllers.ClienteController;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.ClienteRequest;
 import br.com.fiap.techchallenge.domain.Cliente;
-import br.com.fiap.techchallenge.domain.services.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +31,7 @@ public class ClienteControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private ClienteService clienteService;
+    private CriaClienteInteractor criaClienteInteractor;
 
     @Test
     public void deveCriarClienteValido() throws Exception {
@@ -39,8 +39,8 @@ public class ClienteControllerTest {
         ClienteRequest clienteRequest = ClienteRequest.criaClienteRequest(cpf);
 
         Cliente cliente = Cliente.criaCliente(cpf);
-        when(clienteService.criaCliente(any(ClienteRequest.class)))
-                .thenReturn(cliente);
+
+        when(criaClienteInteractor.execute(any(Cliente.class))).thenReturn(cliente);
 
         mockMvc.perform(post("/api/clientes")
                         .contentType(MediaType.APPLICATION_JSON)

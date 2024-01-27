@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.infrastructure.controllers;
 
-import br.com.fiap.techchallenge.application.usecases.cliente.CreateClienteInteractor;
+import br.com.fiap.techchallenge.application.usecases.cliente.CriaClienteInteractor;
 import br.com.fiap.techchallenge.domain.Cliente;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.ClienteRequest;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.ClienteResponse;
@@ -20,21 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class ClienteController {
 
-    private final CreateClienteInteractor createClienteInteractor;
-    private final ClienteDTOMapper clienteDTOMapper;
+    private final CriaClienteInteractor criaClienteInteractor;
 
     @PostMapping
     public ResponseEntity<ClienteResponse> criaCliente(@RequestBody final ClienteRequest clienteRequest) {
 
         log.trace("Criando cliente");
 
-        Cliente cliente = clienteDTOMapper.toCliente(clienteRequest);
-        Cliente clienteCreated = createClienteInteractor.createCliente(cliente);
+        Cliente cliente = criaClienteInteractor.execute(clienteRequest.toDomain());
 
-        ClienteResponse clienteResponse = clienteDTOMapper.toResponse(clienteCreated);
+        ClienteResponse clienteResponse = ClienteResponse.ofDomain(cliente);
 
-        log.trace(String.format("Cliente criado com sucesso: { Id: %s } ",
-                cliente.getCpf()));
+        log.trace(String.format("Cliente criado com sucesso: { Cpf: %s } ",
+                clienteResponse.getCpf()));
 
         return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
     }
