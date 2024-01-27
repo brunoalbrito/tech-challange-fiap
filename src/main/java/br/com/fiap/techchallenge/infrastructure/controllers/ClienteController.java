@@ -1,10 +1,9 @@
 package br.com.fiap.techchallenge.infrastructure.controllers;
 
-import br.com.fiap.techchallenge.infrastructure.controllers.request.ClienteRequest;
-import br.com.fiap.techchallenge.infrastructure.controllers.response.ClienteResponse;
 import br.com.fiap.techchallenge.application.usecases.CreateClienteInteractor;
 import br.com.fiap.techchallenge.domain.Cliente;
-import br.com.fiap.techchallenge.domain.services.ClienteService;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.ClienteRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.response.ClienteResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class ClienteController {
 
-    // private ClienteService clienteService;
     private final CreateClienteInteractor createClienteInteractor;
     private final ClienteDTOMapper clienteDTOMapper;
 
@@ -29,13 +27,6 @@ public class ClienteController {
     public ResponseEntity<ClienteResponse> criaCliente(@RequestBody final ClienteRequest clienteRequest) {
 
         log.trace("Criando cliente");
-
-        /*
-         * Cliente cliente = clienteService.criaCliente(clienteRequest);
-         * ClienteResponse clienteResponse = ClienteResponse.builder()
-         * .cpf(cliente.getCpf())
-         * .build();
-         */
 
         Cliente cliente = clienteDTOMapper.toCliente(clienteRequest);
         Cliente clienteCreated = createClienteInteractor.createCliente(cliente);

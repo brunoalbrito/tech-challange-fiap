@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.beans;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import br.com.fiap.techchallenge.application.gateways.ClienteGateway;
 import br.com.fiap.techchallenge.application.usecases.CreateClienteInteractor;
