@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.enums.TipoEntity;
@@ -43,28 +44,38 @@ public class ProdutoEntity {
     private TipoEntity tipo;
 
     public Produto toDomain() {
-        return Produto.criaProduto(id, nome, preco, descricao,
-            ingredientes.stream().map(IngredienteEntity::toDomain).toList(), Tipo.fromValue(this.tipo.getValue()));
+        List<Ingrediente> ingredientes = this.ingredientes.stream()
+                .map(IngredienteEntity::toDomain)
+                .toList();
+
+        return Produto.builder()
+                .id(this.id)
+                .nome(this.nome)
+                .descricao(this.descricao)
+                .preco(this.preco)
+                .ingredientes(ingredientes)
+                .tipo(Tipo.fromValue(this.tipo.getValue()))
+                .build();
     }
 
     public static List<Produto> toDomain(List<ProdutoEntity> produtoEntities) {
         return produtoEntities.stream()
-            .map(ProdutoEntity::toDomain)
-            .collect(Collectors.toList());
+                .map(ProdutoEntity::toDomain)
+                .collect(Collectors.toList());
     }
 
     public static ProdutoEntity toEntity(Produto produto) {
         List<IngredienteEntity> ingredientesEntity = produto.getIngredientes().stream()
-            .map(IngredienteEntity::criaEntity).toList();
+                .map(IngredienteEntity::criaEntity).toList();
 
         return new ProdutoEntity(produto.getId(), produto.getNome(), produto.getDescricao(), produto.getPreco(),
-            ingredientesEntity,
-            TipoEntity.valueOf(produto.getTipo().name()));
+                ingredientesEntity,
+                TipoEntity.valueOf(produto.getTipo().name()));
     }
 
     public static List<ProdutoEntity> toEntity(List<Produto> produtos) {
         return produtos.stream()
-            .map(ProdutoEntity::toEntity)
-            .collect(Collectors.toList());
+                .map(ProdutoEntity::toEntity)
+                .collect(Collectors.toList());
     }
 }

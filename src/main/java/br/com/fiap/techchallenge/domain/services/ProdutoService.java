@@ -28,7 +28,15 @@ public class ProdutoService {
             throw new IllegalArgumentException("Ingredientes informados não existem.");
         }
 
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), produtoRequest.getNome(), produtoRequest.getPreco(), produtoRequest.getDescricao(), ingredientes, Tipo.fromValue(produtoRequest.getTipo().getValue()));
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome(produtoRequest.getNome())
+                .preco(produtoRequest.getPreco())
+                .descricao(produtoRequest.getDescricao())
+                .ingredientes(ingredientes)
+                .tipo(Tipo.fromValue(produtoRequest.getTipo().getValue()))
+                .build();
+
         produtoRepository.save(ProdutoEntity.toEntity(produto));
         return produto;
     }
