@@ -16,12 +16,12 @@ public class PedidoRepositoryGateway implements PedidoGateway {
     }
 
     public Pedido buscaPorUUID(UUID pedidoId) {
-        return pedidoRepository.findById(pedidoId)
-                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado."))
-                .toDomain();
+        return pedidoRepository.findById(pedidoId).map(PedidoEntity::toDomain)
+                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado."));
     }
 
     public Pedido salva(Pedido pedido) {
-        return pedidoRepository.save(PedidoEntity.toEntity(pedido)).toDomain();
+        PedidoEntity pedidoEntity = PedidoEntity.toEntity(pedido);
+        return pedidoRepository.save(pedidoEntity).toDomain();
     }
 }
