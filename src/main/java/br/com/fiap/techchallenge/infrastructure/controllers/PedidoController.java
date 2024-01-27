@@ -2,10 +2,10 @@ package br.com.fiap.techchallenge.infrastructure.controllers;
 
 import br.com.fiap.techchallenge.application.usecases.pedido.BuscaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.ConfirmaEntregaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.CriaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.PreparoFinalizadoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.RecebePagamentoInteractor;
 import br.com.fiap.techchallenge.domain.Pedido;
-import br.com.fiap.techchallenge.domain.services.PedidoService;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.PedidoResponse;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PedidoController {
 
-    private final PedidoService service;
+    private final CriaPedidoInteractor criaPedidoInteractor;
 
     private final BuscaPedidoInteractor buscaPedidoInteractor;
 
@@ -38,9 +38,9 @@ public class PedidoController {
 
     @PostMapping
     public ResponseEntity<PedidoResponse> criaPedido(@RequestBody final PedidoRequest pedidoRequest) {
-        Pedido pedido = service.cria(pedidoRequest);
-        PedidoResponse pedidoResponse = PedidoResponse.ofDomain(pedido);
+        Pedido pedido = criaPedidoInteractor.execute(pedidoRequest);
 
+        PedidoResponse pedidoResponse = PedidoResponse.ofDomain(pedido);
         return new ResponseEntity<>(pedidoResponse, HttpStatus.CREATED);
     }
 

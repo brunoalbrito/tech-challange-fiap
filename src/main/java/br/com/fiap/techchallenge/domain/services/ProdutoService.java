@@ -25,7 +25,7 @@ public class ProdutoService {
         List<Ingrediente> ingredientes = ingredienteService.buscaIngredientesPorId(produtoRequest.getIngredientes());
 
         if (ingredientes.isEmpty()) {
-            throw new IllegalArgumentException("Ingredientes não pode ser nulo ou vazio.");
+            throw new IllegalArgumentException("Ingredientes informados não existem.");
         }
 
         Produto produto = Produto.criaProduto(UUID.randomUUID(), produtoRequest.getNome(), produtoRequest.getPreco(), produtoRequest.getDescricao(), ingredientes, Tipo.fromValue(produtoRequest.getTipo().getValue()));

@@ -18,11 +18,15 @@ public class RecebePagamentoInteractor {
 
     public void execute(UUID pedidoId) {
         Pedido pedido = pedidoGateway.buscaPorUUID(pedidoId);
-        if (pagamentoGateway.estaPago(pedidoId)) {
-            pedido.pagamentoRecebido();
-            pedidoGateway.salva(pedido);
-        }
+        verificaPedidoPago(pedidoId);
 
-        throw new RuntimeException("De acordo com o provedor de pagamento, esse pedido não está pago");
+        pedido.pagamentoRecebido();
+        pedidoGateway.salva(pedido);
+    }
+
+    private void verificaPedidoPago(UUID pedidoId) {
+        if (!pagamentoGateway.estaPago(pedidoId)) {
+            throw new RuntimeException("De acordo com o provedor de pagamento, esse pedido não está pago");
+        }
     }
 }

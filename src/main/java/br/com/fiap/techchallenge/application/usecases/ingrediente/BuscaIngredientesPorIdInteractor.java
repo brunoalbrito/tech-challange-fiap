@@ -18,7 +18,7 @@ public class BuscaIngredientesPorIdInteractor {
         List<Ingrediente> ingredientes = ingredienteGateway.buscaIngredientesPorId(domainObject);
 
         if (ingredientes.isEmpty()) {
-            throw new IllegalArgumentException("Ingredientes não pode ser nulo ou vazio.");
+            throw new IllegalArgumentException("Ingredientes informados não existem.");
         }
 
         return ingredientes;

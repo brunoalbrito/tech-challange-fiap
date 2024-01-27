@@ -22,7 +22,7 @@ public class RestResponseExceptionHandler
             RuntimeException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
+        body.put("timestamp", LocalDateTime.now().toString());
         body.put("message", ex.getMessage());
         return handleExceptionInternal(ex, body,
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
