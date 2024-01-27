@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: deployment
+  labels:
+    app: deployment
+spec:
+  containers:
+    - name: fiap-tech-challenge
+      image: 'tech-challenge:latest'
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 8080
+      env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres:5432/postgres
+        - name: SPRING_DATASOURCE_USERNAME
+          value: secret
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: myuser
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: update
