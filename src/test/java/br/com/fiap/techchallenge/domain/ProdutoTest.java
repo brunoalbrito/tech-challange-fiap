@@ -15,7 +15,16 @@ public class ProdutoTest {
     @Test
     public void deveCriarLanche() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE);
+
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("X-Bacon")
+                .preco(BigDecimal.TEN)
+                .descricao("Lanche")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.LANCHE)
+                .build();
+
 
         assertNotNull(produto);
         assertNotNull(produto.getId());
@@ -29,7 +38,16 @@ public class ProdutoTest {
     @Test
     public void deveCriarBebida() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Refrigerante");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "Coca-Cola", BigDecimal.TEN, "Bebida", List.of(ingrediente), Tipo.BEBIDA);
+
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Coca-Cola")
+                .preco(BigDecimal.TEN)
+                .descricao("Bebida")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.BEBIDA)
+                .build();
+
 
         assertNotNull(produto);
         assertNotNull(produto.getId());
@@ -43,7 +61,15 @@ public class ProdutoTest {
     @Test
     public void deveCriarSobremesa() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Chocolate");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "Doce", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.ACOMPANHAMENTO);
+
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Doce")
+                .preco(BigDecimal.TEN)
+                .descricao("Lanche")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.ACOMPANHAMENTO)
+                .build();
 
         assertNotNull(produto);
         assertNotNull(produto.getId());
@@ -58,7 +84,14 @@ public class ProdutoTest {
     public void naoDeveCriarProdutoQuandoNomeVazio() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         assertThrows(IllegalArgumentException.class, () ->
-                Produto.criaProduto(UUID.randomUUID(), "", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.LANCHE)
+                Produto.builder()
+                        .id(UUID.randomUUID())
+                        .nome("")
+                        .preco(BigDecimal.TEN)
+                        .descricao("Lanche")
+                        .ingredientes(List.of(ingrediente))
+                        .tipo(Tipo.LANCHE)
+                        .build()
         );
     }
 
@@ -66,7 +99,14 @@ public class ProdutoTest {
     public void naoDeveCriarProdutoQuandoPrecoMenorQueZero() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         assertThrows(IllegalArgumentException.class, () ->
-                Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.valueOf(-1), "Lanche", List.of(ingrediente), Tipo.LANCHE)
+                Produto.builder()
+                        .id(UUID.randomUUID())
+                        .nome("X-Bacon")
+                        .preco(BigDecimal.valueOf(-1))
+                        .descricao("Lanche")
+                        .ingredientes(List.of(ingrediente))
+                        .tipo(Tipo.LANCHE)
+                        .build()
         );
     }
 
@@ -74,21 +114,42 @@ public class ProdutoTest {
     public void naoDeveCriarProdutoQuandoDescricaoVazia() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         assertThrows(IllegalArgumentException.class, () ->
-                Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "", List.of(ingrediente), Tipo.LANCHE)
+                Produto.builder()
+                        .id(UUID.randomUUID())
+                        .nome("X-Bacon")
+                        .preco(BigDecimal.TEN)
+                        .descricao("")
+                        .ingredientes(List.of(ingrediente))
+                        .tipo(Tipo.LANCHE)
+                        .build()
         );
     }
 
     @Test
     public void naoDeveCriarProdutoQuandoIngredientesVazio() {
         assertThrows(IllegalArgumentException.class, () ->
-                Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(), Tipo.LANCHE)
+                Produto.builder()
+                        .id(UUID.randomUUID())
+                        .nome("X-Bacon")
+                        .preco(BigDecimal.TEN)
+                        .descricao("Lanche")
+                        .ingredientes(List.of())
+                        .tipo(Tipo.LANCHE)
+                        .build()
         );
     }
 
     @Test
     public void naoDeveCriarProdutoQuandoIngredientesNulo() {
         assertThrows(IllegalArgumentException.class, () ->
-                Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", null, Tipo.LANCHE)
+                Produto.builder()
+                        .id(UUID.randomUUID())
+                        .nome("X-Bacon")
+                        .preco(BigDecimal.TEN)
+                        .descricao("Lanche")
+                        .ingredientes(null)
+                        .tipo(Tipo.LANCHE)
+                        .build()
         );
     }
 
@@ -96,7 +157,14 @@ public class ProdutoTest {
     public void naoDeveCriarProdutoQuandoTipoNulo() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         assertThrows(IllegalArgumentException.class, () ->
-                Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), null)
+                Produto.builder()
+                        .id(UUID.randomUUID())
+                        .nome("X-Bacon")
+                        .preco(BigDecimal.TEN)
+                        .descricao("Lanche")
+                        .ingredientes(List.of(ingrediente))
+                        .tipo(null)
+                        .build()
         );
     }
 
@@ -104,7 +172,14 @@ public class ProdutoTest {
     public void naoDeveCriarProdutoQuandoTipoVazio() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         assertThrows(IllegalArgumentException.class, () ->
-                Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.valueOf(""))
+                Produto.builder()
+                        .id(UUID.randomUUID())
+                        .nome("X-Bacon")
+                        .preco(BigDecimal.TEN)
+                        .descricao("Lanche")
+                        .ingredientes(List.of(ingrediente))
+                        .tipo(Tipo.valueOf(""))
+                        .build()
         );
     }
 
@@ -112,7 +187,14 @@ public class ProdutoTest {
     public void naoDeveCriarProdutoQuandoTipoInvalido() {
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Pão");
         assertThrows(IllegalArgumentException.class, () ->
-                Produto.criaProduto(UUID.randomUUID(), "X-Bacon", BigDecimal.TEN, "Lanche", List.of(ingrediente), Tipo.valueOf("INVALIDO"))
+                Produto.builder()
+                        .id(UUID.randomUUID())
+                        .nome("X-Bacon")
+                        .preco(BigDecimal.TEN)
+                        .descricao("Lanche")
+                        .ingredientes(List.of(ingrediente))
+                        .tipo(Tipo.valueOf("INVALIDO"))
+                        .build()
         );
     }
 }

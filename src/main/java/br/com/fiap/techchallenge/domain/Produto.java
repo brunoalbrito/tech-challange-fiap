@@ -1,11 +1,8 @@
 package br.com.fiap.techchallenge.domain;
 
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.infrastructure.persistence.entity.IngredienteEntity;
-import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -14,7 +11,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-@Builder
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Produto {
@@ -68,8 +64,11 @@ public class Produto {
             throw new IllegalArgumentException("Tipo não pode ser nulo.");
         }
     }
+    public static Builder builder() {
+        return new Builder();
+    }
 
-    private static class Builder {
+    public static class Builder {
         private UUID id;
         private String nome;
         private BigDecimal preco;
@@ -82,7 +81,7 @@ public class Produto {
             return this;
         }
 
-        public Builder name(String nome) {
+        public Builder nome(String nome) {
             Produto.validateNome(nome);
             this.nome = nome;
             return this;
