@@ -5,6 +5,7 @@ import br.com.fiap.techchallenge.infrastructure.persistence.entity.IngredienteEn
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
+@Builder
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Produto {
@@ -28,7 +30,7 @@ public class Produto {
 
     private Tipo tipo;
 
-    public static Produto criaProduto(UUID id, String nome, BigDecimal preco, String descricao, List<Ingrediente> ingredientes, Tipo tipo) {
+    private static Produto criaProduto(UUID id, String nome, BigDecimal preco, String descricao, List<Ingrediente> ingredientes, Tipo tipo) {
         validateNome(nome);
         validatePreco(preco);
         validateDescricao(descricao);
@@ -67,8 +69,51 @@ public class Produto {
         }
     }
 
-    public static Produto toDomain(ProdutoEntity produtoEntity) {
-        var ingredientesEntity = produtoEntity.getIngredientes().stream().map(IngredienteEntity::toDomain).toList();
-        return Produto.criaProduto(produtoEntity.getId(), produtoEntity.getNome(), produtoEntity.getPreco(), produtoEntity.getDescricao(), ingredientesEntity, Tipo.fromValue(produtoEntity.getTipo().getValue()));
+    private static class Builder {
+        private UUID id;
+        private String nome;
+        private BigDecimal preco;
+        private String descricao;
+        private List<Ingrediente> ingredientes;
+        private Tipo tipo;
+
+        public Builder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String nome) {
+            Produto.validateNome(nome);
+            this.nome = nome;
+            return this;
+        }
+
+        public Builder preco(BigDecimal preco) {
+            Produto.validatePreco(preco);
+            this.preco = preco;
+            return this;
+        }
+
+        public Builder descricao(String descricao) {
+            Produto.validateDescricao(descricao);
+            this.descricao = descricao;
+            return this;
+        }
+
+        public Builder ingredientes(List<Ingrediente> ingredientes) {
+            Produto.validateIngredientes(ingredientes);
+            this.ingredientes = ingredientes;
+            return this;
+        }
+
+        public Builder tipo(Tipo tipo) {
+            Produto.validateTipo(tipo);
+            this.tipo = tipo;
+            return this;
+        }
+
+        public Produto build() {
+            return Produto.criaProduto(id, nome, preco, descricao, ingredientes, tipo);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.infrastructure.controllers.request.enums;
 
+import br.com.fiap.techchallenge.domain.enums.Tipo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -33,5 +34,9 @@ public enum TipoRequest {
             }
         }
         throw new IllegalArgumentException("Invalid enum value: " + value);
+    }
+
+    public Tipo toDomain() {
+        return Tipo.fromValue(tipo);
     }
 }

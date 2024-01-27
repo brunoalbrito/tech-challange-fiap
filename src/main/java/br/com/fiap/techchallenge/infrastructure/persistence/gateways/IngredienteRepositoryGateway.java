@@ -18,6 +18,17 @@ public class IngredienteRepositoryGateway implements IngredienteGateway {
 
     @Override
     public List<Ingrediente> buscaIngredientesPorId(List<UUID> ids) {
-        return ingredienteRepository.findAllById(ids).stream().map(IngredienteEntity::toDomain).toList();
+        List<Ingrediente> ingredientes = ingredienteRepository.findAllById(ids).stream().map(IngredienteEntity::toDomain).toList();
+
+        List<UUID> ingredientesInvalidos = ids
+                .stream()
+                .filter(id -> ingredientes.stream().noneMatch(ingrediente -> ingrediente.getId().equals(id)))
+                .toList();
+
+        if (!ingredientesInvalidos.isEmpty()) {
+            throw new IllegalArgumentException("Ingredientes não encontrados: " + ingredientesInvalidos);
+        }
+
+        return ingredientes;
     }
 }

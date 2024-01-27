@@ -24,7 +24,7 @@ public class IngredienteController {
         Ingrediente ingrediente = ingredienteService.criaIngrediente(ingredienteRequest);
 
         IngredienteResponse ingredienteResponse = IngredienteResponse.builder()
-                .id(ingrediente.getId().toString())
+                .id(ingrediente.getId())
                 .descricao(ingrediente.getDescricao())
                 .build();
 

@@ -51,7 +51,7 @@ public class ComboDtoMapper {
 
     private IngredienteResponse toIngredienteResponse(Ingrediente ingrediente) {
         return IngredienteResponse.builder()
-                .id(ingrediente.getId().toString())
+                .id(ingrediente.getId())
                 .descricao(ingrediente.getDescricao())
                 .build();
     }
