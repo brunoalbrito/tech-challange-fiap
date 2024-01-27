@@ -30,7 +30,7 @@ public class ComboConfig {
     }
 
     @Bean
-    ComboDtoMapper comboEntityMapper() {
+    ComboDtoMapper comboDtoMapper() {
         return new ComboDtoMapper();
     }
 }
