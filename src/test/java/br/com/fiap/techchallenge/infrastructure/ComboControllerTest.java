@@ -1,13 +1,13 @@
 package br.com.fiap.techchallenge.infrastructure;
 
-import br.com.fiap.techchallenge.infrastructure.controllers.ComboController;
-import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
-import br.com.fiap.techchallenge.infrastructure.request.ComboRequestTest;
 import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
 import br.com.fiap.techchallenge.domain.services.ComboService;
+import br.com.fiap.techchallenge.infrastructure.controllers.ComboController;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
+import br.com.fiap.techchallenge.infrastructure.request.ComboRequestTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -24,8 +24,8 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,9 +49,32 @@ public class ComboControllerTest {
         ComboRequestTest comboRequestTest = ComboRequestTest.criaComboRequestTest(List.of(id.toString()));
 
         Ingrediente ingrediente = Ingrediente.criaIngrediente(id, "descricao");
-        Produto lanche = Produto.criaProduto(id, "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.LANCHE);
-        Produto bebida = Produto.criaProduto(id, "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.BEBIDA);
-        Produto acompanhamento = Produto.criaProduto(id, "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.ACOMPANHAMENTO);
+        Produto lanche = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.LANCHE)
+                .build();
+
+        Produto bebida = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.BEBIDA)
+                .build();
+
+        Produto acompanhamento = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.ACOMPANHAMENTO)
+                .build();
 
         Combo combo = Combo.criaCombo(id, List.of(lanche, bebida, acompanhamento));
 
@@ -111,10 +134,33 @@ public class ComboControllerTest {
         UUID id = UUID.randomUUID();
 
         Ingrediente ingrediente = Ingrediente.criaIngrediente(id, "descricao");
-        Produto lanche = Produto.criaProduto(id, "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.LANCHE);
-        Produto bebida = Produto.criaProduto(id, "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.BEBIDA);
-        Produto acompanhamento = Produto.criaProduto(id, "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.ACOMPANHAMENTO);
 
+        Produto lanche = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.LANCHE)
+                .build();
+
+        Produto bebida = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.BEBIDA)
+                .build();
+
+        Produto acompanhamento = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.ACOMPANHAMENTO)
+                .build();
 
         Combo combo = Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida, acompanhamento));
         when(comboService.listaCombos()).thenReturn(List.of(combo));

@@ -1,7 +1,5 @@
 package br.com.fiap.techchallenge.infrastructure;
 
-import br.com.fiap.techchallenge.infrastructure.controllers.PedidoController;
-import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
 import br.com.fiap.techchallenge.domain.Cliente;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Pagamento;
@@ -9,6 +7,8 @@ import br.com.fiap.techchallenge.domain.Pedido;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
 import br.com.fiap.techchallenge.domain.services.PedidoService;
+import br.com.fiap.techchallenge.infrastructure.controllers.PedidoController;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -59,7 +59,16 @@ public class PedidoControllerTest {
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "qrCode");
         Cliente cliente = Cliente.criaCliente("64884281799");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Ingrediente");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "Produto", BigDecimal.TEN, "Descricao", List.of(ingrediente), Tipo.LANCHE);
+
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.LANCHE)
+                .build();
+
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
 
         when(pedidoService.cria(any(PedidoRequest.class)))
@@ -77,8 +86,18 @@ public class PedidoControllerTest {
     @Test
     public void deveBuscarPedidoPorId() throws Exception {
 
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Ingrediente")))
+                .tipo(Tipo.LANCHE)
+                .build();
+
+
         when(pedidoService.buscar(any(UUID.class)))
-                .thenReturn(Pedido.criaPedido(UUID.randomUUID(), Cliente.criaCliente("64884281799"), List.of(Produto.criaProduto(UUID.randomUUID(), "Produto", BigDecimal.TEN, "Descricao", List.of(Ingrediente.criaIngrediente(UUID.randomUUID(), "Ingrediente")), Tipo.LANCHE)), Pagamento.criaPagamento(UUID.randomUUID(), "qrCode")));
+                .thenReturn(Pedido.criaPedido(UUID.randomUUID(), Cliente.criaCliente("64884281799"), List.of(produto), Pagamento.criaPagamento(UUID.randomUUID(), "qrCode")));
 
         mockMvc.perform(get("/api/pedidos/{id}", UUID.randomUUID())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -96,7 +115,14 @@ public class PedidoControllerTest {
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "qrCode");
         Cliente cliente = Cliente.criaCliente("64884281799");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Ingrediente");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "Produto", BigDecimal.TEN, "Descricao", List.of(ingrediente), Tipo.LANCHE);
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.LANCHE)
+                .build();
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
 
         pedido.pagamentoRecebido();
@@ -117,7 +143,15 @@ public class PedidoControllerTest {
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "qrCode");
         Cliente cliente = Cliente.criaCliente("64884281799");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Ingrediente");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "Produto", BigDecimal.TEN, "Descricao", List.of(ingrediente), Tipo.LANCHE);
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.LANCHE)
+                .build();
+
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
 
         pedido.pagamentoRecebido();
@@ -144,7 +178,14 @@ public class PedidoControllerTest {
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "qrCode");
         Cliente cliente = Cliente.criaCliente("64884281799");
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Ingrediente");
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "Produto", BigDecimal.TEN, "Descricao", List.of(ingrediente), Tipo.LANCHE);
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.LANCHE)
+                .build();
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
 
         pedido.pagamentoRecebido();

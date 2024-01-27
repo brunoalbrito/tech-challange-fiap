@@ -42,15 +42,22 @@ public class ProdutoControllerTest {
 
     @MockBean
     private ProdutoService produtoService;
+
     @Test
     public void deveCriarProdutoValido() throws Exception {
         ProdutoRequestTest produtoRequestTest = ProdutoRequestTest
                 .criaComboRequestTest(UUID.randomUUID().toString(), "Combo Teste", BigDecimal.TEN, "Combo Teste", List.of(UUID.randomUUID().toString()), TipoRequest.LANCHE);
 
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "Ingrediente Teste");
-
-
-        Produto produto = Produto.criaProduto(UUID.randomUUID(), "Combo Teste", BigDecimal.TEN, "Combo Teste", List.of(ingrediente), Tipo.LANCHE);
+        
+        Produto produto = Produto.builder()
+                .id(UUID.randomUUID())
+                .nome("Produto")
+                .preco(BigDecimal.TEN)
+                .descricao("Descricao")
+                .ingredientes(List.of(ingrediente))
+                .tipo(Tipo.LANCHE)
+                .build();
 
         when(produtoService.criaProduto(any()))
                 .thenReturn(produto);
