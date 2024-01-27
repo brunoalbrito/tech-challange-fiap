@@ -1,11 +1,10 @@
 package br.com.fiap.techchallenge.infrastructure.controllers;
 
-import java.util.UUID;
-
-import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
-import br.com.fiap.techchallenge.infrastructure.controllers.response.PedidoResponse;
+import br.com.fiap.techchallenge.application.usecases.pedido.BuscaPedidoInteractor;
 import br.com.fiap.techchallenge.domain.Pedido;
 import br.com.fiap.techchallenge.domain.services.PedidoService;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.response.PedidoResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/pedidos")
 @AllArgsConstructor
 public class PedidoController {
 
-    final PedidoService service;
+    private final PedidoService service;
+
+    private final BuscaPedidoInteractor buscaPedidoInteractor;
 
     @PostMapping
     public ResponseEntity<PedidoResponse> criaPedido(@RequestBody final PedidoRequest pedidoRequest) {
@@ -31,7 +34,7 @@ public class PedidoController {
 
     @GetMapping("{id}")
     public ResponseEntity<PedidoResponse> buscarPedido(@PathVariable("id") final UUID pedidoId) {
-        return ResponseEntity.ok(PedidoResponse.ofDomain(service.buscar(pedidoId)));
+        return ResponseEntity.ok(PedidoResponse.ofDomain(buscaPedidoInteractor.execute(pedidoId)));
     }
 
     @PatchMapping("{id}/callback")
