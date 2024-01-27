@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.infrastructure.controllers;
 
 import br.com.fiap.techchallenge.application.usecases.ingrediente.BuscaIngredientesPorIdInteractor;
-import br.com.fiap.techchallenge.application.usecases.pedido.CriaProdutoInteractor;
+import br.com.fiap.techchallenge.application.usecases.produto.CriaProdutoInteractor;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.infrastructure.controllers.mappers.ProdutoRequestMapper;
