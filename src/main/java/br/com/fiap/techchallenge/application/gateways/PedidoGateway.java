@@ -7,4 +7,6 @@ import java.util.UUID;
 public interface PedidoGateway {
 
     Pedido buscaPorUUID(UUID uuid);
+
+    Pedido salva(Pedido pedido);
 }

@@ -17,7 +17,6 @@ public class PagamentoService {
 
     public boolean estaPago(UUID pedidoId) {
         log.info("Sempre devolve a verificacao do pagamento como feito.");
-
         return true;
     }
 }
