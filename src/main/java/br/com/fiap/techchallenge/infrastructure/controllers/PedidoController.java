@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.infrastructure.controllers;
 
 import br.com.fiap.techchallenge.application.usecases.pedido.BuscaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.ConfirmaEntregaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.PreparoFinalizadoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.RecebePagamentoInteractor;
 import br.com.fiap.techchallenge.domain.Pedido;
 import br.com.fiap.techchallenge.domain.services.PedidoService;
@@ -31,6 +32,8 @@ public class PedidoController {
 
     private final RecebePagamentoInteractor recebePagamentoInteractor;
 
+    private final PreparoFinalizadoInteractor preparoFinalizadoInteractor;
+
     private final ConfirmaEntregaPedidoInteractor confirmaEntregaPedidoInteractor;
 
     @PostMapping
@@ -56,16 +59,19 @@ public class PedidoController {
         return ResponseEntity.accepted().build();
     }
 
+    @PatchMapping("{id}/preparo-finalizado")
+    public ResponseEntity<PedidoResponse> preparoFinalizado(@PathVariable("id") final UUID pedidoId) {
+        Pedido pedido = preparoFinalizadoInteractor.execute(pedidoId);
+        PedidoResponse pedidoResponse = PedidoResponse.ofDomain(pedido);
+
+        return ResponseEntity.ok(pedidoResponse);
+    }
+
     @PatchMapping("{id}/entregue")
     public ResponseEntity<PedidoResponse> entregue(@PathVariable("id") final UUID pedidoId) {
         Pedido pedido = confirmaEntregaPedidoInteractor.execute(pedidoId);
         PedidoResponse pedidoResponse = PedidoResponse.ofDomain(pedido);
 
         return ResponseEntity.ok(pedidoResponse);
-    }
-
-    @PatchMapping("{id}/preparo-finalizado")
-    public ResponseEntity<PedidoResponse> preparoFinalizado(@PathVariable("id") final UUID pedidoId) {
-        return ResponseEntity.ok(PedidoResponse.ofDomain(service.preparoFinalizado(pedidoId)));
     }
 }
