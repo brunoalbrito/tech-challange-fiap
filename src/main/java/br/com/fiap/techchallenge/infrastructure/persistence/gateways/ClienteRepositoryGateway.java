@@ -15,7 +15,15 @@ public class ClienteRepositoryGateway implements ClienteGateway {
     @Override
     public Cliente criaCliente(Cliente cliente) {
         ClienteEntity clienteEntity = ClienteEntity.criaEntity(cliente);
-        return clienteRepository.save(clienteEntity).toDomain();
 
+        return clienteRepository.save(clienteEntity).toDomain();
+    }
+
+    @Override
+    public Cliente buscaPorCpf(String cpf) {
+        ClienteEntity clienteEntity = clienteRepository.findById(cpf)
+                .orElseThrow(() -> new IllegalArgumentException("Não foi encontrado cliente com o CPF: " + cpf));
+
+        return clienteEntity.toDomain();
     }
 }

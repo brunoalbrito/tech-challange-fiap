@@ -5,6 +5,9 @@ import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
 
+import java.util.List;
+import java.util.UUID;
+
 public class ProdutoRepositoryGateway implements ProdutoGateway {
 
     private final ProdutoRepository produtoRepository;
@@ -18,5 +21,21 @@ public class ProdutoRepositoryGateway implements ProdutoGateway {
         ProdutoEntity produtoEntity = ProdutoEntity.toEntity(produto);
 
         return produtoRepository.save(produtoEntity).toDomain();
+    }
+
+    @Override
+    public List<Produto> buscaPorUuids(List<UUID> produtosId) {
+        List<Produto> produtos = ProdutoEntity.toDomain(produtoRepository.findAllById(produtosId));
+
+        List<UUID> invalidProducts = produtosId.stream()
+                .filter(
+                        uuid -> !produtos.stream().map(Produto::getId).toList().contains(uuid)
+                ).toList();
+
+        if (!invalidProducts.isEmpty()) {
+            throw new IllegalArgumentException("Produtos não encontrado:" + invalidProducts);
+        }
+
+        return produtos;
     }
 }
