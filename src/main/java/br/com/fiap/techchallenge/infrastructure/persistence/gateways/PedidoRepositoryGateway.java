@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.infrastructure.persistence.gateways;
 
 import br.com.fiap.techchallenge.application.gateways.PedidoGateway;
 import br.com.fiap.techchallenge.domain.Pedido;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.PedidoEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.PedidoRepository;
 
 import java.util.UUID;
@@ -18,5 +19,9 @@ public class PedidoRepositoryGateway implements PedidoGateway {
         return pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado."))
                 .toDomain();
+    }
+
+    public Pedido salva(Pedido pedido) {
+        return pedidoRepository.save(PedidoEntity.toEntity(pedido)).toDomain();
     }
 }

@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.infrastructure.controllers;
 
 import br.com.fiap.techchallenge.application.usecases.pedido.BuscaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.RecebePagamentoInteractor;
 import br.com.fiap.techchallenge.domain.Pedido;
 import br.com.fiap.techchallenge.domain.services.PedidoService;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
@@ -26,6 +27,8 @@ public class PedidoController {
 
     private final BuscaPedidoInteractor buscaPedidoInteractor;
 
+    private final RecebePagamentoInteractor recebePagamentoInteractor;
+
     @PostMapping
     public ResponseEntity<PedidoResponse> criaPedido(@RequestBody final PedidoRequest pedidoRequest) {
         Pedido pedido = service.cria(pedidoRequest);
@@ -39,7 +42,7 @@ public class PedidoController {
 
     @PatchMapping("{id}/callback")
     public ResponseEntity<Void> callbackProvedorPagamento(@PathVariable("id") final UUID pedidoId) {
-        service.pedidoPago(pedidoId);
+        recebePagamentoInteractor.execute(pedidoId);
         return ResponseEntity.accepted().build();
     }
 
