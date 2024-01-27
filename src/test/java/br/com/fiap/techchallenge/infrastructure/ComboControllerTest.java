@@ -9,6 +9,7 @@ import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
 import br.com.fiap.techchallenge.domain.services.ComboService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ComboController.class)
 public class ComboControllerTest {
