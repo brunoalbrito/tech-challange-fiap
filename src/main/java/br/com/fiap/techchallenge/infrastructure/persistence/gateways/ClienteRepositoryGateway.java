@@ -1,7 +1,8 @@
-package br.com.fiap.techchallenge.infrastructure.gateways;
+package br.com.fiap.techchallenge.infrastructure.persistence.gateways;
 
 import br.com.fiap.techchallenge.application.gateways.ClienteGateway;
 import br.com.fiap.techchallenge.domain.Cliente;
+import br.com.fiap.techchallenge.infrastructure.persistence.mappers.ClienteEntityMapper;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ClienteEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ClienteRepository;
 

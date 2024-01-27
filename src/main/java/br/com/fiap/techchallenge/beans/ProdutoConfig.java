@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.beans;
 
 import br.com.fiap.techchallenge.application.gateways.ProdutoGateway;
-import br.com.fiap.techchallenge.application.usecases.pedido.CriaProdutoInteractor;
+import br.com.fiap.techchallenge.application.usecases.produto.CriaProdutoInteractor;
 import br.com.fiap.techchallenge.infrastructure.controllers.mappers.ProdutoRequestMapper;
 import br.com.fiap.techchallenge.infrastructure.persistence.gateways.ProdutoRepositoryGateway;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;

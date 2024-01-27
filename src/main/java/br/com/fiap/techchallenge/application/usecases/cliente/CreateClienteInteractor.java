@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.application.usecases;
+package br.com.fiap.techchallenge.application.usecases.cliente;
 
 import br.com.fiap.techchallenge.application.gateways.ClienteGateway;
 import br.com.fiap.techchallenge.domain.Cliente;

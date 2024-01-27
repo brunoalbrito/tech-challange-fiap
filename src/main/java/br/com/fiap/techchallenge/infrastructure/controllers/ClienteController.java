@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.infrastructure.controllers;
 
-import br.com.fiap.techchallenge.application.usecases.CreateClienteInteractor;
+import br.com.fiap.techchallenge.application.usecases.cliente.CreateClienteInteractor;
 import br.com.fiap.techchallenge.domain.Cliente;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.ClienteRequest;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.ClienteResponse;
