@@ -1,16 +1,19 @@
 package br.com.fiap.techchallenge.infrastructure;
 
+import br.com.fiap.techchallenge.application.usecases.pedido.BuscaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.ConfirmaEntregaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.CriaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.PreparoFinalizadoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.RecebePagamentoInteractor;
 import br.com.fiap.techchallenge.domain.Cliente;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Pagamento;
 import br.com.fiap.techchallenge.domain.Pedido;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.domain.services.PedidoService;
 import br.com.fiap.techchallenge.infrastructure.controllers.PedidoController;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +36,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = PedidoController.class)
 public class PedidoControllerTest {
@@ -45,8 +47,19 @@ public class PedidoControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private PedidoService pedidoService;
+    private CriaPedidoInteractor criaPedidoInteractor;
 
+    @MockBean
+    private BuscaPedidoInteractor buscaPedidoInteractor;
+
+    @MockBean
+    private RecebePagamentoInteractor recebePagamentoInteractor;
+
+    @MockBean
+    private PreparoFinalizadoInteractor preparoFinalizadoInteractor;
+
+    @MockBean
+    ConfirmaEntregaPedidoInteractor confirmaEntregaPedidoInteractor;
 
     @Test
     public void deveCriarPedidoValido() throws Exception {
@@ -71,7 +84,7 @@ public class PedidoControllerTest {
 
         Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
 
-        when(pedidoService.cria(any(PedidoRequest.class)))
+        when(criaPedidoInteractor.execute(any(PedidoRequest.class)))
                 .thenReturn(pedido);
 
         mockMvc.perform(post("/api/pedidos")
@@ -80,7 +93,7 @@ public class PedidoControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists());
 
-        verify(pedidoService).cria(any(PedidoRequest.class));
+        verify(criaPedidoInteractor).execute(any(PedidoRequest.class));
     }
 
     @Test
@@ -96,7 +109,7 @@ public class PedidoControllerTest {
                 .build();
 
 
-        when(pedidoService.buscar(any(UUID.class)))
+        when(buscaPedidoInteractor.execute(any(UUID.class)))
                 .thenReturn(Pedido.criaPedido(UUID.randomUUID(), Cliente.criaCliente("64884281799"), List.of(produto), Pagamento.criaPagamento(UUID.randomUUID(), "qrCode")));
 
         mockMvc.perform(get("/api/pedidos/{id}", UUID.randomUUID())
@@ -110,7 +123,7 @@ public class PedidoControllerTest {
     }
 
     @Test
-    public void deveAtulizarStatusPedidoQuandoPago() throws Exception {
+    public void deveAtualizarStatusPedidoQuandoPago() throws Exception {
 
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "qrCode");
         Cliente cliente = Cliente.criaCliente("64884281799");
@@ -127,14 +140,11 @@ public class PedidoControllerTest {
 
         pedido.pagamentoRecebido();
 
-        when(pedidoService.pedidoPago(any(UUID.class)))
-                .thenReturn(pedido);
-
         mockMvc.perform(patch("/api/pedidos/{id}/callback", UUID.randomUUID())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted());
 
-        verify(pedidoService).pedidoPago(any(UUID.class));
+        verify(recebePagamentoInteractor).execute(any(UUID.class));
     }
 
     @Test
@@ -157,7 +167,7 @@ public class PedidoControllerTest {
         pedido.pagamentoRecebido();
         pedido.preparoFinalizado();
 
-        when(pedidoService.preparoFinalizado(any(UUID.class)))
+        when(preparoFinalizadoInteractor.execute(any(UUID.class)))
                 .thenReturn(pedido);
 
         mockMvc.perform(patch("/api/pedidos/{id}/preparo-finalizado", UUID.randomUUID())
@@ -169,7 +179,7 @@ public class PedidoControllerTest {
                 .andExpect(jsonPath("$.pagamentoQrCode").value("qrCode"))
                 .andExpect(jsonPath("$.status").value("PREPARO_FINALIZADO"));
 
-        verify(pedidoService).preparoFinalizado(any(UUID.class));
+        verify(preparoFinalizadoInteractor).execute(any(UUID.class));
     }
 
     @Test
@@ -192,7 +202,7 @@ public class PedidoControllerTest {
         pedido.preparoFinalizado();
         pedido.entregue();
 
-        when(pedidoService.entregue(any(UUID.class)))
+        when(confirmaEntregaPedidoInteractor.execute(any(UUID.class)))
                 .thenReturn(pedido);
 
         mockMvc.perform(patch("/api/pedidos/{id}/entregue", UUID.randomUUID())
