@@ -21,13 +21,14 @@ public class CriaComboInteractor {
     }
 
     public Combo execute(ComboRequest comboRequest) {
-        List<Produto> produtos = produtoGateway.buscaPorUuids(
-                comboRequest.getProdutos()
+        List<UUID> Uuids = comboRequest.getProdutos()
                 .stream()
                 .map(UUID::fromString)
-                .toList()
-        );
+                .toList();
+
+        List<Produto> produtos = produtoGateway.buscaPorUuids(Uuids);
         Combo combo = Combo.criaCombo(UUID.randomUUID(), produtos);
+
         return comboGateway.salva(combo);
     }
 }
