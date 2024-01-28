@@ -2,7 +2,6 @@ package br.com.fiap.techchallenge.infrastructure.controllers;
 
 import br.com.fiap.techchallenge.application.usecases.produto.CriaProdutoInteractor;
 import br.com.fiap.techchallenge.domain.Produto;
-import br.com.fiap.techchallenge.infrastructure.controllers.mappers.ProdutoRequestMapper;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.ProdutoRequest;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.ProdutoResponse;
 import lombok.AllArgsConstructor;
@@ -20,14 +19,12 @@ public class ProdutoController {
 
     private final CriaProdutoInteractor criaProduto;
 
-    private final ProdutoRequestMapper produtoRequestMapper;
-
     @PostMapping
     public ResponseEntity<ProdutoResponse> cria(@RequestBody final ProdutoRequest produtoRequest) {
 
         final Produto produto = criaProduto.execute(produtoRequest);
 
-        ProdutoResponse produtoResponse = produtoRequestMapper.toResponse(produto);
+        ProdutoResponse produtoResponse = ProdutoResponse.fromDomain(produto);
 
         return new ResponseEntity<>(produtoResponse, HttpStatus.CREATED);
     }

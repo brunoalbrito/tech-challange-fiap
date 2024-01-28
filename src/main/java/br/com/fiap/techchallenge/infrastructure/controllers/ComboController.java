@@ -2,6 +2,8 @@ package br.com.fiap.techchallenge.infrastructure.controllers;
 
 import br.com.fiap.techchallenge.application.usecases.combo.CriaComboInteractor;
 import br.com.fiap.techchallenge.application.usecases.combo.ListaComboInteractor;
+import br.com.fiap.techchallenge.domain.Combo;
+import br.com.fiap.techchallenge.infrastructure.controllers.mappers.ComboDtoMapper;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
 import br.com.fiap.techchallenge.infrastructure.controllers.response.ComboResponse;
 import lombok.AllArgsConstructor;
@@ -24,16 +26,23 @@ public class ComboController {
 
     private ListaComboInteractor listaCombos;
 
+    private ComboDtoMapper comboDtoMapper;
+
     @PostMapping
     public ResponseEntity<ComboResponse> criaCombo(@RequestBody final ComboRequest comboRequest) {
-        ComboResponse response = criaCombo.execute(comboRequest);
+        Combo combo = criaCombo.execute(comboRequest);
+
+        ComboResponse response = ComboResponse.fromDomain(combo);
+
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<ComboResponse>> listaCombos() {
-        List<ComboResponse> combos = listaCombos.execute();
-        return new ResponseEntity<>(combos, HttpStatus.OK);
+        List<Combo> combos = listaCombos.execute();
+        List<ComboResponse> comboResponses = comboDtoMapper.toResponse(combos);
+
+        return new ResponseEntity<>(comboResponses, HttpStatus.OK);
     }
 }
 
