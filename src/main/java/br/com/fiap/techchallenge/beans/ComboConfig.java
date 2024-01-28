@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.beans;
 
 import br.com.fiap.techchallenge.application.gateways.ComboGateway;
+import br.com.fiap.techchallenge.application.gateways.ProdutoGateway;
 import br.com.fiap.techchallenge.application.usecases.combo.CriaComboInteractor;
 import br.com.fiap.techchallenge.application.usecases.combo.ListaComboInteractor;
 import br.com.fiap.techchallenge.infrastructure.controllers.mappers.ComboDtoMapper;
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 public class ComboConfig {
 
     @Bean
-    CriaComboInteractor criaComboInteractor(ComboGateway comboGateway) {
-        return new CriaComboInteractor(comboGateway);
+    CriaComboInteractor criaComboInteractor(ComboGateway comboGateway, ProdutoGateway produtoGateway) {
+        return new CriaComboInteractor(comboGateway, produtoGateway);
     }
 
     @Bean
