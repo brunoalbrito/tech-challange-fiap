@@ -15,8 +15,8 @@ spec:
         - name: SPRING_DATASOURCE_URL
           value: jdbc:postgresql://postgres:5432/postgres
         - name: SPRING_DATASOURCE_USERNAME
-          value: secret
-        - name: SPRING_DATASOURCE_PASSWORD
           value: myuser
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: secret
         - name: SPRING_JPA_HIBERNATE_DDL_AUTO
           value: update
