@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.infrastructure.controllers.response;
 
+import br.com.fiap.techchallenge.domain.Produto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,4 +26,22 @@ public class ProdutoResponse {
     private String tipo;
 
     private List<IngredienteResponse> ingredientes;
+
+    public static ProdutoResponse fromDomain(final Produto produto) {
+        return ProdutoResponse.builder()
+                .id(produto.getId().toString())
+                .nome(produto.getNome())
+                .descricao(produto.getDescricao())
+                .preco(produto.getPreco())
+                .tipo(produto.getTipo().getValue())
+                .ingredientes(getIngredientesResponse(produto))
+                .build();
+    }
+
+    private static List<IngredienteResponse> getIngredientesResponse(Produto produto) {
+        return produto.getIngredientes()
+                .stream()
+                .map(IngredienteResponse::fromDomain)
+                .toList();
+    }
 }

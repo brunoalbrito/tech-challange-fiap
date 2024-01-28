@@ -1,15 +1,15 @@
 package br.com.fiap.techchallenge.infrastructure;
 
 
+import br.com.fiap.techchallenge.application.usecases.produto.CriaProdutoInteractor;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.domain.services.ProdutoService;
 import br.com.fiap.techchallenge.infrastructure.controllers.ProdutoController;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.ProdutoRequest;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.enums.TipoRequest;
 import br.com.fiap.techchallenge.infrastructure.request.ProdutoRequestTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,12 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled("not yet ready , Please ignore.")
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ProdutoController.class)
 public class ProdutoControllerTest {
@@ -41,7 +41,7 @@ public class ProdutoControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private ProdutoService produtoService;
+    private CriaProdutoInteractor criaProdutoInteractor;
 
     @Test
     public void deveCriarProdutoValido() throws Exception {
@@ -59,7 +59,7 @@ public class ProdutoControllerTest {
                 .tipo(Tipo.LANCHE)
                 .build();
 
-        when(produtoService.criaProduto(any()))
+        when(criaProdutoInteractor.execute(any(ProdutoRequest.class)))
                 .thenReturn(produto);
 
 
@@ -68,5 +68,7 @@ public class ProdutoControllerTest {
                         .content(objectMapper.writeValueAsString(produtoRequestTest)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists());
+
+        verify(criaProdutoInteractor).execute(any(ProdutoRequest.class));
     }
 }
