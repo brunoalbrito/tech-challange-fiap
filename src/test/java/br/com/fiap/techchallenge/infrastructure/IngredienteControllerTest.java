@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.infrastructure;
 
+import br.com.fiap.techchallenge.application.usecases.ingrediente.CriaIngredienteInteractor;
 import br.com.fiap.techchallenge.infrastructure.controllers.IngredienteController;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.IngredienteRequest;
 import br.com.fiap.techchallenge.infrastructure.request.IngredienteRequestTest;
@@ -33,7 +34,7 @@ public class IngredienteControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private IngredienteService ingredienteService;
+    private CriaIngredienteInteractor criaIngredienteInteractor;
 
     @Test
     public void deveCriarIngredienteValido() throws Exception {
@@ -41,7 +42,7 @@ public class IngredienteControllerTest {
         IngredienteRequestTest ingredienteRequest = IngredienteRequestTest.criaIngredienteRequest(descricao);
 
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), descricao);
-        when(ingredienteService.criaIngrediente(any(IngredienteRequest.class)))
+        when(criaIngredienteInteractor.execute(any(IngredienteRequest.class)))
                 .thenReturn(ingrediente);
 
         mockMvc.perform(post("/api/ingredientes")
@@ -55,7 +56,7 @@ public class IngredienteControllerTest {
     public void deveRetornarBadRequestQuandoDescricaoForNula() throws Exception {
         IngredienteRequestTest ingredienteRequest = IngredienteRequestTest.criaIngredienteRequest(null);
 
-        when(ingredienteService.criaIngrediente(any(IngredienteRequest.class)))
+        when(criaIngredienteInteractor.execute(any(IngredienteRequest.class)))
                 .thenThrow(new IllegalArgumentException("Descricao deve estar preenchida"));
 
         mockMvc.perform(post("/api/ingredientes")
@@ -69,7 +70,7 @@ public class IngredienteControllerTest {
     public void deveRetornarBadRequestQuandoDescricaoForVazia() throws Exception {
         IngredienteRequestTest ingredienteRequest = IngredienteRequestTest.criaIngredienteRequest("");
 
-        when(ingredienteService.criaIngrediente(any(IngredienteRequest.class)))
+        when(criaIngredienteInteractor.execute(any(IngredienteRequest.class)))
                 .thenThrow(new IllegalArgumentException("Descricao deve estar preenchida"));
 
         mockMvc.perform(post("/api/ingredientes")

@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface IngredienteGateway {
 
     List<Ingrediente> buscaIngredientesPorId(List<UUID> ids);
+
+    Ingrediente salva(Ingrediente ingrediente);
 }

@@ -22,5 +22,4 @@ public class IngredienteResponse {
     public static IngredienteResponse fromDomain(Ingrediente ingrediente) {
         return new IngredienteResponse(ingrediente.getId(), ingrediente.getDescricao());
     }
-
 }
