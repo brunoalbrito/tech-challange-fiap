@@ -20,36 +20,21 @@ public class ComboRepositoryGateway implements ComboGateway {
 
     private final ComboRepository comboRepository;
 
-    private final ComboDtoMapper comboDtoMapper;
-
-    public ComboRepositoryGateway(ProdutoRepository produtoRepository, ComboRepository comboRepository,
-                                  ComboDtoMapper comboDtoMapper) {
+    public ComboRepositoryGateway(ProdutoRepository produtoRepository, ComboRepository comboRepository) {
         this.produtoRepository = produtoRepository;
         this.comboRepository = comboRepository;
-        this.comboDtoMapper = comboDtoMapper;
     }
 
     @Override
-    public ComboResponse criaCombo(ComboRequest comboRequest) {
-        List<Produto> produtos = comboRequest
-                .getProdutos()
-                .stream()
-                .map(UUID::fromString)
-                .map(this::findProdutoById)
-                .map(ProdutoEntity::toDomain)
-                .toList();
-
-        Combo combo = Combo.criaCombo(UUID.randomUUID(), produtos);
-        comboRepository.save(ComboEntity.criaComboEntity(combo));
-        return comboDtoMapper.toResponse(combo);
+    public Combo salva(Combo combo) {
+        return comboRepository.save(ComboEntity.criaComboEntity(combo)).toDomain();
     }
 
     @Override
-    public List<ComboResponse> listaCombos() {
-        List<Combo> combos = comboRepository.findAll().stream()
+    public List<Combo> listaCombos() {
+        return comboRepository.findAll().stream()
                 .map(ComboEntity::toDomain)
                 .toList();
-        return comboDtoMapper.toResponse(combos);
     }
 
     private ProdutoEntity findProdutoById(UUID produtoId) {

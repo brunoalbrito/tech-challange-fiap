@@ -24,9 +24,8 @@ public class ComboConfig {
     }
 
     @Bean
-    ComboGateway comboGateway(ProdutoRepository produtoRepository, ComboRepository comboRepository,
-                              ComboDtoMapper comboDtoMapper) {
-        return new ComboRepositoryGateway(produtoRepository, comboRepository, comboDtoMapper);
+    ComboGateway comboGateway(ProdutoRepository produtoRepository, ComboRepository comboRepository) {
+        return new ComboRepositoryGateway(produtoRepository, comboRepository);
     }
 
     @Bean

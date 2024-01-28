@@ -1,15 +1,16 @@
 package br.com.fiap.techchallenge.infrastructure;
 
+import br.com.fiap.techchallenge.application.usecases.combo.CriaComboInteractor;
+import br.com.fiap.techchallenge.application.usecases.combo.ListaComboInteractor;
 import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.domain.services.ComboService;
 import br.com.fiap.techchallenge.infrastructure.controllers.ComboController;
+import br.com.fiap.techchallenge.infrastructure.controllers.mappers.ComboDtoMapper;
 import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
 import br.com.fiap.techchallenge.infrastructure.request.ComboRequestTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ComboController.class)
 public class ComboControllerTest {
@@ -41,7 +41,13 @@ public class ComboControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private ComboService comboService;
+    private CriaComboInteractor criaComboInteractor;
+
+    @MockBean
+    private ListaComboInteractor listaComboInteractor;
+
+    @MockBean
+    private ComboDtoMapper comboDtoMapper;
 
     @Test
     public void deveCriarComboValido() throws Exception {
@@ -78,8 +84,8 @@ public class ComboControllerTest {
 
         Combo combo = Combo.criaCombo(id, List.of(lanche, bebida, acompanhamento));
 
-        when(comboService.criaCombo(any(ComboRequest.class)))
-                .thenReturn(combo);
+        when(criaComboInteractor.execute(any(ComboRequest.class))).thenReturn(combo);
+
 
         mockMvc.perform(post("/api/combos")
                         .contentType("application/json")
@@ -94,7 +100,7 @@ public class ComboControllerTest {
     public void deveRetornarBadRequestQuandoListaDeProdutosForNula() throws Exception {
         ComboRequestTest comboRequestTest = ComboRequestTest.criaComboRequestTest(null);
 
-        when(comboService.criaCombo(any(ComboRequest.class)))
+        when(criaComboInteractor.execute(any(ComboRequest.class)))
                 .thenThrow(new IllegalArgumentException("Lista de produtos deve estar preenchida"));
 
         mockMvc.perform(post("/api/combos")
@@ -107,7 +113,7 @@ public class ComboControllerTest {
     public void deveRetornarBadRequestQuandoListaDeProdutosForVazia() throws Exception {
         ComboRequestTest comboRequestTest = ComboRequestTest.criaComboRequestTest(List.of());
 
-        when(comboService.criaCombo(any(ComboRequest.class)))
+        when(criaComboInteractor.execute(any(ComboRequest.class)))
                 .thenThrow(new IllegalArgumentException("Lista de produtos deve estar preenchida"));
 
         mockMvc.perform(post("/api/combos")
@@ -120,7 +126,7 @@ public class ComboControllerTest {
     public void deveRetornarBadRequestQuandoListaDeProdutosForInvalida() throws Exception {
         ComboRequestTest comboRequestTest = ComboRequestTest.criaComboRequestTest(List.of("invalido"));
 
-        when(comboService.criaCombo(any(ComboRequest.class)))
+        when(criaComboInteractor.execute(any(ComboRequest.class)))
                 .thenThrow(new IllegalArgumentException("Lista de produtos deve estar preenchida"));
 
         mockMvc.perform(post("/api/combos")
@@ -163,7 +169,7 @@ public class ComboControllerTest {
                 .build();
 
         Combo combo = Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida, acompanhamento));
-        when(comboService.listaCombos()).thenReturn(List.of(combo));
+        when(listaComboInteractor.execute()).thenReturn(List.of(combo));
         mockMvc.perform(get("/api/combos")
                         .contentType("application/json"))
                 .andExpect(status().isOk())
