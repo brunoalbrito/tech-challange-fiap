@@ -12,6 +12,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Deprecated
 @AllArgsConstructor
 public class IngredienteService {
 

@@ -31,4 +31,11 @@ public class IngredienteRepositoryGateway implements IngredienteGateway {
 
         return ingredientes;
     }
+
+    @Override
+    public Ingrediente salva(Ingrediente ingrediente) {
+        IngredienteEntity ingredienteEntity = IngredienteEntity.criaEntity(ingrediente);
+        IngredienteEntity ingredienteSaved = ingredienteRepository.save(ingredienteEntity);
+        return ingredienteSaved.toDomain();
+    }
 }

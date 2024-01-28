@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 
+@Deprecated
 @ExtendWith(MockitoExtension.class)
 public class IngredienteServiceTest {
 
