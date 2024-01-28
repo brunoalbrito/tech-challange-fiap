@@ -1,10 +1,10 @@
 package br.com.fiap.techchallenge.domain.services;
 
-import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
 import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ComboEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ComboRepository;
@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@Deprecated
 @ExtendWith(MockitoExtension.class)
 public class ComboServiceTest {
 

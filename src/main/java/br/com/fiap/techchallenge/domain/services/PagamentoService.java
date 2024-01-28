@@ -1,13 +1,14 @@
 package br.com.fiap.techchallenge.domain.services;
 
-import java.util.UUID;
-
 import br.com.fiap.techchallenge.domain.Pagamento;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.util.UUID;
+
 @Slf4j
+@Service
+@Deprecated
 public class PagamentoService {
 
     public Pagamento cria(UUID pedidoId) {
