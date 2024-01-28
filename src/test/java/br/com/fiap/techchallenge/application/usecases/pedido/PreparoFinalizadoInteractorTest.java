@@ -24,19 +24,19 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ConfirmaEntregaPedidoInteractorTest {
+public class PreparoFinalizadoInteractorTest {
 
-    private ConfirmaEntregaPedidoInteractor confirmaEntregaPedidoInteractor;
+    private PreparoFinalizadoInteractor preparoFinalizadoInteractor;
     private PedidoGateway pedidoGateway;
 
     @BeforeEach
     public void setUp() {
         pedidoGateway = mock(PedidoGateway.class);
-        confirmaEntregaPedidoInteractor = new ConfirmaEntregaPedidoInteractor(pedidoGateway);
+        preparoFinalizadoInteractor = new PreparoFinalizadoInteractor(pedidoGateway);
     }
 
     @Test
-    public void deveConfirmarEntregaPedidoDadoUUIDValido() {
+    public void deveRegistrarPreparoFinalizadoDadoUUIDValido() {
         UUID pedidoId = UUID.randomUUID();
         Cliente cliente = Cliente.criaCliente("48336661115");
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "qr-code");
@@ -55,11 +55,11 @@ public class ConfirmaEntregaPedidoInteractorTest {
         when(pedidoGateway.buscaPorUUID(any(UUID.class))).thenReturn(pedido);
         when(pedidoGateway.salva(any(Pedido.class))).thenReturn(pedido);
 
-        Pedido result = confirmaEntregaPedidoInteractor.execute(pedidoId);
+        Pedido result = preparoFinalizadoInteractor.execute(pedidoId);
 
         assertNotNull(result);
         assertEquals(pedido, result);
-        assertEquals(result.getStatusPedido(), StatusPedido.ENTREGUE);
+        assertEquals(result.getStatusPedido(), StatusPedido.PREPARO_FINALIZADO);
         verify(pedidoGateway, times(1)).buscaPorUUID(pedidoId);
         verify(pedidoGateway, times(1)).salva(pedido);
     }
