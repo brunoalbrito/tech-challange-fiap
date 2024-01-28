@@ -48,7 +48,7 @@ public class BuscaPedidoInteractorTest {
                 .tipo(Tipo.LANCHE)
                 .build();
 
-        Pedido expectedPedido = Pedido.criaPedido(pedidoId, cliente, List.of(produto), pagamento);
+        Pedido expectedPedido = Pedido.criaPedido(pedidoId, cliente, List.of(produto));
 
         when(pedidoGateway.buscaPorUUID(any(UUID.class))).thenReturn(expectedPedido);
 

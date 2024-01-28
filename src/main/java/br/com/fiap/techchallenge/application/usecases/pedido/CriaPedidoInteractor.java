@@ -36,9 +36,10 @@ public class CriaPedidoInteractor {
         Cliente cliente = clienteGateway.buscaPorCpf(pedidoRequest.getClienteId());
 
         UUID pedidoId = UUID.randomUUID();
-        Pagamento pagamento = pagamentoGateway.cria(pedidoId);
+        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, produtos);
+        Pagamento pagamento = pagamentoGateway.cria(pedido);
+        pedido.registaPagamento(pagamento);
 
-        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, produtos, pagamento);
         return pedidoGateway.salva(pedido);
     }
 }

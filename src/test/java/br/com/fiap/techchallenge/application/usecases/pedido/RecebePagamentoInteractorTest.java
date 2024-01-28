@@ -43,7 +43,6 @@ public class RecebePagamentoInteractorTest {
     public void deveReceberPagamentoDadoUUIDValido() {
         UUID pedidoId = UUID.randomUUID();
         Cliente cliente = Cliente.criaCliente("48336661115");
-        Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "qr-code");
 
         Produto produto = Produto.builder()
                 .id(UUID.randomUUID())
@@ -54,7 +53,7 @@ public class RecebePagamentoInteractorTest {
                 .tipo(Tipo.LANCHE)
                 .build();
 
-        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, List.of(produto), pagamento);
+        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, List.of(produto));
 
         when(pedidoGateway.buscaPorUUID(any(UUID.class))).thenReturn(pedido);
         when(pagamentoGateway.estaPago(any(UUID.class))).thenReturn(true);

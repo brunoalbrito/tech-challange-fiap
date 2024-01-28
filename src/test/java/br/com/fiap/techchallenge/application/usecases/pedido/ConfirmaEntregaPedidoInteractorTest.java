@@ -50,7 +50,7 @@ public class ConfirmaEntregaPedidoInteractorTest {
                 .tipo(Tipo.LANCHE)
                 .build();
 
-        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, List.of(produto), pagamento);
+        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, List.of(produto));
 
         when(pedidoGateway.buscaPorUUID(any(UUID.class))).thenReturn(pedido);
         when(pedidoGateway.salva(any(Pedido.class))).thenReturn(pedido);
