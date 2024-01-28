@@ -2,10 +2,6 @@ package br.com.fiap.techchallenge.infrastructure.persistence.gateways;
 
 import br.com.fiap.techchallenge.application.gateways.ComboGateway;
 import br.com.fiap.techchallenge.domain.Combo;
-import br.com.fiap.techchallenge.domain.Produto;
-import br.com.fiap.techchallenge.infrastructure.controllers.mappers.ComboDtoMapper;
-import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
-import br.com.fiap.techchallenge.infrastructure.controllers.response.ComboResponse;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ComboEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ComboRepository;

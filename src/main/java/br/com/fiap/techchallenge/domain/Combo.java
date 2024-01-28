@@ -1,13 +1,10 @@
 package br.com.fiap.techchallenge.domain;
 
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
