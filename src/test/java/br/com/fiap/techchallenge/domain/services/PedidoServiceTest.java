@@ -1,19 +1,20 @@
 package br.com.fiap.techchallenge.domain.services;
 
 
-import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
 import br.com.fiap.techchallenge.domain.Cliente;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Pagamento;
 import br.com.fiap.techchallenge.domain.Pedido;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ClienteEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.PedidoEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ClienteRepository;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.PedidoRepository;
 import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -134,15 +135,19 @@ public class PedidoServiceTest {
         Pagamento pagamento = Pagamento.criaPagamento(UUID.randomUUID(), "qrCode");
 
         UUID id = UUID.randomUUID();
+        Pedido pedido = Pedido.criaPedido(id, cliente, List.of(lanche, bebida, acompanhamento));
+        pedido.registaPagamento(pagamento);
+
+
 
         when(pedidoRepository.findById(id)).thenReturn(Optional.of(
-                PedidoEntity.toEntity(Pedido.criaPedido(id, cliente, List.of(lanche, bebida, acompanhamento), pagamento))
+                PedidoEntity.toEntity(pedido)
         ));
 
 
-        Pedido pedido = pedidoService.buscar(id);
+        Pedido pedidoEncontrado = pedidoService.buscar(id);
 
-        assertEquals(id, pedido.getId());
+        assertEquals(id, pedidoEncontrado.getId());
     }
 
     @Test

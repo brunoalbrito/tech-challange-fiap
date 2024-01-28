@@ -82,7 +82,8 @@ public class PedidoControllerTest {
                 .tipo(Tipo.LANCHE)
                 .build();
 
-        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
+        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto));
+        pedido.registaPagamento(pagamento);
 
         when(criaPedidoInteractor.execute(any(PedidoRequest.class)))
                 .thenReturn(pedido);
@@ -108,9 +109,11 @@ public class PedidoControllerTest {
                 .tipo(Tipo.LANCHE)
                 .build();
 
+        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), Cliente.criaCliente("64884281799"), List.of(produto));
+        pedido.registaPagamento(Pagamento.criaPagamento(UUID.randomUUID(), "qrCode"));
 
         when(buscaPedidoInteractor.execute(any(UUID.class)))
-                .thenReturn(Pedido.criaPedido(UUID.randomUUID(), Cliente.criaCliente("64884281799"), List.of(produto), Pagamento.criaPagamento(UUID.randomUUID(), "qrCode")));
+                .thenReturn(pedido);
 
         mockMvc.perform(get("/api/pedidos/{id}", UUID.randomUUID())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -136,7 +139,7 @@ public class PedidoControllerTest {
                 .ingredientes(List.of(ingrediente))
                 .tipo(Tipo.LANCHE)
                 .build();
-        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
+        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto));
 
         pedido.pagamentoRecebido();
 
@@ -162,7 +165,8 @@ public class PedidoControllerTest {
                 .tipo(Tipo.LANCHE)
                 .build();
 
-        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
+        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto));
+        pedido.registaPagamento(pagamento);
 
         pedido.pagamentoRecebido();
         pedido.preparoFinalizado();
@@ -196,7 +200,8 @@ public class PedidoControllerTest {
                 .ingredientes(List.of(ingrediente))
                 .tipo(Tipo.LANCHE)
                 .build();
-        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto), pagamento);
+        Pedido pedido = Pedido.criaPedido(UUID.randomUUID(), cliente, List.of(produto));
+        pedido.registaPagamento(pagamento);
 
         pedido.pagamentoRecebido();
         pedido.preparoFinalizado();

@@ -43,8 +43,9 @@ public class PedidoService {
         Cliente cliente = clienteRepository.findById(pedidoRequest.getClienteId()).orElseThrow().toDomain();
 
         UUID pedidoId = UUID.randomUUID();
+        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, produtos);
         Pagamento pagamento = pagamentoService.cria(pedidoId);
-        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, produtos, pagamento);
+        pedido.registaPagamento(pagamento);
         return pedidoRepository.save(PedidoEntity.toEntity(pedido)).toDomain();
     }
 
