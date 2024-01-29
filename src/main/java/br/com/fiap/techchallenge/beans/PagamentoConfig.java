@@ -6,6 +6,7 @@ import br.com.fiap.techchallenge.infrastructure.network.gateway.PagamentoClientG
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class PagamentoConfig {
@@ -16,7 +17,12 @@ public class PagamentoConfig {
     }
 
     @Bean
-    MercadoLivreClient mercadoLivreClient(ObjectMapper objectMapper) {
-        return new MercadoLivreClient(objectMapper);
+    MercadoLivreClient mercadoLivreClient(ObjectMapper objectMapper, RestTemplate restTemplate) {
+        return new MercadoLivreClient(objectMapper, restTemplate);
+    }
+
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
