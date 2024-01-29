@@ -3,6 +3,8 @@ services:
     image: 'tech-challenge:latest'
     build: .
     container_name: app
+    depends_on:
+      - postgres
     environment:
       - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres'
       - 'SPRING_DATASOURCE_USERNAME=myuser'
@@ -10,3 +12,11 @@ services:
       - 'SPRING_JPA_HIBERNATE_DDL_AUTO=update'
     ports:
       - '8080:8080'
+  postgres:
+    image: 'postgres:10.1'
+    environment:
+      - 'POSTGRES_DB=postgres'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '5432:5432'

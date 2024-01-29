@@ -1,22 +1,48 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: deployment
   labels:
     app: deployment
 spec:
-  containers:
-    - name: fiap-tech-challenge
-      image: 'tech-challenge:latest'
-      imagePullPolicy: Never
-      ports:
-        - containerPort: 8080
-      env:
-        - name: SPRING_DATASOURCE_URL
-          value: jdbc:postgresql://postgres:5432/postgres
-        - name: SPRING_DATASOURCE_USERNAME
-          value: myuser
-        - name: SPRING_DATASOURCE_PASSWORD
-          value: secret
-        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-          value: update
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployment
+  template:
+    metadata:
+      labels:
+        app: deployment
+    spec:
+      containers:
+        - name: fiap-tech-challenge
+          image: 'tech-challenge:latest'
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+            initialDelaySeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 3
+          resources:
+            requests:
+              cpu: "1m"
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/postgres
+            - name: SPRING_DATASOURCE_USERNAME
+              value: myuser
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: secret
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: create
