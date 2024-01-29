@@ -79,7 +79,7 @@ Para conectar o DBeaver ao PostgreSQL implantado no Kubernetes, execute os segui
 
 ```bash
 kubectl get pods
-kubectl port-forward pod/postgres-86cddf4786-d4m4w 5432:5432
+kubectl port-forward pod/[pod-name] 5432:5432
 ```
 
 Após isso, conecte o DBeaver à seguinte URL:
@@ -97,7 +97,7 @@ Use as seguintes credenciais:
 Para acessar a aplicação via porta 8080, execute o seguinte comando:
 
 ```bash
-kubectl port-forward pod/deployment-5fcfbcb866-mbb56 8080:8080
+kubectl port-forward pod/[pod-name] 8080:8080
 ```
 
 Após isso, você pode acessar a seguinte URL para acessar a API de combos:
