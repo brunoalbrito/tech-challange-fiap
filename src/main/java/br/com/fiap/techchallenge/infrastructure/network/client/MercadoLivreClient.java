@@ -17,8 +17,11 @@ public class MercadoLivreClient {
 
     private final ObjectMapper objectMapper;
 
-    public MercadoLivreClient(ObjectMapper objectMapper) {
+    private final RestTemplate restTemplate;
+
+    public MercadoLivreClient(ObjectMapper objectMapper, RestTemplate restTemplate) {
         this.objectMapper = objectMapper;
+        this.restTemplate = restTemplate;
     }
 
     public boolean verificaPagamento(UUID pedidoId) {
@@ -37,8 +40,6 @@ public class MercadoLivreClient {
 
 
         HttpEntity<String> requestEntity = new HttpEntity<>(writeAsJson(pagamentoClient), headers);
-
-        RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<PagamentoResponseClient> responseEntity = restTemplate.postForEntity(apiUrl, requestEntity, PagamentoResponseClient.class);
 
