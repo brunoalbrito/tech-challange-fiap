@@ -3,6 +3,7 @@ package br.com.fiap.techchallenge.infrastructure;
 import br.com.fiap.techchallenge.application.usecases.pedido.BuscaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.ConfirmaEntregaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.CriaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.ListaPedidosInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.PreparoFinalizadoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.RecebePagamentoInteractor;
 import br.com.fiap.techchallenge.domain.Cliente;
@@ -60,6 +61,9 @@ public class PedidoControllerTest {
 
     @MockBean
     ConfirmaEntregaPedidoInteractor confirmaEntregaPedidoInteractor;
+
+    @MockBean
+    private ListaPedidosInteractor  listaPedidosInteractor;
 
     @Test
     public void deveCriarPedidoValido() throws Exception {
