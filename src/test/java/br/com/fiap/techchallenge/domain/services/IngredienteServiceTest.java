@@ -1,10 +1,10 @@
 package br.com.fiap.techchallenge.domain.services;
 
 
-import br.com.fiap.techchallenge.application.controllers.request.IngredienteRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.IngredienteRequest;
 import br.com.fiap.techchallenge.domain.Ingrediente;
-import br.com.fiap.techchallenge.infrastructure.entity.IngredienteEntity;
-import br.com.fiap.techchallenge.infrastructure.repository.IngredienteRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.IngredienteEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.IngredienteRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 
+@Deprecated
 @ExtendWith(MockitoExtension.class)
 public class IngredienteServiceTest {
 
@@ -56,7 +57,7 @@ public class IngredienteServiceTest {
         when(ingredienteRepository.findById(id))
                 .thenReturn(Optional.of(ingredienteEntity));
 
-        List<Ingrediente> ingredientes = ingredienteService.buscaIngredientesPorId(List.of(id.toString()));
+        List<Ingrediente> ingredientes = ingredienteService.buscaIngredientesPorId(List.of(id));
 
         assertNotNull(ingredientes);
         assertEquals(ingredientes.size(), 1);
@@ -73,7 +74,7 @@ public class IngredienteServiceTest {
                 .thenReturn(Optional.empty());
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            ingredienteService.buscaIngredientesPorId(List.of(id.toString()));
+            ingredienteService.buscaIngredientesPorId(List.of(id));
         });
 
         assertEquals(exception.getMessage(), "Ingrediente não encontrado.");

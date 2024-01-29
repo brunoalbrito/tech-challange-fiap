@@ -3,20 +3,21 @@ package br.com.fiap.techchallenge.domain.services;
 import java.util.List;
 import java.util.UUID;
 
-import br.com.fiap.techchallenge.application.controllers.request.PedidoRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.PedidoRequest;
 import br.com.fiap.techchallenge.domain.Cliente;
 import br.com.fiap.techchallenge.domain.Pagamento;
 import br.com.fiap.techchallenge.domain.Pedido;
 import br.com.fiap.techchallenge.domain.Produto;
-import br.com.fiap.techchallenge.infrastructure.entity.PedidoEntity;
-import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
-import br.com.fiap.techchallenge.infrastructure.repository.ClienteRepository;
-import br.com.fiap.techchallenge.infrastructure.repository.PedidoRepository;
-import br.com.fiap.techchallenge.infrastructure.repository.ProdutoRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.PedidoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ClienteRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.PedidoRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Deprecated
 @AllArgsConstructor
 public class PedidoService {
 
@@ -42,8 +43,9 @@ public class PedidoService {
         Cliente cliente = clienteRepository.findById(pedidoRequest.getClienteId()).orElseThrow().toDomain();
 
         UUID pedidoId = UUID.randomUUID();
+        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, produtos);
         Pagamento pagamento = pagamentoService.cria(pedidoId);
-        Pedido pedido = Pedido.criaPedido(pedidoId, cliente, produtos, pagamento);
+        pedido.registaPagamento(pagamento);
         return pedidoRepository.save(PedidoEntity.toEntity(pedido)).toDomain();
     }
 

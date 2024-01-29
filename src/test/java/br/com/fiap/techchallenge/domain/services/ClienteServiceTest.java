@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.domain.services;
 
-import br.com.fiap.techchallenge.application.controllers.request.ClienteRequest;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.ClienteRequest;
 import br.com.fiap.techchallenge.domain.Cliente;
-import br.com.fiap.techchallenge.infrastructure.entity.ClienteEntity;
-import br.com.fiap.techchallenge.infrastructure.repository.ClienteRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ClienteEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ClienteRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@Deprecated
 @ExtendWith(MockitoExtension.class)
 public class ClienteServiceTest {
 

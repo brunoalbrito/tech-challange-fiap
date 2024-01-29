@@ -10,17 +10,17 @@ externalDocs:
 servers:
   - url: http://localhost:8080
 tags:
-- name: "Cliente"
-  description: "Tudo sobre o cliente"
-- name: "Ingrediente"
-  description: "Tudo sobre os ingredientes"
-- name: "Produto"
-  description: "Tudo sobre os produtos"
-- name: "Combos"
-  description: "Tudo sobre os combos"
-- name: "Pedido"
-  description: "Tudo sobre o pedido"
-  
+  - name: "Cliente"
+    description: "Tudo sobre o cliente"
+  - name: "Ingrediente"
+    description: "Tudo sobre os ingredientes"
+  - name: "Produto"
+    description: "Tudo sobre os produtos"
+  - name: "Combos"
+    description: "Tudo sobre os combos"
+  - name: "Pedido"
+    description: "Tudo sobre o pedido"
+
 paths:
   /api/clientes:
     post:
@@ -41,15 +41,15 @@ paths:
         "201":
           description: Created
           schema:
-                $ref: "#/definitions/CPF"
+            $ref: "#/definitions/CPF"
 
         "400":
           description: Bad Request
           schema:
-                $ref: "#/definitions/ApiResponse"
-            
+            $ref: "#/definitions/ApiResponse"
+
   /api/ingredientes:
-     post:
+    post:
       tags:
         - Ingrediente
       description: Tudo sobre o ingrediente do produto
@@ -67,79 +67,79 @@ paths:
         "201":
           description: Created
           schema:
-                $ref: "#/definitions/Ingrediente"
+            $ref: "#/definitions/Ingrediente"
 
   /api/produto:
-      post:
-        tags:
-          - Produto
-        description: Tudo sobre o produto
-        requestBody:
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  nome:
-                    type: string
-                    example: "x-Salada"
-                    description: Nome do lanche
-                  preco:
-                    type: decimal
-                    example: 30.0
-                    description: "Preço do lanche"
-                  descricao: 
-                    type: string
-                    example: "Lanche com salada de alface"
-                    description: "Descrição do lanche"
-                  tipo:
-                    type: string
-                    example: "lanche"
-                    description: "Tipo do produto (Ex. lanche, acompanhamento, bebida)"
-                  ingredientes: 
-                    type: object
-                    example: ["7ad00a46-3e0b-483d-a05e-037d37c3db67"]
-                    description: "uuid do ingrediente cadastrado"
-        responses:
-          "201":
-            description: Created
+    post:
+      tags:
+        - Produto
+      description: Tudo sobre o produto
+      requestBody:
+        content:
+          application/json:
             schema:
-                  $ref: "#/definitions/Produto"
+              type: object
+              properties:
+                nome:
+                  type: string
+                  example: "x-Salada"
+                  description: Nome do lanche
+                preco:
+                  type: decimal
+                  example: 30.0
+                  description: "Preço do lanche"
+                descricao:
+                  type: string
+                  example: "Lanche com salada de alface"
+                  description: "Descrição do lanche"
+                tipo:
+                  type: string
+                  example: "lanche"
+                  description: "Tipo do produto (Ex. lanche, acompanhamento, bebida)"
+                ingredientes:
+                  type: object
+                  example: [ "7ad00a46-3e0b-483d-a05e-037d37c3db67" ]
+                  description: "uuid do ingrediente cadastrado"
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: "#/definitions/Produto"
 
   /api/combos:
-        get:
-          tags:
-            - Combos
-          description: Tudo sobre combos
-          responses:
-            "200":
-              description: Successful operation
-              schema:
-                    $ref: "#/definitions/Combos"
-        post:
-          tags:
-            - Combos
-          description:
-            Cria um combo com os produtos cadastrados
-          requestBody:
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                      produtos:
-                        type: "object"
-                        example: ["ac45080a-ba2c-4380-be2c-e25c702cc9ef","221b9655-c759-41fd-a958-8dc1d2118c54","67ea9b61-18af-41e1-b782-540634ea450f"]
-                        description: uuid dos produtos
-          responses:
-            "201":
-              description: Created
-              schema:
-                    $ref: "#/definitions/Combos"
-            "400":
-              description: "Bad request"
-              schema:
-                    $ref: "#/definitions/ApiResponse"
+    get:
+      tags:
+        - Combos
+      description: Tudo sobre combos
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Combos"
+    post:
+      tags:
+        - Combos
+      description:
+        Cria um combo com os produtos cadastrados
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                produtos:
+                  type: "object"
+                  example: [ "ac45080a-ba2c-4380-be2c-e25c702cc9ef","221b9655-c759-41fd-a958-8dc1d2118c54","67ea9b61-18af-41e1-b782-540634ea450f" ]
+                  description: uuid dos produtos
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: "#/definitions/Combos"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
   
   /api/pedidos:
     post:
@@ -159,18 +159,32 @@ paths:
                   description: CPF do cliente
                 produtosId:
                   type: object
-                  example: 
-                          [
-                            "67ea9b61-18af-41e1-b782-540634ea450f",
-                            "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
-                            "221b9655-c759-41fd-a958-8dc1d2118c54"
-                          ]
+                  example:
+                    [
+                      "67ea9b61-18af-41e1-b782-540634ea450f",
+                      "1d5a8cb2-4556-4cf6-a430-20b396ebe2f3",
+                      "221b9655-c759-41fd-a958-8dc1d2118c54"
+                    ]
                   description: Produtos que vão conter o pedido
       responses:
         "201":
           description: Created
           schema:
-                $ref: "#/definitions/Pedido"
+            $ref: "#/definitions/Pedido"
+
+  /api/pedidos/:
+    get:
+      tags:
+        - Pedido
+      description:
+        Retorna todos os pedidos
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Pedido"
   
   /api/pedidos/{uuid}:
     get:
@@ -191,7 +205,7 @@ paths:
         "200":
           description: Successful operation
           schema:
-                $ref: "#/definitions/Pedido"
+            $ref: "#/definitions/Pedido"
 
   /api/pedidos/{uuid}/callback:
     patch:
@@ -207,7 +221,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: "e168e493-59fe-4610-a0c1-561112e79c15"        
+            example: "e168e493-59fe-4610-a0c1-561112e79c15"
       responses:
         "204":
           description: Successfull operation (No Content)
@@ -226,12 +240,12 @@ paths:
           schema:
             type: string
             format: uuid
-            example: "e168e493-59fe-4610-a0c1-561112e79c15"        
+            example: "e168e493-59fe-4610-a0c1-561112e79c15"
       responses:
         "200":
           description: Successful operation
           schema:
-                $ref: "#/definitions/Pedido"       
+            $ref: "#/definitions/Pedido"
 
   /api/pedidos/{uuid}/entregue:
     patch:
@@ -247,13 +261,13 @@ paths:
           schema:
             type: string
             format: uuid
-            example: "e168e493-59fe-4610-a0c1-561112e79c15"        
-  
+            example: "e168e493-59fe-4610-a0c1-561112e79c15"
+
       responses:
         "200":
           description: Successful operation
           schema:
-                $ref: "#/definitions/Pedido"
+            $ref: "#/definitions/Pedido"
 
 definitions:
   ApiResponse:
@@ -286,10 +300,10 @@ definitions:
   Produto:
     type: "object"
     properties:
-      id: 
+      id:
         type: string
         description: "id do produto"
-      nome: 
+      nome:
         type: string
         description: "nome do produto"
       preco:
@@ -298,7 +312,7 @@ definitions:
       tipo:
         type: string
         description: "Tipo do produto"
-      ingredientes: 
+      ingredientes:
         type: "object"
         properties:
           id:

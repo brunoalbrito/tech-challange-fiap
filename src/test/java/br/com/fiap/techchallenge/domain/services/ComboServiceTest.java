@@ -1,14 +1,14 @@
 package br.com.fiap.techchallenge.domain.services;
 
-import br.com.fiap.techchallenge.application.controllers.request.ComboRequest;
 import br.com.fiap.techchallenge.domain.Combo;
 import br.com.fiap.techchallenge.domain.Ingrediente;
 import br.com.fiap.techchallenge.domain.Produto;
 import br.com.fiap.techchallenge.domain.enums.Tipo;
-import br.com.fiap.techchallenge.infrastructure.entity.ComboEntity;
-import br.com.fiap.techchallenge.infrastructure.entity.ProdutoEntity;
-import br.com.fiap.techchallenge.infrastructure.repository.ComboRepository;
-import br.com.fiap.techchallenge.infrastructure.repository.ProdutoRepository;
+import br.com.fiap.techchallenge.infrastructure.controllers.request.ComboRequest;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ComboEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.entity.ProdutoEntity;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ComboRepository;
+import br.com.fiap.techchallenge.infrastructure.persistence.repository.ProdutoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@Deprecated
 @ExtendWith(MockitoExtension.class)
 public class ComboServiceTest {
 
@@ -46,9 +47,10 @@ public class ComboServiceTest {
                 .build();
 
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "descricao");
-        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.LANCHE);
-        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.BEBIDA);
-        Produto acompanhamento = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.ACOMPANHAMENTO);
+        Produto lanche = Produto.builder().id(UUID.randomUUID()).nome("nome").preco(BigDecimal.TEN).descricao("descricao").ingredientes(List.of(ingrediente)).tipo(Tipo.LANCHE).build();
+        Produto bebida = Produto.builder().id(UUID.randomUUID()).nome("nome").preco(BigDecimal.TEN).descricao("descricao").ingredientes(List.of(ingrediente)).tipo(Tipo.BEBIDA).build();
+        Produto acompanhamento = Produto.builder().id(UUID.randomUUID()).nome("nome").preco(BigDecimal.TEN).descricao("descricao").ingredientes(List.of(ingrediente)).tipo(Tipo.ACOMPANHAMENTO).build();
+
         ProdutoEntity lancheEntity = ProdutoEntity.toEntity(lanche);
         ProdutoEntity bebidaEntity = ProdutoEntity.toEntity(bebida);
         ProdutoEntity acompanhamentoEntity = ProdutoEntity.toEntity(acompanhamento);
@@ -73,9 +75,10 @@ public class ComboServiceTest {
     void deveListarCombos() {
 
         Ingrediente ingrediente = Ingrediente.criaIngrediente(UUID.randomUUID(), "descricao");
-        Produto lanche = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.LANCHE);
-        Produto bebida = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.BEBIDA);
-        Produto acompanhamento = Produto.criaProduto(UUID.randomUUID(), "nome", BigDecimal.TEN, "descricao", List.of(ingrediente), Tipo.ACOMPANHAMENTO);
+        Produto lanche = Produto.builder().id(UUID.randomUUID()).nome("nome").preco(BigDecimal.TEN).descricao("descricao").ingredientes(List.of(ingrediente)).tipo(Tipo.LANCHE).build();
+        Produto bebida = Produto.builder().id(UUID.randomUUID()).nome("nome").preco(BigDecimal.TEN).descricao("descricao").ingredientes(List.of(ingrediente)).tipo(Tipo.BEBIDA).build();
+        Produto acompanhamento = Produto.builder().id(UUID.randomUUID()).nome("nome").preco(BigDecimal.TEN).descricao("descricao").ingredientes(List.of(ingrediente)).tipo(Tipo.ACOMPANHAMENTO).build();
+
 
         Combo combo = Combo.criaCombo(UUID.randomUUID(), List.of(lanche, bebida, acompanhamento));
         ComboEntity comboEntity = ComboEntity.criaComboEntity(combo);

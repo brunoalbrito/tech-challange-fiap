@@ -1,12 +1,10 @@
 package br.com.fiap.techchallenge.domain;
 
 
-import br.com.fiap.techchallenge.utils.ValidadorCPF;
+import br.com.fiap.techchallenge.utils.CpfValidator;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.UUID;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -14,7 +12,7 @@ public class Cliente {
     private String cpf;
 
     public static Cliente criaCliente(String cpf) {
-        if (!ValidadorCPF.isValido(cpf)) {
+        if (!CpfValidator.isValid(cpf)) {
             throw new IllegalArgumentException("CPF inválido");
         }
 
