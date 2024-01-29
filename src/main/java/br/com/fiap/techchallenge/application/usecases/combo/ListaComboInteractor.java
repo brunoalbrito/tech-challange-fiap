@@ -2,7 +2,6 @@ package br.com.fiap.techchallenge.application.usecases.combo;
 
 import br.com.fiap.techchallenge.application.gateways.ComboGateway;
 import br.com.fiap.techchallenge.domain.Combo;
-import br.com.fiap.techchallenge.infrastructure.controllers.response.ComboResponse;
 
 import java.util.List;
 
