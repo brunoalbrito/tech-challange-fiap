@@ -3,6 +3,7 @@ package br.com.fiap.techchallenge.infrastructure.controllers;
 import br.com.fiap.techchallenge.application.usecases.pedido.BuscaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.ConfirmaEntregaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.CriaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.ListaPedidosInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.PreparoFinalizadoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.RecebePagamentoInteractor;
 import br.com.fiap.techchallenge.domain.Pedido;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,12 +38,25 @@ public class PedidoController {
 
     private final ConfirmaEntregaPedidoInteractor confirmaEntregaPedidoInteractor;
 
+    private final ListaPedidosInteractor listaPedidosInteractor;
+
     @PostMapping
     public ResponseEntity<PedidoResponse> criaPedido(@RequestBody final PedidoRequest pedidoRequest) {
         Pedido pedido = criaPedidoInteractor.execute(pedidoRequest);
 
         PedidoResponse pedidoResponse = PedidoResponse.ofDomain(pedido);
         return new ResponseEntity<>(pedidoResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PedidoResponse>> listarPedidos() {
+        List<Pedido> pedidos = listaPedidosInteractor.execute();
+        List<PedidoResponse> pedidoResponses = pedidos
+                .stream()
+                .map(PedidoResponse::ofDomain)
+                .toList();
+
+        return ResponseEntity.ok(pedidoResponses);
     }
 
     @GetMapping("{id}")

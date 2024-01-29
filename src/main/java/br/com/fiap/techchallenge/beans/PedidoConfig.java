@@ -7,6 +7,7 @@ import br.com.fiap.techchallenge.application.gateways.ProdutoGateway;
 import br.com.fiap.techchallenge.application.usecases.pedido.BuscaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.ConfirmaEntregaPedidoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.CriaPedidoInteractor;
+import br.com.fiap.techchallenge.application.usecases.pedido.ListaPedidosInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.PreparoFinalizadoInteractor;
 import br.com.fiap.techchallenge.application.usecases.pedido.RecebePagamentoInteractor;
 import br.com.fiap.techchallenge.infrastructure.persistence.gateways.PedidoRepositoryGateway;
@@ -45,5 +46,10 @@ public class PedidoConfig {
     @Bean
     ConfirmaEntregaPedidoInteractor confirmaEntregaPedidoInteractor(final PedidoGateway pedidoGateway) {
         return new ConfirmaEntregaPedidoInteractor(pedidoGateway);
+    }
+
+    @Bean
+    ListaPedidosInteractor listaPedidosInteractor(final PedidoGateway pedidoGateway) {
+        return new ListaPedidosInteractor(pedidoGateway);
     }
 }
