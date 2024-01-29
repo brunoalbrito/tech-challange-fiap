@@ -1,11 +1,18 @@
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa-rs
+  name: deployment-hpa
 spec:
   scaleTargetRef:
-    kind: ReplicaSet
-    name: hpa-deployment
+    apiVersion: apps/v1
+    kind: Deployment
+    name: deployment
   minReplicas: 1
   maxReplicas: 10
-  targetCPUUtilizationPercentage: 70
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 30
