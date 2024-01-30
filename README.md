@@ -105,3 +105,7 @@ Após isso, você pode acessar a seguinte URL para acessar a API de combos:
 ```
 localhost:8080/api/combos
 ```
+
+# Arquitetura
+<img src="/ArquiteturaSistema.drawio.png">
+<img src="/ArquiteturaInfraestrutura.drawio">
