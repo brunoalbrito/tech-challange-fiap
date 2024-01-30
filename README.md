@@ -108,4 +108,4 @@ localhost:8080/api/combos
 
 # Arquitetura
 <img src="/ArquiteturaSistema.drawio.png">
-<img src="/ArquiteturaInfraestrutura.drawio">
+<img src="/ArquiteturaInfraestrutura.drawio.png">
