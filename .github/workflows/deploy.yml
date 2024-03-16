@@ -1,0 +1,28 @@
+name: Deploy to EKS
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ufoindustry/tech-challenge:latest
+      - name: Set up Kubeconfig
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'v1.18.8'
+      - name: Deploy to EKS
+        run: |
+          kubectl config set-cluster eks --server=${{ secrets.EKS_SERVER }}
+          kubectl config set-credentials github-action --token=${{ secrets.EKS_TOKEN }}
+          kubectl config set-context github-action --cluster=eks --user=github-action
+          kubectl config use-context github-action
+          kubectl apply -f deployment.yaml
