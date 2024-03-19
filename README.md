@@ -21,6 +21,13 @@ https://brunoalbrito.github.io/tech-challange-fiap/
 
 https://tropical-angelfish-eaf.notion.site/Tech-Challenge-FIAP-2a8d164901e54f4e87d6763425323376
 
+## Repositórios
+
+Autenticação: https://github.com/brunoalbrito/tech-challenge-auth
+
+Infraestrutura: https://github.com/brazalc/application-infra-terraform
+
+Lambda: https://github.com/brazalc/application-lambda-terraform
 
 # Documentação de Configuração e Uso
 
@@ -109,3 +116,8 @@ localhost:8080/api/combos
 # Arquitetura
 <img src="/ArquiteturaSistema.drawio.png">
 <img src="/ArquiteturaInfraestrutura.drawio.png">
+
+# Escolha do banco de dados:
+Optamos por utilizar o RDS pois oferece uma solução serverless para um banco que já estamos utilizando de forma gerenciada, consideramos ser uma boa opção pois algumas tarefas administrativas são simplificadas como o provisionamento da infraestrutura, atualizações de segurança, backup, etc. Outro ponto importante é ser altamente escalável, e nos permitir ajustar conforme a necessidade, somando esses pontos citados com a integração no ecossistema da aws, consideramos ser uma boa escolha.
+
+No entanto, apesar dos pontos positivos citados acima, precisamos ficar atentos as desvantagens também, dentre elas temos o custo, sendo por vezes mais caro que hospedar por conta própria, existem limitações de personalização, se comparado com um banco de dados em um ambiente próprio e mesmo sendo citado como ponto positivo a integração com o ecossistema da aws, isso pode também gerar uma dependência dessa infraestrutura, pensando em uma portabilidade de serviço futuramente entre outros provedores de nuvem esse ponto pode ser um problema.
